@@ -3,7 +3,7 @@ import { Container, ModalContainer } from "./styles";
 function Modal({title, children ,handleClose}) {
 
     return (
-        <Container>
+        <Container onClick={handleClose}>
             <ModalContainer>
                 <header>{title}</header>
                 <span onClick={handleClose}>&times;</span>

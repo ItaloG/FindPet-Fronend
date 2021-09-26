@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div `
+export const Container = styled.div`
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -60,7 +60,7 @@ export const Container = styled.div `
     
 `;
 
-export const FormContainer = styled.form `
+export const FormContainer = styled.form`
     width: 60%;
     height: 60%;
     display: flex;
@@ -131,7 +131,7 @@ export const FormContainer = styled.form `
 `;
 
 
-export const Button = styled.button `
+export const Button = styled.button`
     width: 75%;
     height: 15%;
     margin-top: 30px;
@@ -143,4 +143,40 @@ export const Button = styled.button `
     font-size: 1.2em;
 
     cursor: pointer;
+`;
+
+export const CadastroInstituicoes = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    input, select {
+        margin-top: 10px;
+        padding: 10px;
+        width: 100%;
+        border-radius: 5px;
+        border:solid #C4C4C4  1px;
+        font-size: .9em;
+    }
+
+    > .endereco {
+        display: flex;
+        gap: 15px;    
+    }
+
+    button {
+        width: 75%;
+        height: 15%;
+        margin-top: 15px;
+        background-color: #FFB853;
+        padding: 10px;
+	    border: none;
+	    border-radius: 10px;
+
+        color: #fff;
+        font-weight: bold;
+        font-size: 1.2em;
+
+        cursor: pointer;
+    }
 `;

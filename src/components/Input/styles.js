@@ -18,26 +18,12 @@ export const Container = styled.div`
   }
  
   > label {
-    // width: 100%;
     height: 40px;
     font-size: 16px;
     top: 10px;
-    // background-color: #0390fc; */azul claro*/
   }
-  // > input:focus {
-    // border-bottom: 2px solid var(--primary);
-  //}
-  // > input:not(:placeholder-shown) + label,
-  // > input:focus + label {
-  //   font-size: 14px;
-  // color: var(--textPrimary);
-  //   top: -25px;
-  //   left: 0;
-  //}
 
-  //
-
-  >Button{
+  > Button {
     background-color: aqua;
   }
 
