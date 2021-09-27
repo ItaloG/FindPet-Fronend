@@ -15,23 +15,32 @@ body{
     font-family: -apple-system, Roboto, Oxygen, Cantarell, sans-serif;
     color: var(--textPrimary);
 }
-/* button {
-    padding: 10px;
-    font-weight: bold;
-    background-color: transparent;
-    border: 2px solid var(--textPrimary);
-    color: var(--textPrimary);
-    cursor: pointer;
-    transition: .2s;
-    :hover{
-        border: 2px solid var(--primary);
-        color: var(--primary);
-    }
-    :active{
-        transform: scale(0.95);
-    }
-} */
+
 `;
 
+export const Body = styled.div`
+    width: 100vw;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    background-color: #ffffff;
 
+    :-webkit-scrollbar{
+        
+    }
+`;
 
+export const Container = styled.div`
+    margin-top: 75px;
+    width: auto;
+    height: auto;
+    background-color: ffffff;
+`;
+
+export const FlexColumn = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: auto;
+`;
