@@ -1,6 +1,6 @@
 import { Container, ModalContainer } from "./styles";
 
-function Modal({title, children ,handleClose}) {
+function Modal({title, children, handleClose}) {
 
     return (
         <Container onClick={handleClose}>

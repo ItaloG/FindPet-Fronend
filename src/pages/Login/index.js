@@ -1,5 +1,5 @@
 import Input from "../../components/Input";
-import { Container, FormContainer, Button,CadastroInstituicoes } from "./styles";
+import { Container, FormContainer, Button,CadastroInstituicoes, CadastroUsuario } from "./styles";
 import fundo from "../../assets/dog.png"
 import Modal from "../../components/Modal";
 import { useState } from "react";
@@ -8,6 +8,7 @@ function Login() {
 
     let [isCadastrando, setIscadastrando] = useState(false);
     let [isInstituicao, setIsInstituicao] = useState(false);
+    let [isUsuario, setIsUsuario] = useState(false);
 
     const handleClose = () => {
         setIscadastrando(false);
@@ -15,6 +16,10 @@ function Login() {
 
     const handleCloseInstituicao = () => {
         setIsInstituicao(false);
+    }
+
+    const handleCloseUsuario = () => {
+        setIsUsuario(false);
     }
 
     return (
@@ -41,21 +46,31 @@ function Login() {
                         <p>esqueceu a senha?</p>
                     </div>
                     <button className="btnEntrar">Entrar</button>
-                    <hr />
+                    <hr />  
+
                     <button className="btnCadastrar" onClick={(e) => {
+                        
                         e.preventDefault();
-                        setIscadastrando(true)
+                        setIscadastrando(true);
+
                     }}>Cadastrar-se</button>
+                
                 </FormContainer>
             </div>
 
             {isCadastrando && (
                 <Modal title="Cadastrar-se como..." handleClose={handleClose}>
-                    <Button>Usuário</Button>
+                    <Button onClick={() =>{
+                        console.log("354654654");
+                        setIsUsuario(true)
+                    }
+                    }>Usuário</Button>
                     <Button onClick={(e) => {
+
                         e.preventDefault();
-                        setIscadastrando(false)
+                        setIscadastrando(false);
                         setIsInstituicao(true);
+
                     }}>Instituição</Button>
                 </Modal>
             )}
@@ -83,6 +98,26 @@ function Login() {
                         </div>
                         <button>Cadastrar-se</button>
                     </CadastroInstituicoes>
+                </Modal>
+            )}
+
+            {isUsuario && (
+                <Modal title="Usuário" handleClose={handleCloseUsuario}>
+               
+                        <CadastroUsuario>
+                            <Input placeholder='Nome' id="nomeUsuario" />
+                            <Input placeholder='E-mail' id="email" />
+                            <Input placeholder='Senha' id="senha" />
+                            <Input placeholder='Telefone' id="fone" />
+                            <Input placeholder='Celular' id="cel" />
+                            <Input placeholder='Rua/Avenida' id="endereco" />
+                            <div className="endereco">
+                                <Input placeholder='Número' id="numero" />
+                                <Input placeholder='Complemento' id="complemento" />
+                            </div>
+                            <button className="bttn">Cadastrar-se</button>
+                        </CadastroUsuario>
+  
                 </Modal>
             )}
 
