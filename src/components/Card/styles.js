@@ -7,9 +7,10 @@ export const CardContainer = styled.div`
     margin-top: 20px;
     border: solid 2px #cfcdca;
     border-radius: 13px;
+
 `;
 
-export const CardHeader = styled.div`
+export const CardHeader = styled.header`
     display: flex;
     width: 100%;
     height: 22%;
@@ -60,8 +61,15 @@ export const Nome = styled.div`
     > p {
         font-weight: bold;
         font-size: 20px;
-        color: var(--logoColor);
+        color: #000;
         padding-right: 20px;
+    }
+
+    > h5 {
+        color: #00000055;
+        margin-top: 5px;
+        margin-left: -12px;
+        /* margin: 5px -17px; */
     }
 `;
 
@@ -73,8 +81,9 @@ export const Icone = styled.div`
 
     > img {
         width: 40px;
-        height: 40px;
-        filter: invert(28%) sepia(63%) saturate(3490%) hue-rotate(39deg) brightness(92%) contrast(101%);
+        height: 30px;
+        margin-left: 10px;
+        color: #000;
     }
 `;
 
@@ -88,11 +97,11 @@ export const Distancia = styled.div`
     > p {
         font-weight: bold;
         font-size: 16px;
-        color: var(--primary)
+        color: #000;
     }
 `;
 
-export const CardBody = styled.div`
+export const CardBody = styled.main`
     display: flex;
     align-items: center;
     overflow-y: hidden;

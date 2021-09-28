@@ -1,16 +1,21 @@
+import Card from "./components/Card";
 import { GlobalStyles } from "./GlobalStyles";
-import Login from "./pages/Login";
 
+import PaginaEncontrar from "./pages/Encontrar";
+import Favoritos from "./pages/Favoritos";
+import PaginaFeed from "./pages/Feed";
 
 function App() {
   return (
     <>
-      <GlobalStyles />
-      <Login />
+      {/* <PaginaEncontrar/> */}
+      <GlobalStyles/>
+      {/* <PaginaFeed/> */}
+      {/* <Card /> */}
+      <Favoritos />
 
     </>
   );
 }
 
 export default App;
-

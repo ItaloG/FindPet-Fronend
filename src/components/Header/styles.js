@@ -7,6 +7,7 @@ export const HeaderBody = styled.div `
     height: 75px;
     position: fixed;
     top: 0;
+    z-index: 99;
     background-color: var(--headerColor);
     box-shadow: -1px 2px 3px #cfcdca;
 `;
@@ -92,6 +93,7 @@ export const MenuItem = styled.div`
         width: 100%;
         height: 5px;
         margin-top: 5px;
+        border-radius: 10px;
         background-color: var(--primary);
     }
 

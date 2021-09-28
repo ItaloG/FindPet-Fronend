@@ -1,29 +1,41 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
+import { MenuItem } from "./components/Header/styles";
 
 export const GlobalStyles = createGlobalStyle`
-:root{
-    --primary: #fe0000;
-    --textPrimary: #000000;
-}
-*{
-    margin: 0;
-    padding: 0;
-    outline: 0;
-    box-sizing: border-box;
-}
-body{
-    font-family: -apple-system, Roboto, Oxygen, Cantarell, sans-serif;
-    color: var(--textPrimary);
-}
+    :root {
+        --primary: #C98822;
+        --secondary: #FFB853;
+        --logoColor: #935B00;
+        --headerColor: #F6E4CB;
+        --text: #000000;
+        --backgroundColor: #F3F3F3;
+    }
 
+    *{
+        margin: 0;
+        padding: 0;
+        outline: 0;
+        box-sizing: border-box;
+        font-family: 'Roboto', 'sans-serif';
+    }
+
+    body {
+        overflow-x: hidden;
+        background-color: #ECECEC;
+    }
+
+    /* @media(max-width: 1000px) {
+        ${MenuItem} {
+            background-color: aquamarine;
+        }
+    } */
 `;
 
 export const Body = styled.div`
-    width: 100vw;
     height: auto;
+    padding: 20px;
     display: flex;
     justify-content: center;
-    background-color: #ffffff;
 
     :-webkit-scrollbar{
         
@@ -31,10 +43,13 @@ export const Body = styled.div`
 `;
 
 export const Container = styled.div`
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 15px #cfcfcf;
     margin-top: 75px;
     width: auto;
     height: auto;
-    background-color: ffffff;
+    background-color: #ffffff;
 `;
 
 export const FlexColumn = styled.div`
