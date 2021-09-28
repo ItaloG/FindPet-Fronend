@@ -1,37 +1,61 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
+import { MenuItem } from "./components/Header/styles";
 
 export const GlobalStyles = createGlobalStyle`
-:root{
-    --primary: #fe0000;
-    --textPrimary: #000000;
-}
-*{
-    margin: 0;
-    padding: 0;
-    outline: 0;
-    box-sizing: border-box;
-}
-body{
-    font-family: -apple-system, Roboto, Oxygen, Cantarell, sans-serif;
-    color: var(--textPrimary);
-}
-/* button {
-    padding: 10px;
-    font-weight: bold;
-    background-color: transparent;
-    border: 2px solid var(--textPrimary);
-    color: var(--textPrimary);
-    cursor: pointer;
-    transition: .2s;
-    :hover{
-        border: 2px solid var(--primary);
-        color: var(--primary);
+    :root {
+        --primary: #C98822;
+        --secondary: #FFB853;
+        --logoColor: #935B00;
+        --headerColor: #F6E4CB;
+        --text: #000000;
+        --backgroundColor: #F3F3F3;
     }
-    :active{
-        transform: scale(0.95);
+
+    *{
+        margin: 0;
+        padding: 0;
+        outline: 0;
+        box-sizing: border-box;
+        font-family: 'Roboto', 'sans-serif';
     }
-} */
+
+    body {
+        overflow-x: hidden;
+        background-color: #ECECEC;
+    }
+
+    /* @media(max-width: 1000px) {
+        ${MenuItem} {
+            background-color: aquamarine;
+        }
+    } */
 `;
 
+export const Body = styled.div`
+    height: auto;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
 
+    :-webkit-scrollbar{
+        
+    }
+`;
 
+export const Container = styled.div`
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 15px #cfcfcf;
+    margin-top: 75px;
+    width: auto;
+    height: auto;
+    background-color: #ffffff;
+`;
+
+export const FlexColumn = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: auto;
+`;
