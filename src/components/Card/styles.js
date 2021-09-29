@@ -47,6 +47,10 @@ export const FotoPerfil = styled.div`
             height: 100%;
             border-radius: 100%;
         }
+
+        > img:hover {
+            cursor: pointer;
+        }
     }
 `;
 
@@ -62,6 +66,10 @@ export const Nome = styled.div`
         font-size: 20px;
         color: var(--logoColor);
         padding-right: 20px;
+    }
+
+    > p:hover {
+        cursor: pointer;
     }
 `;
 
@@ -81,13 +89,15 @@ export const Icone = styled.div`
 export const Distancia = styled.div`
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
+    padding-right: 20px;
     width: 90%;
     height: 100%;
 
     > p {
         font-weight: bold;
-        font-size: 16px;
+        font-size: 20px;
+        font-weight: bold;
         color: var(--primary)
     }
 `;
@@ -98,7 +108,6 @@ export const CardBody = styled.div`
     overflow-y: hidden;
     width: 100%;
     height: 78%;
-    background-color: red;
     border-radius: 0px 0px 13px 13px;
 
     > img {

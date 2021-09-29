@@ -1,33 +1,30 @@
 import { CardContainer, CardHeader, FotoPerfil, Nome, Icone, Distancia, CardBody } from "./styles";
-import DefaultProfilePhoto from '../../assets/default_profile_photo.jpg';
-import IconPets from "../../assets/pet_icon.svg";
-import Banner1 from "../../assets/banner1.png";
 
-function Card() {
+function Card({foto, nome_instituicao, icone, distancia, banner}) {
     return (
         <CardContainer>
             <CardHeader>
                 <div class="dados-container">
                     <FotoPerfil>
                         <div>
-                            <img src={DefaultProfilePhoto}/>
+                            <img src={foto}/>
                         </div>
                     </FotoPerfil>
                     <Nome>
-                        <p>Instituto Luísa Mell</p>
+                        <p>{nome_instituicao}</p>
                     </Nome>
                     <Icone>
-                        <img src={IconPets}/>
+                        <img src={icone}/>
                     </Icone>
                 </div>
                 <div class="distancia-container">
                     <Distancia>
-                        <p>Há 1000km</p>
+                        <p>{distancia}</p>
                     </Distancia>
                 </div>
             </CardHeader>
             <CardBody>
-                <img src={Banner1}/>
+                <img src={banner}/>
             </CardBody>
         </CardContainer>
     );

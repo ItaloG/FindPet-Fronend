@@ -22,14 +22,16 @@ export const ContainerFiltros = styled.div`
     height: auto;
     margin-bottom: 30px;
 
-    > select {
-        width: 90%;
-        height: 45px;
-        border: solid 1px #C4C4C4;
-        border-radius: 15px;
-        padding-left: 15px;
-        font-size: 16px;
-        font-weight: bold;
+    .custom-select {
+        > select {
+            width: 90%;
+            height: 45px;
+            border: solid 1px #C4C4C4;
+            border-radius: 15px;
+            padding-left: 15px;
+            font-size: 16px;
+            font-weight: bold;
+        }
     }
 
     > div.filtro {
@@ -41,14 +43,15 @@ export const ContainerFiltros = styled.div`
         margin-top: 10px;
 
         > img {
-            width: 35px;
-            height: 35px;
+            width: 30px;
+            height: 30px;
+            filter: invert(28%) sepia(63%) saturate(3490%) hue-rotate(39deg) brightness(92%) contrast(101%);
         }
 
         > p {
             font-size: 16px;
             font-weight: bold;
-            margin-left: 15px;
+            margin-left: 10px;
         }
     }
 `;

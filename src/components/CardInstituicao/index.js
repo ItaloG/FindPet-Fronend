@@ -1,26 +1,24 @@
-import { CardContainer, CardHeader, FotoPerfil, Nome, Icone, Distancia, CardBody } from "./styles";
-import DefaultProfilePhoto from '../../assets/default_profile_photo.jpg';
-import IconPets from "../../assets/pet_icon.svg";
+import { CardContainer, CardHeader, FotoPerfil, Nome, Icone, CardBody } from "./styles";
 
-function CardInstituicao() {
+function CardInstituicao({foto, nome_instituicao, icone, rua, numero, bairro, cidade, uf}) {
     return (
         <CardContainer>
             <CardHeader>
                 <FotoPerfil>
                     <div>
-                        <img src={DefaultProfilePhoto}/>
+                        <img src={foto}/>
                     </div>
                 </FotoPerfil>
                 <Nome>
-                    <p>Instituto Luísa Mell</p>
+                    <p>{nome_instituicao}</p>
                 </Nome>
                 <Icone>
-                    <img src={IconPets}/>
+                    <img src={icone}/>
                 </Icone>
             </CardHeader>
             <CardBody>
-                <p>Rua Fulano Beltrano da Silva, 30</p>
-                <p>Bairro Etc, Cidade - UF</p>
+                <p>{rua}, {numero}</p>
+                <p>{bairro}, {cidade} - {uf}</p>
             </CardBody>
         </CardContainer>
     );
