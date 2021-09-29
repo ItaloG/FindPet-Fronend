@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <GlobalStyles/>
-      <PaginaEncontrar/>
+      <PaginaFeed/>
       {/* <PaginaEncontrar/> */}
     </>
   );

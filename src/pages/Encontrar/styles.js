@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const ContainerMapa = styled.div`
     width: 60%;
     height: 600px;
-    background-color: blue;
 
     > iframe {
         width: 100%;
@@ -27,10 +26,35 @@ export const ContainerFiltros = styled.div`
             width: 90%;
             height: 45px;
             border: solid 1px #C4C4C4;
-            border-radius: 15px;
             padding-left: 15px;
             font-size: 16px;
             font-weight: bold;
+        }
+    }
+
+    .endereco {
+        width: 90%;
+        height: auto;
+        padding-top: 20px;
+
+        > form {
+            width: 100%;
+            height: auto;
+            padding: 10px;
+
+            > input {
+                font-size: 16px;
+                padding: 5px;
+                border: solid 1px #C4C4C4;
+                border-radius: 3px;
+            }
+
+            > button {
+                font-size: 15px;
+                font-weight: bold;
+                margin-left: 7px;
+                padding: 4px;
+            }
         }
     }
 
@@ -52,6 +76,10 @@ export const ContainerFiltros = styled.div`
             font-size: 16px;
             font-weight: bold;
             margin-left: 10px;
+        }
+
+        > p:hover {
+            cursor: pointer;
         }
     }
 `;

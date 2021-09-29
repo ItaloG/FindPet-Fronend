@@ -22,6 +22,12 @@ function PaginaEncontrar() {
                                     <option value="Escolher localização">Escolher localização</option>
                                 </select>
                             </div>
+                            <div class="endereco">
+                                <form>
+                                    <input type="text" placeholder="Insira o CEP"></input>
+                                    <button>OK</button>
+                                </form>
+                            </div>
                             <div class="filtro">
                                 <img src={IconeFiltro}/>
                                 <p>Todas as Instituições</p>
