@@ -8,11 +8,11 @@ import PaginaFeed from "./pages/Feed";
 function App() {
   return (
     <>
-      {/* <PaginaEncontrar/> */}
       <GlobalStyles/>
+      <PaginaEncontrar/>
       {/* <PaginaFeed/> */}
       {/* <Card /> */}
-      <Favoritos />
+      {/* <Favoritos /> */}
 
     </>
   );
