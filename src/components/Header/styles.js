@@ -7,13 +7,13 @@ export const HeaderBody = styled.div `
     height: 75px;
     position: fixed;
     top: 0;
+    z-index: 99;
     background-color: var(--headerColor);
     box-shadow: -1px 2px 3px #cfcdca;
 `;
 
 export const HeaderContainer = styled.div`
     display: flex;
-    align-items: center;
     width: 1200px;
     height: 100%;
 `;
@@ -21,19 +21,17 @@ export const HeaderContainer = styled.div`
 export const Logo = styled.div`
     display: flex;
     justify-content: center;
-    align-items: center;
     width: 10%;
     height: 100%;
 
     > img {
         width: 65px;
         height: 65px;
+        margin-top: 5px;
     }
 `;
 
 export const Pesquisar = styled.div`
-    display: flex;
-    align-items: center;
     width: 30%;
     height: 100%;
 
@@ -47,6 +45,7 @@ export const Pesquisar = styled.div`
         border-radius: 5px;
         color: var(--logoColor);
         font-weight: bold;
+        margin-top: 18px;
         padding-left: 20px;
 
         ::placeholder {
@@ -58,7 +57,6 @@ export const Pesquisar = styled.div`
 
 export const Menu = styled.div`
     display: flex;
-    align-items: center;
     width: 50%;
     height: 100%;
 `;
@@ -68,15 +66,15 @@ export const MenuItem = styled.div`
     flex-direction: column;
     align-items: center;
     width: 20%;
-    height: auto;
+    height: 100%;
     font-size: 16px;
     font-weight: bold;
     color: var(--logoColor);
-    margin-top: 2px;
 
     > img {
         width: 40px;
         height: 40px;
+        margin-top: 2px;
         filter: invert(28%) sepia(63%) saturate(3490%) hue-rotate(39deg) brightness(92%) contrast(101%);
     }
 
@@ -95,6 +93,7 @@ export const MenuItem = styled.div`
         width: 100%;
         height: 5px;
         margin-top: 5px;
+        border-radius: 10px;
         background-color: var(--primary);
     }
 
@@ -131,7 +130,6 @@ export const MenuItem = styled.div`
 export const BotaoPerfil = styled.div`
     display: flex;
     justify-content: center;
-    align-items: center;
     width: 10%;
     height: 100%;
 
@@ -140,6 +138,7 @@ export const BotaoPerfil = styled.div`
         height: 50px;
         background-color: brown;
         border-radius: 50%;
+        margin-top: 12px;
 
         > img {
             width: 100%;

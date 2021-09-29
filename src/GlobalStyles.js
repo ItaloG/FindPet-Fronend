@@ -11,7 +11,7 @@ export const GlobalStyles = createGlobalStyle`
         --backgroundColor: #F3F3F3;
     }
 
-    * {
+    *{
         margin: 0;
         padding: 0;
         outline: 0;
@@ -21,6 +21,7 @@ export const GlobalStyles = createGlobalStyle`
 
     body {
         overflow-x: hidden;
+        background-color: #ECECEC;
     }
 
     /* @media(max-width: 1000px) {
@@ -31,12 +32,14 @@ export const GlobalStyles = createGlobalStyle`
 `;
 
 export const Body = styled.div`
-    width: 100vw;
     height: auto;
+    padding: 20px;
     display: flex;
     justify-content: center;
-    background-color: var(--backgroundColor);
-    overflow-x: hidden;
+
+    :-webkit-scrollbar{
+        
+    }
 `;
 
 export const Container = styled.div`
