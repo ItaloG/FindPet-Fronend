@@ -14,8 +14,11 @@ import IconMapa from "../../assets/mapa2.svg";
 import IconMembro from "../../assets/membro_icon.svg";
 import IconLogo from "../../assets/logo.png";
 import DefaultProfilePhoto from "../../assets/default_profile_photo.jpg";
+import { useHistory } from "react-router";
 
 function Header() {
+  let history = useHistory();
+
   return (
     <HeaderBody>
       <HeaderContainer>
@@ -26,22 +29,28 @@ function Header() {
           <input placeholder="Pesquisar" />
         </Pesquisar>
         <Menu>
-          <MenuItem>
+          <MenuItem onClick={() => {
+            history.push("/home")
+          }}>
             <img class="img-padding" src={IconInicio} />
             <p>Início</p>
             <span class="menu-item-selected"></span>
           </MenuItem>
-          <MenuItem>
+          <MenuItem >
             <img class="img-padding" src={IconPets} />
             <p>Pets</p>
             <span class="menu-item-selected"></span>
           </MenuItem>
-          <MenuItem>
+          <MenuItem onClick={() => {
+            history.push("/favoritos")
+          }}>
             <img src={IconFavoritos} />
             <p>Favoritos</p>
             <span class="menu-item-selected"></span>
           </MenuItem>
-          <MenuItem>
+          <MenuItem onClick={() => {
+            history.push("/mapa")
+          }}>
             <img class="img-padding" src={IconMapa} />
             <p>Encontrar</p>
             <span class="menu-item-selected"></span>

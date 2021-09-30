@@ -8,10 +8,9 @@ import FotoPadrao from "../../assets/default_profile_photo.jpg";
 import IconeOng from "../../assets/ong.png";
 import IconePetShop from "../../assets/shop.png";
 
-function PaginaEncontrar() {
+function Encontrar() {
     return (
         <Body>
-            <Header/>
             <ContainerCenter>
                 <FlexRow>
                     <Instituicoes>
@@ -54,4 +53,4 @@ function PaginaEncontrar() {
     );
 }
 
-export default PaginaEncontrar;
+export default Encontrar;

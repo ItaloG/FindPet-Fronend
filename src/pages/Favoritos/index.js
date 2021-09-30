@@ -12,7 +12,6 @@ import ImgPata from "../../assets/pata.png"
 function Favoritos() {
     return (
         <Body>
-            <Header/>
             <Container>
                 <FlexColumn>
                     <Card img={Profile} banner={Banner} instituicao="Nome da instituição" titulo="Nome do animal" IconPets={ImgPata}/>

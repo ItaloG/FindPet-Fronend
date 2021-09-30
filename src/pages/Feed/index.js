@@ -9,10 +9,9 @@ import Banner1 from "../../assets/banner1.png"
 import Banner2 from "../../assets/banner2.png"
 import Banner3 from "../../assets/banner3.png"
 
-function PaginaFeed() {
+function Feed() {
     return (
         <Body>
-            <Header/>
             <ContainerCenter>
                 <FlexColumn>
                     <Slider/>
@@ -25,4 +24,4 @@ function PaginaFeed() {
     );
 }
 
-export default PaginaFeed;
+export default Feed;
