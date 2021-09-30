@@ -6,7 +6,7 @@ export const SliderContainer = styled.div`
     width: 940px;
     height: 450px;
     background-color: #fff;
-    margin-top: 40px;
+    margin-bottom: 20px;
     border: solid 2px #cfcdca;
     border-radius: 13px;
 `;

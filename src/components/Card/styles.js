@@ -48,6 +48,10 @@ export const FotoPerfil = styled.div`
             height: 100%;
             border-radius: 100%;
         }
+
+        > img:hover {
+            cursor: pointer;
+        }
     }
 `;
 
@@ -90,14 +94,16 @@ export const Icone = styled.div`
 export const Distancia = styled.div`
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
+    padding-right: 20px;
     width: 90%;
     height: 100%;
 
     > p {
         font-weight: bold;
-        font-size: 16px;
-        color: #000;
+        font-size: 20px;
+        font-weight: bold;
+        color: var(--primary)
     }
 `;
 

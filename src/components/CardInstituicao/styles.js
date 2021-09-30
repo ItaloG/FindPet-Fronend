@@ -66,6 +66,8 @@ export const Icone = styled.div`
 
 export const CardBody = styled.div`
     padding: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     width: 100%;
     height: 60%;
     border-radius: 0px 0px 13px 13px;
