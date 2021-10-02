@@ -42,8 +42,8 @@ function Login() {
         <div className="texto">
           <p>
             {" "}
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
+            Te ajudamos a encontrar e ajudar ONG's, petshops, veterinarios, canis
+            e animais desaparecidos{" "}
           </p>
         </div>
         <img src={fundo} alt="cachoro" />

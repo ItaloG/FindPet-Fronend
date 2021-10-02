@@ -1,4 +1,3 @@
-import Header from "../../components/Header";
 import { Body, ContainerCenter, FlexColumn } from "../../GlobalStyles";
 import Card from "../../components/Card";
 import Slider from "../../components/Slider";

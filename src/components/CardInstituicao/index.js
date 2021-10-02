@@ -6,14 +6,14 @@ function CardInstituicao({foto, nome_instituicao, icone, rua, numero, bairro, ci
             <CardHeader>
                 <FotoPerfil>
                     <div>
-                        <img src={foto}/>
+                        <img src={foto} alt="perfil"/>
                     </div>
                 </FotoPerfil>
                 <Nome>
                     <p>{nome_instituicao}</p>
                 </Nome>
                 <Icone>
-                    <img src={icone}/>
+                    <img src={icone} alt="instituicao"/>
                 </Icone>
             </CardHeader>
             <CardBody>

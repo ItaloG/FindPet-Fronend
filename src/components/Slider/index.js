@@ -5,7 +5,7 @@ function Slider() {
     return (
         <SliderContainer>
             <BannerContainer>
-                <img src={Banner2}/>
+                <img src={Banner2} alt="banner"/>
             </BannerContainer>   
         </SliderContainer>
     );

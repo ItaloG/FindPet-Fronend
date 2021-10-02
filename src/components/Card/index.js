@@ -7,14 +7,14 @@ function Card({foto, nome_instituicao, icone, distancia, banner}) {
                 <div class="dados-container">
                     <FotoPerfil>
                         <div>
-                            <img src={foto}/>
+                            <img src={foto} alt="perfil"/>
                         </div>
                     </FotoPerfil>
                     <Nome>
                         <p>{nome_instituicao}</p>
                     </Nome>
                     <Icone>
-                        <img src={icone}/>
+                        <img src={icone} alt="icone"/>
                     </Icone>
                 </div>
                 <div class="distancia-container">
@@ -24,7 +24,7 @@ function Card({foto, nome_instituicao, icone, distancia, banner}) {
                 </div>
             </CardHeader>
             <CardBody>
-                <img src={banner}/>
+                <img src={banner} alt="banner"/>
             </CardBody>
         </CardContainer>
     );

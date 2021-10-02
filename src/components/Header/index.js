@@ -23,7 +23,7 @@ function Header() {
     <HeaderBody>
       <HeaderContainer>
         <Logo>
-          <img src={IconLogo} />
+          <img src={IconLogo} alt="logo"/>
         </Logo>
         <Pesquisar>
           <input placeholder="Pesquisar" />
@@ -32,31 +32,31 @@ function Header() {
           <MenuItem onClick={() => {
             history.push("/home")
           }}>
-            <img class="img-padding" src={IconInicio} />
+            <img class="img-padding" src={IconInicio} alt="home"/>
             <p>Início</p>
             <span class="menu-item-selected"></span>
           </MenuItem>
           <MenuItem >
-            <img class="img-padding" src={IconPets} />
+            <img class="img-padding" src={IconPets} alt="pets"/>
             <p>Pets</p>
             <span class="menu-item-selected"></span>
           </MenuItem>
           <MenuItem onClick={() => {
             history.push("/favoritos")
           }}>
-            <img src={IconFavoritos} />
+            <img src={IconFavoritos} alt="favoritos"/>
             <p>Favoritos</p>
             <span class="menu-item-selected"></span>
           </MenuItem>
           <MenuItem onClick={() => {
             history.push("/mapa")
           }}>
-            <img class="img-padding" src={IconMapa} />
+            <img class="img-padding" src={IconMapa} alt="encontrar"/>
             <p>Encontrar</p>
             <span class="menu-item-selected"></span>
           </MenuItem>
           <MenuItem>
-            <img src={IconMembro} />
+            <img src={IconMembro} alt="seja membro"/>
             <p class="menu-item-responsive-hidden">Seja Membro</p>
             <p class="menu-item-responsive-show">Membros</p>
             <span class="menu-item-selected"></span>
@@ -64,7 +64,7 @@ function Header() {
         </Menu>
         <BotaoPerfil>
           <div>
-            <img src={DefaultProfilePhoto} />
+            <img src={DefaultProfilePhoto} alt="perfil"/>
           </div>
         </BotaoPerfil>
       </HeaderContainer>
