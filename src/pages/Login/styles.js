@@ -189,7 +189,7 @@ export const CadastroInstituicoes = styled.form`
     }
 `;
 
-  export const CadastroUsuario = styled.div`
+  export const CadastroUsuario = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;

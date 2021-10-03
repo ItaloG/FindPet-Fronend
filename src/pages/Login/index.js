@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { macaraCell, mascaraCep } from "../../utils";
 import { api } from "../../services/api";
+import SpinnerLoading from "../../components/SpinnerLoading/indes";
 
 function Login() {
   let history = useHistory();
@@ -30,23 +31,46 @@ function Login() {
     complemento: "",
   });
 
-  console.log(instituicao);
+  const [usuario, setUsuario] = useState({
+    nome: "",
+    cpf: "",
+    email: "",
+    senha: "",
+    telefone: "",
+    celular: "",
+    cep: "",
+    logradouro: "",
+    numero: "",
+    complemento: "",
+  });
 
   let [isCadastrando, setIscadastrando] = useState(false);
   let [isInstituicao, setIsInstituicao] = useState(false);
   let [isUsuario, setIsUsuario] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleCep = (e) => {
+  const handleCepInstituicao = (e) => {
     let cep = e.target.value;
     cep = mascaraCep(cep)
     setInstituicao({ ...instituicao, cep: cep })
   }
 
-  const handleCell = (e) => {
+  const handleCellInstuicao = (e) => {
     let cell = e.target.value;
     cell = macaraCell(cell)
     setInstituicao({ ...instituicao, celular: cell })
+  }
+
+  const handleCepUsuario = (e) => {
+    let cep = e.target.value;
+    cep = mascaraCep(cep)
+    setUsuario({ ...usuario, cep: cep });
+  }
+
+  const handleCellUsuario = (e) => {
+    let cell = e.target.value;
+    cell = macaraCell(cell)
+    setUsuario({ ...usuario, celular: cell })
   }
 
   useEffect(() => {
@@ -60,10 +84,27 @@ function Login() {
       getEndereco(instituicao.cep);
     }
 
-  }, [instituicao.cep])
+  }, [instituicao.cep]);
 
-  const handleInput = (e) => {
+  useEffect(() => {
+    const getEndereco = async (cep) => {
+      const dados = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+      const endereco = await dados.json();
+      setUsuario({ ...usuario, logradouro: endereco.logradouro })
+    }
+
+    if (usuario.cep.length === 9) {
+      getEndereco(usuario.cep);
+    }
+
+  }, [usuario.cep]);
+
+  const handleInputInstituicao = (e) => {
     setInstituicao({ ...instituicao, [e.target.id]: e.target.value })
+  }
+
+  const handleInputUsuario = (e) => {
+    setUsuario({ ...usuario, [e.target.id]: e.target.value })
   }
 
   const handleClose = () => {
@@ -89,10 +130,22 @@ function Login() {
   };
 
   const handleCloseUsuario = () => {
+    setUsuario({
+      nome: "",
+      cpf: "",
+      email: "",
+      senha: "",
+      telefone: "",
+      celular: "",
+      cep: "",
+      logradouro: "",
+      numero: "",
+      complemento: "",
+    })
     setIsUsuario(false);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmitInstituicao = async (e) => {
     e.preventDefault();
 
     setIsLoading(true);
@@ -109,7 +162,7 @@ function Login() {
         cep,
         logradouro,
         numero,
-      } = instituicao
+      } = instituicao;
 
       if (tipoEstabelecimento === 0) {
         return alert("escolha um tipo de estabelecimento primeiro")
@@ -121,15 +174,55 @@ function Login() {
         return alert("Você precisa informar um telefone ou celular")
       }
 
-      console.log(instituicao);
-
       const response = await api.post("/cadastro/instituicao", instituicao)
+      console.log(response.data);
 
-      history.push("/home");
+      return history.push("/home");
 
     } catch (error) {
       console.error(error);
       alert(error.response.data.error);
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleSubmitUsuario = async (e) => {
+    e.preventDefault();
+
+    setIsLoading(true);
+
+    try {
+      const {
+        nome,
+        cpf,
+        email,
+        senha,
+        telefone,
+        celular,
+        cep,
+        logradouro,
+        numero,
+      } = usuario;
+
+      if (!nome || !cpf || !email || !senha || !cep || !logradouro || !numero) {
+        return alert("faltam alguns dados");
+      }
+      if (!telefone && !celular) {
+        return alert("Você precisa informar um telefone ou celular")
+      }
+
+      const response = await api.post("/cadastro/usuario", usuario);
+      console.log(response.data);
+
+      return history.push("/home")
+
+    } catch (error) {
+      console.error(error);
+      alert(error.response.data)
+    }
+    finally {
+      setIsLoading(false);
     }
   }
 
@@ -189,6 +282,7 @@ function Login() {
         <Modal title="Cadastrar-se como..." handleClose={handleClose}>
           <Button
             onClick={() => {
+              setIscadastrando(false);
               setIsUsuario(true);
             }}
           >
@@ -208,15 +302,15 @@ function Login() {
 
       {isInstituicao && (
         <Modal title="Sou uma instituição" handleClose={handleCloseInstituicao}>
-          <CadastroInstituicoes onSubmit={handleSubmit}>
+          <CadastroInstituicoes onSubmit={handleSubmitInstituicao}>
             <Input
               type="text"
               placeholder="Nome da instituição"
               id="nome"
               value={instituicao.nome}
-              handler={handleInput}
+              handler={handleInputInstituicao}
             />
-            <select id="tipoEstabelecimento" onChange={handleInput}>
+            <select id="tipoEstabelecimento" onChange={handleInputInstituicao}>
               <option value={0}>Tipo de estabelecimento</option>
               <option value={1}>ONG</option>
               <option value={2}>Canil</option>
@@ -227,25 +321,25 @@ function Login() {
               placeholder="CNPJ"
               id="cnpj"
               value={instituicao.cnpj}
-              handler={handleInput} />
+              handler={handleInputInstituicao} />
             <Input
               type="email"
               placeholder="E-mail"
               id="email"
               value={instituicao.email}
-              handler={handleInput} />
+              handler={handleInputInstituicao} />
             <Input
               type="text"
               placeholder="Senha"
               id="senha"
               value={instituicao.senha}
-              handler={handleInput} />
+              handler={handleInputInstituicao} />
             <Input
               type="text"
               placeholder="Telefone"
               id="telefone"
               value={instituicao.telefone}
-              handler={handleInput} />
+              handler={handleInputInstituicao} />
             <Input
               type="text"
               placeholder="Celular"
@@ -253,53 +347,116 @@ function Login() {
               pattern="\(?\d{2}\) ?9?\d{4}-?\d{4}"
               maxLength="15"
               value={instituicao.celular}
-              handler={handleCell} />
+              handler={handleCellInstuicao} />
             <Input
               type="text"
-              placeholder="Cep"
+              placeholder="CEP"
               id="cep"
               pattern="(\d{5})-(\d{3})*"
               value={instituicao.cep}
-              handler={handleCep} />
+              handler={handleCepInstituicao} />
             <Input
               type="text"
               placeholder="Rua / Avenida"
               id="logradouro"
               value={instituicao.logradouro}
-              handler={handleInput} />
+              handler={handleInputInstituicao} />
             <div className="endereco">
               <Input
                 type="text"
                 placeholder="Número"
                 id="numero"
                 value={instituicao.numero}
-                handler={handleInput} />
+                handler={handleInputInstituicao} />
               <Input
                 type="text"
                 placeholder="Complemento"
                 id="complemento"
                 value={instituicao.complemento}
-                handler={handleInput} />
+                handler={handleInputInstituicao} />
             </div>
-            <button>Cadastrar-se</button>
+            {isLoading ? (
+              <SpinnerLoading />
+            ) :
+              <button>Cadastrar-se</button>
+            }
           </CadastroInstituicoes>
         </Modal>
       )}
 
       {isUsuario && (
         <Modal title="Usuário" handleClose={handleCloseUsuario}>
-          <CadastroUsuario>
-            <Input placeholder="Nome" id="nomeUsuario" />
-            <Input placeholder="E-mail" id="email" />
-            <Input placeholder="Senha" id="senha" />
-            <Input placeholder="Telefone" id="fone" />
-            <Input placeholder="Celular" id="cel" />
-            <Input placeholder="Rua/Avenida" id="endereco" />
+          <CadastroUsuario onSubmit={handleSubmitUsuario}>
+            <Input
+              type="text"
+              placeholder="Nome"
+              id="nome"
+              value={usuario.nome}
+              handler={handleInputUsuario} />
+            <Input
+              type="text"
+              placeholder="CPF"
+              id="cpf"
+              value={usuario.cpf}
+              handler={handleInputUsuario} />
+            <Input
+              type="email"
+              placeholder="E-mail"
+              id="email"
+              value={usuario.email}
+              handler={handleInputUsuario} />
+            <Input
+              type="text"
+              placeholder="Senha"
+              id="senha"
+              value={usuario.senha}
+              handler={handleInputUsuario} />
+            <Input
+              type="text"
+              placeholder="Telefone"
+              id="telefone"
+              value={usuario.telefone}
+              handler={handleInputUsuario} />
+            <Input
+              type="text"
+              placeholder="Celular"
+              id="celular"
+              pattern="\(?\d{2}\) ?9?\d{4}-?\d{4}"
+              maxLength="15"
+              value={usuario.celular}
+              handler={handleCellUsuario} />
+            <Input
+              type="text"
+              placeholder="CEP"
+              id="cep"
+              pattern="(\d{5})-(\d{3})*"
+              value={usuario.cep}
+              handler={handleCepUsuario} />
+            <Input
+              type="text"
+              placeholder="Rua/Avenida"
+              id="logradouro"
+              value={usuario.logradouro}
+              handler={handleInputUsuario} />
             <div className="endereco">
-              <Input placeholder="Número" id="numero" />
-              <Input placeholder="Complemento" id="complemento" />
+              <Input
+                type="text"
+                placeholder="Número"
+                id="numero"
+                value={usuario.numero}
+                handler={handleInputUsuario} />
+              <Input
+                type="text"
+                placeholder="Complemento"
+                id="complemento"
+                value={usuario.complemento}
+                handler={handleInputUsuario} />
             </div>
-            <button className="bttn">Cadastrar-se</button>
+            {isLoading ? (
+              <SpinnerLoading />
+            ) :
+              <button>Cadastrar-se</button>
+            }
           </CadastroUsuario>
         </Modal>
       )}
