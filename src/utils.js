@@ -9,8 +9,16 @@ export const mascaraCep = (cep) => {
 
 
 export const macaraCell = (cell) => {
-    return cell 
+    return cell
         .replace(/\D/g, "")
         .replace(/^(\d{2})(\d)/g, "($1) $2")
-        .replace(/(\d)(\d{4})$/, "$1-$2")
+        .replace(/(\d{5})(\d)/, "$1-$2")
+        .replace(/(-\d{4})\d+?$/, "$1")
+}
+
+export const mascaraTell = (tell) => {
+    return tell
+        .replace(/\D/g, "")
+        .replace(/(\d{4})(\d)/, "$1-$2")
+        .replace(/(-\d{4})\d+?$/, "$1")
 }
