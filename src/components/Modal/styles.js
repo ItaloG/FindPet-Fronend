@@ -13,7 +13,7 @@ export const Container = styled.div `
   align-items: center;    
 `;
 
-export const ModalContainer = styled.form `
+export const ModalContainer = styled.div `
     min-width: 250px;
     min-height: 250px;
     max-height: calc(100vh - 20px);

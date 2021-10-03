@@ -49,7 +49,7 @@ export const Container = styled.div`
         }
     }
 
-    > div {
+    > section {
         display: flex;
         flex: 2;
         width: 100%;
@@ -57,12 +57,20 @@ export const Container = styled.div`
         justify-content: center;
         align-items: center;
     }
+
+    @media(max-width: 690px){
+        flex-direction: column;
+        gap: 50px;
+        img{
+            display: none;
+        }
+    }
     
 `;
 
 export const FormContainer = styled.form`
     width: 60%;
-    height: 60%;
+    height: auto;
     display: flex;
     align-items: center;
     flex-direction: column;   
@@ -145,7 +153,7 @@ export const Button = styled.button`
     cursor: pointer;
 `;
 
-export const CadastroInstituicoes = styled.div`
+export const CadastroInstituicoes = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
