@@ -10,7 +10,7 @@ import fundo from "../../assets/dog.png";
 import Modal from "../../components/Modal";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import { macaraCell, mascaraCep } from "../../utils";
+import { macaraCell, mascaraCep, mascaraTell } from "../../utils";
 import { api } from "../../services/api";
 import SpinnerLoading from "../../components/SpinnerLoading/indes";
 
@@ -61,6 +61,12 @@ function Login() {
     setInstituicao({ ...instituicao, celular: cell })
   }
 
+  const handleTellInstuicao = (e) => {
+    let tell = e.target.value;
+    tell = mascaraTell(tell)
+    setInstituicao({ ...instituicao, telefone: tell })
+  }
+
   const handleCepUsuario = (e) => {
     let cep = e.target.value;
     cep = mascaraCep(cep)
@@ -71,6 +77,12 @@ function Login() {
     let cell = e.target.value;
     cell = macaraCell(cell)
     setUsuario({ ...usuario, celular: cell })
+  }
+
+  const handleTellUsuario = (e) => {
+    let tell = e.target.value;
+    tell = mascaraTell(tell)
+    setUsuario({ ...usuario, telefone: tell })
   }
 
   useEffect(() => {
@@ -337,9 +349,11 @@ function Login() {
             <Input
               type="text"
               placeholder="Telefone"
+              pattern="(\d{4})-(\d{4})"
+              maxLength="9"
               id="telefone"
               value={instituicao.telefone}
-              handler={handleInputInstituicao} />
+              handler={handleTellInstuicao} />
             <Input
               type="text"
               placeholder="Celular"
@@ -416,7 +430,7 @@ function Login() {
               placeholder="Telefone"
               id="telefone"
               value={usuario.telefone}
-              handler={handleInputUsuario} />
+              handler={handleTellUsuario} />
             <Input
               type="text"
               placeholder="Celular"
