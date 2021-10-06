@@ -36,6 +36,7 @@ export const Body = styled.div`
     padding: 20px;
     display: flex;
     justify-content: center;
+    background-color: pink;
 
     :-webkit-scrollbar{
         
@@ -57,6 +58,7 @@ export const ContainerCenter = styled.div`
     margin-top: 75px;
     width: 940px;
     height: auto;
+    background-color: peru;
 `;
 
 export const FlexColumn = styled.div`
