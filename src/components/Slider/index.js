@@ -14,6 +14,23 @@ function Slider() {
             { 'id': '3', 'url' : Banner3 }
         ];
 
+        const sliderButtons = document.querySelector('#slider-buttons-container');
+
+        let buttons;
+
+        for (let i = 0; i < images.length; i++) {
+            sliderButtons.innerHTML += `
+                <button class='slide-button' id='slider-button${i+1}'></button>
+            `
+            buttons += document.querySelectorAll("slide-button");
+        }
+
+        const selectedSlide = () => {
+            buttons[0].setAttribute('id', 'selected-slide-button');
+        }
+
+        // document.querySelector('#slider-button1').addEventListener('click', changeSlide);
+
         const containerItems = document.querySelector('#container-items');
 
         const loadImages = ( images, container ) => {
@@ -41,22 +58,18 @@ function Slider() {
             items = document.querySelectorAll('.item');
         }
 
-        // setInterval(previous, 5000);
+        setInterval(previous, 5000);
 
-        document.querySelector('#previous').addEventListener('click', next);
-        document.querySelector('#next').addEventListener('click', previous);
+        // document.querySelector('#previous').addEventListener('click', next);
+        // document.querySelector('#next').addEventListener('click', previous);
     });
 
     return (
         <SliderContainer>
-            <div className="action-button" id="previous">prev</div>
+            {/* <div className="action-button" id="previous">prev</div> */}
             <div className="container-items" id="container-items"></div>   
-            <div className="action-button" id="next">next</div>
-            <div className="slider-buttons">
-                <button className="choice-slide-button"></button>
-                <button className="choice-slide-button"></button>
-                <button className="choice-slide-button"></button>
-            </div>
+            {/* <div className="action-button" id="next">next</div> */}
+            <div className="slider-buttons-container" id="slider-buttons-container"></div>
 
             {/* <button className="btnSlider" onClick={(e) => {
               e.preventDefault();

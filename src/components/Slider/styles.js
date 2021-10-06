@@ -49,7 +49,7 @@ export const SliderContainer = styled.div`
         }
     }
 
-    > .slider-buttons {
+    > .slider-buttons-container {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -59,16 +59,24 @@ export const SliderContainer = styled.div`
         position: absolute;
         margin-top: 405px;
 
-        > .choice-slide-button {
+        > .slide-button, #selected-slide-button {
             margin-right: 5px;
             margin-left: 5px;
             width: 15px;
             height: 15px;
-            border-radius: 50%;
+            border-radius: 100%;
 
             :hover {
                 cursor: pointer;
             }
+        }
+
+        > .slide-button {
+            border: solid 0.5px gray;
+        }
+
+        > #selected-slide-button {
+            border: solid 2.5px pink;
         }
     }
 `;

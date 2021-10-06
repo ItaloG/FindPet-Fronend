@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const ContainerMapa = styled.div`
-<<<<<<< HEAD
     width: 60%;
     height: 600px;
 
@@ -83,13 +82,4 @@ export const ContainerFiltros = styled.div`
             cursor: pointer;
         }
     }
-=======
-    width: 500px;
-    height: 500px;
-    background-color: blue;
-
-    > iframe {
-        border: 0px;
-    }
->>>>>>> 2fd56a927c871c3e66793d10684e7907761d6bc3
 `;
