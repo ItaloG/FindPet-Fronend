@@ -58,7 +58,7 @@ export const Container = styled.div`
         align-items: center;
     }
 
-    @media(max-width: 690px){
+    @media(max-width: 1080px){
         flex-direction: column;
         gap: 50px;
         img{
