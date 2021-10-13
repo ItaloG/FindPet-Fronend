@@ -4,6 +4,7 @@ import Encontrar from "./pages/Encontrar";
 import Favoritos from "./pages/Favoritos";
 import Feed from "./pages/Feed";
 import Login from "./pages/Login";
+import PerfilInstituicao from "./pages/PerfilInstituicao";
 
 function AppRoute({ children, ...rest }) {
   return (
@@ -22,7 +23,7 @@ function Router() {
             <Login />
           </Route>
           <AppRoute path="/home">
-            <Feed />
+            <PerfilInstituicao />
           </AppRoute>
           <AppRoute path="/favoritos">
             <Favoritos />
