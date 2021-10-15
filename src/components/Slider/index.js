@@ -1,82 +1,92 @@
-import { SliderContainer } from "./styles";
-import { useEffect } from "react";
-import Banner1 from "../../assets/banner1.png"
-import Banner2 from "../../assets/banner2.png"
-import Banner3 from "../../assets/banner3.png"
+import { ButtonContainer, SliderButton, SliderContainer } from "./styles";
+import { useEffect, useRef, useState } from "react";
+import Banner1 from "../../assets/banner1.png";
+import Banner2 from "../../assets/banner2.png";
+import Banner3 from "../../assets/banner3.png";
 
 function Slider() {
-    useEffect(() => {
-        'use strict';
+  const [imagens, setImagens] = useState([]);
 
-        const images = [
-            { 'id': '1', 'url' : Banner1 },
-            { 'id': '2', 'url' : Banner2 },
-            { 'id': '3', 'url' : Banner3 }
-        ];
+  let indexDestaque = useRef(0)
 
-        const sliderButtons = document.querySelector('#slider-buttons-container');
+  useEffect(() => {
+    const loadDestaques = () => {
+      const destaques = [
+        { id: "1", url: Banner1 },
+        { id: "2", url: Banner2 },
+        { id: "3", url: Banner3 },
+      ];
 
-        let buttons;
+      setImagens(destaques);
+    };
 
-        for (let i = 0; i < images.length; i++) {
-            sliderButtons.innerHTML += `
-                <button class='slide-button' id='slider-button${i+1}'></button>
-            `
-            buttons += document.querySelectorAll("slide-button");
-        }
+    loadDestaques();
+  }, []);
 
-        const selectedSlide = () => {
-            buttons[0].setAttribute('id', 'selected-slide-button');
-        }
+  const handleSliderButton = () => {
+    console.log("teste");
+  }
 
-        // document.querySelector('#slider-button1').addEventListener('click', changeSlide);
+  useEffect(() => {
+    // const images = [
+    //   { id: "1", url: Banner1 },
+    //   { id: "2", url: Banner2 },
+    //   { id: "3", url: Banner3 },
+    // ];
 
-        const containerItems = document.querySelector('#container-items');
+    // const sliderButtons = document.querySelector("#slider-buttons-container");
 
-        const loadImages = ( images, container ) => {
-            images.forEach( image => {
-                container.innerHTML += `
-                    <div class='item'>
-                        <img src='${image.url}'/> 
-                    </div>
-                `
-            })
-        }
+    // let buttons;
 
-        loadImages( images, containerItems );
+    // const selectedSlide = () => {
+    //   buttons[0].setAttribute("id", "selected-slide-button");
+    // };
 
-        let items = document.querySelectorAll('.item');
+    // document.querySelector('#slider-button1').addEventListener('click', changeSlide);
 
-        const previous = () => {
-            containerItems.appendChild(items[0]);
-            items = document.querySelectorAll('.item');
-        } 
+    // let items = document.querySelectorAll(".item");
 
-        const next = () => {
-            const lastItem = items[items.length - 1];
-            containerItems.insertBefore( lastItem, items[0] );
-            items = document.querySelectorAll('.item');
-        }
+    // const previous = () => {
+    //   containerItems.appendChild(items[0]);
+    //   items = document.querySelectorAll(".item");
+    // };
 
-        setInterval(previous, 5000);
+    // const next = () => {
+    //   const lastItem = items[items.length - 1];
+    //   containerItems.insertBefore(lastItem, items[0]);
+    //   items = document.querySelectorAll(".item");
+    // };
 
-        // document.querySelector('#previous').addEventListener('click', next);
-        // document.querySelector('#next').addEventListener('click', previous);
-    });
+    // setInterval(previous, 5000);
 
-    return (
-        <SliderContainer>
-            {/* <div className="action-button" id="previous">prev</div> */}
-            <div className="container-items" id="container-items"></div>   
-            {/* <div className="action-button" id="next">next</div> */}
-            <div className="slider-buttons-container" id="slider-buttons-container"></div>
+    // document.querySelector('#previous').addEventListener('click', next);
+    // document.querySelector('#next').addEventListener('click', previous);
+  });
 
-            {/* <button className="btnSlider" onClick={(e) => {
+  return (
+    <SliderContainer>
+      {/* <div className="action-button" id="previous">prev</div> */}
+      <div className="container-items" id="container-items">
+          {imagens.map((i, index) => (
+              <div class="item">
+                  <img src={i.url} />
+              </div>
+          ))}
+      </div>
+      {/* <div className="action-button" id="next">next</div> */}
+
+      <ButtonContainer>
+        {imagens.map((i, index) => (
+          <SliderButton onClick={handleSliderButton} key={index} />
+        ))}
+      </ButtonContainer>
+
+      {/* <button className="btnSlider" onClick={(e) => {
               e.preventDefault();
               alert('clicado');
             }}>clique aqui</button> */}
-        </SliderContainer>
-    );
+    </SliderContainer>
+  );
 }
 
 export default Slider;

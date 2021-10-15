@@ -12,25 +12,31 @@ function AppRoute({ children, ...rest }) {
       <Header />
       {children}
     </Route>
-  )
+  );
 }
 
 function Router() {
   return (
     <BrowserRouter>
       <Switch>
-          <Route exact path="/">
-            <Login />
-          </Route>
-          <AppRoute path="/home">
-            <PerfilInstituicao />
-          </AppRoute>
-          <AppRoute path="/favoritos">
-            <Favoritos />
-          </AppRoute>
-          <AppRoute path="/mapa">
-            <Encontrar />
-          </AppRoute>
+        <Route exact path="/">
+          <Login />
+        </Route>
+        <AppRoute path="/home">
+          <Feed />
+        </AppRoute>
+        {/* <AppRoute path="/instituicao/:instituicaoId">
+          <PerfilInstituicao />
+        </AppRoute> */}
+        <AppRoute path="/instituicao">
+          <PerfilInstituicao />
+        </AppRoute>
+        <AppRoute path="/favoritos">
+          <Favoritos />
+        </AppRoute>
+        <AppRoute path="/mapa">
+          <Encontrar />
+        </AppRoute>
       </Switch>
     </BrowserRouter>
   );
