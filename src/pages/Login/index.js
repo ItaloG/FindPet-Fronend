@@ -50,6 +50,8 @@ function Login() {
     complemento: "",
   });
 
+  const [tiposInstituicoes, setTiposInstituicoes] = useState([])
+
   let [isCadastrando, setIscadastrando] = useState(false);
   let [isInstituicao, setIsInstituicao] = useState(false);
   let [isUsuario, setIsUsuario] = useState(false);
@@ -90,6 +92,23 @@ function Login() {
     tell = mascaraTell(tell);
     setUsuario({ ...usuario, telefone: tell });
   };
+
+  useEffect(() => {
+    const loadTiposInstituicoes = async () => {
+      try {
+        const response = await api.get("/tipoInstituicoes");
+
+        setTiposInstituicoes(response.data.typeInstitutions);
+
+      } catch (error) {
+        console.error(error.response);
+        alert(error.response.data);
+      }
+    }
+
+    loadTiposInstituicoes();
+
+  }, [])
 
   useEffect(() => {
     const getEndereco = async (cep) => {
@@ -372,10 +391,9 @@ function Login() {
             />
             <select id="tipoEstabelecimento" onChange={handleInputInstituicao}>
               <option value={0}>Tipo de estabelecimento</option>
-              <option value={1}>ONG</option>
-              <option value={2}>Canil</option>
-              <option value={3}>Veterinário</option>
-              <option value={4}>Petshop</option>
+              {tiposInstituicoes.map((tipo, index) =>
+                <option key={index} value={tipo.id}>{tipo.type_institution}</option>
+              )}
             </select>
             <Input
               type="text"
