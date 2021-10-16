@@ -3,11 +3,12 @@ import { Body, ContainerCenter, FlexColumn } from "../../GlobalStyles";
 import Card from "../../components/Card";
 import Slider from "../../components/Slider";
 import FotoPadrao from "../../assets/default_profile_photo.jpg";
-import IconeOng from "../../assets/ong.png";
-import IconePetShop from "../../assets/shop.png";
-import Banner1 from "../../assets/banner1.png"
-import Banner2 from "../../assets/banner2.png"
-import Banner3 from "../../assets/banner3.png"
+import IconeOng from "../../assets/ong_icon.png";
+import IconePetShop from "../../assets/petshop_icon.png";
+import IconeVeterinario from "../../assets/veterinario_icon.png"
+import BannerDefault from "../../assets/default_banner.png"
+// import Banner2 from "../../assets/banner2.png"
+// import Banner3 from "../../assets/banner3.png"
 import { api } from "../../services/api";
 
 function Feed() {
@@ -19,8 +20,6 @@ function Feed() {
             try {
                 const response = await api.get("/instituicoes");
 
-                console.log(response.data.institutions);
-                
                 setInstituicoes(response.data.institutions);
             } catch (error) {
                 console.log(error.response.data);
@@ -32,8 +31,13 @@ function Feed() {
     }, []);
 
     const handleIcon = (tipoInstituicao) => {
-        console.log(tipoInstituicao);
-        return IconeOng
+        if (tipoInstituicao === "ONG") {
+            return IconeOng
+        } else if (tipoInstituicao === "PETSHOP") {
+            return IconePetShop
+        } else if (tipoInstituicao === "VETERINARIO") {
+            return IconeVeterinario
+        }
     }
 
     return (
@@ -42,13 +46,14 @@ function Feed() {
                 <FlexColumn>
                     <Slider />
                     {instituicoes.map((i, index) => (
-                    <Card
-                    foto={FotoPadrao}
-                    nome_instituicao={i.nome}
-                    icone={handleIcon(i.TypeInstitution)}
-                    distancia={0}
-                    banner={Banner1}
-                    />
+                        <Card
+                            key={index}
+                            foto={FotoPadrao}
+                            nome_instituicao={i.nome}
+                            icone={handleIcon(i.TypeInstitution.type_institution)}
+                            distancia={0}
+                            banner={BannerDefault}
+                        />
                     ))}
                 </FlexColumn>
             </ContainerCenter>
