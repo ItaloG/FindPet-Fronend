@@ -13,6 +13,7 @@ import { useHistory } from "react-router";
 import { macaraCell, mascaraCep, mascaraTell } from "../../utils";
 import { api } from "../../services/api";
 import SpinnerLoading from "../../components/SpinnerLoading/indes";
+import { signIn } from "../../services/security";
 
 function Login() {
   let history = useHistory();
@@ -202,7 +203,7 @@ function Login() {
 
       const response = await api.post("/cadastro/instituicao", instituicao);
 
-      localStorage.setItem("@user", JSON.stringify(response.data.token));
+      signIn(response.data);
 
       return history.push("/home");
     } catch (error) {
@@ -240,7 +241,7 @@ function Login() {
 
       const response = await api.post("/cadastro/usuario", usuario);
 
-      localStorage.setItem("@user", JSON.stringify(response.data.token));
+      signIn(response.data);
 
       return history.push("/home");
     } catch (error) {
@@ -265,7 +266,7 @@ function Login() {
     try {
       const response = await api.post("/login", login);
 
-      localStorage.setItem("@user", JSON.stringify(response.data.token));
+      signIn(response.data);
 
       return history.push("/home");
     } catch (error) {
