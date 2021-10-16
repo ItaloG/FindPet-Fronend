@@ -1,18 +1,23 @@
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Header from "./components/Header";
 import Encontrar from "./pages/Encontrar";
 import Favoritos from "./pages/Favoritos";
 import Feed from "./pages/Feed";
 import Login from "./pages/Login";
 import PerfilInstituicao from "./pages/PerfilInstituicao";
+import { isSignedIn } from "./services/security";
 
 function AppRoute({ children, ...rest }) {
-  return (
-    <Route {...rest}>
-      <Header />
-      {children}
-    </Route>
-  );
+  if (isSignedIn()) {
+    return (
+      <Route {...rest}>
+        <Header />
+        {children}
+      </Route>
+    )
+  } else {
+    return <Redirect to="/" />;
+  }
 }
 
 function Router() {

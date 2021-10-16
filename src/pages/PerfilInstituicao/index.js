@@ -1,6 +1,6 @@
 import { Body } from "../../GlobalStyles";
 import { ContainerCenter } from "./styles";
-import OngIcon from "../../assets/ong.png";
+import OngIcon from "../../assets/ong_icon.png";
 import EstrelaIcon from "../../assets/estrela.svg";
 import ApoiarIcon from "../../assets/apoiar.svg";
 

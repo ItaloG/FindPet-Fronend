@@ -4,8 +4,8 @@ import { ContainerMapa, ContainerFiltros, Instituicoes } from "./styles";
 import IconeFiltro from "../../assets/filtro_icon.svg";
 import IconeOrdenacao from "../../assets/ordenacao_icon.svg";
 import FotoPadrao from "../../assets/default_profile_photo.jpg";
-import IconeOng from "../../assets/ong.png";
-import IconePetShop from "../../assets/shop.png";
+import IconeOng from "../../assets/ong_icon.png";
+import IconePetShop from "../../assets/petshop_icon.png";
 
 function Encontrar() {
     return (
