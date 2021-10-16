@@ -201,7 +201,8 @@ function Login() {
       }
 
       const response = await api.post("/cadastro/instituicao", instituicao);
-      console.log(response.data);
+
+      localStorage.setItem("@user", JSON.stringify(response.data.token));
 
       return history.push("/home");
     } catch (error) {
@@ -238,7 +239,8 @@ function Login() {
       }
 
       const response = await api.post("/cadastro/usuario", usuario);
-      console.log(response.data);
+
+      localStorage.setItem("@user", JSON.stringify(response.data.token));
 
       return history.push("/home");
     } catch (error) {
@@ -254,28 +256,23 @@ function Login() {
 
     const { email, senha } = login;
 
-    console.log(login);
-
     if (!email || !senha) {
-      console.log("caiu aqui");
       return alert("Você precisa informar um email e senha.");
     }
 
     setIsLoading(true);
 
     try {
-      const response = await api.post("/login/usuario", login);
+      const response = await api.post("/login", login);
 
-      localStorage.setItem("@user", JSON.stringify(response.data));
-
-      setIsLoading(false);
+      localStorage.setItem("@user", JSON.stringify(response.data.token));
 
       return history.push("/home");
     } catch (error) {
-      console.log("caiu aqui");
       console.error(error);
-      setIsLoading(false);
       alert("Usuário e/ou senha incorretos");
+    } finally {
+      setIsLoading(false);
     }
   };
 
