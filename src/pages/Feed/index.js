@@ -7,8 +7,6 @@ import IconeOng from "../../assets/ong_icon.png";
 import IconePetShop from "../../assets/petshop_icon.png";
 import IconeVeterinario from "../../assets/veterinario_icon.png"
 import BannerDefault from "../../assets/default_banner.png"
-// import Banner2 from "../../assets/banner2.png"
-// import Banner3 from "../../assets/banner3.png"
 import { api } from "../../services/api";
 
 function Feed() {
@@ -48,11 +46,11 @@ function Feed() {
                     {instituicoes.map((i, index) => (
                         <Card
                             key={index}
-                            foto={FotoPadrao}
+                            foto={i.url_foto_perfil ? i.url_foto_perfil : FotoPadrao}
                             nome_instituicao={i.nome}
                             icone={handleIcon(i.TypeInstitution.type_institution)}
                             distancia={0}
-                            banner={BannerDefault}
+                            banner={i.url_foto_banner ? i.url_foto_banner : BannerDefault}
                         />
                     ))}
                 </FlexColumn>
