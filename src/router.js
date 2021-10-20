@@ -8,16 +8,16 @@ import PerfilInstituicao from "./pages/PerfilInstituicao";
 import { isSignedIn } from "./services/security";
 
 function AppRoute({ children, ...rest }) {
-  if (isSignedIn()) {
+  // if (isSignedIn()) {
     return (
       <Route {...rest}>
         <Header />
         {children}
       </Route>
     )
-  } else {
-    return <Redirect to="/" />;
-  }
+  // } else {
+  //   return <Redirect to="/" />;
+  // }
 }
 
 function Router() {
