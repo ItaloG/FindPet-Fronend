@@ -276,7 +276,10 @@ export const Section = styled.section`
 
 export const Colaboradores = styled.div`
     height: 100%;
-    margin-top: 30px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 
     > div {
         display: flex;

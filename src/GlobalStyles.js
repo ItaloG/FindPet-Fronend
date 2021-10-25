@@ -49,18 +49,11 @@ export const Body = styled.div`
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
-    /* display: grid; */
-    /* grid-template-columns: 50% 50%;
-    grid-template-rows: 93% 7%;
-     */
     main {
-        /* grid-column: 1/3; */
         display: flex;
         flex-direction: column;
-        flex-grow: 2; 
+        flex-grow: 3; 
     }
 `;
 
