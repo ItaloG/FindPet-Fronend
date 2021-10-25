@@ -13,6 +13,7 @@ export const GlobalStyles = createGlobalStyle`
         --pink: #D37171;
         --yellow: #EEBB5B;
         --green: #33B878; 
+        --light: #CCA583;
     }
 
     *{
@@ -46,21 +47,20 @@ export const Body = styled.div`
 `;
 
 export const Container = styled.div`
-    height: 100%;
-    display: grid;
-    grid-template-columns: 50% 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* display: grid; */
+    /* grid-template-columns: 50% 50%;
     grid-template-rows: 93% 7%;
-    
+     */
     main {
-        height: 100%;
-        grid-column: 1/3;
-        display: grid;
-        grid-template-columns: 50% 50%;
-        grid-template-rows: 50% 50%;  
-    }
-
-    footer {
-        grid-column: 1/3;
+        /* grid-column: 1/3; */
+        display: flex;
+        flex-direction: column;
+        flex-grow: 2; 
     }
 `;
 
