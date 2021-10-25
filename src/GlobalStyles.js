@@ -1,5 +1,4 @@
 import styled, { createGlobalStyle } from "styled-components";
-import { MenuItem } from "./components/Header/styles";
 
 export const GlobalStyles = createGlobalStyle`
     :root {
@@ -7,8 +6,13 @@ export const GlobalStyles = createGlobalStyle`
         --secondary: #FFB853;
         --logoColor: #935B00;
         --headerColor: #F6E4CB;
-        --text: #000000;
         --backgroundColor: #F3F3F3;
+        --gray: #B9B9B9;
+        --dark: #654D41;
+        --acent: #C98822;
+        --pink: #D37171;
+        --yellow: #EEBB5B;
+        --green: #33B878; 
     }
 
     *{
@@ -16,19 +20,18 @@ export const GlobalStyles = createGlobalStyle`
         padding: 0;
         outline: 0;
         box-sizing: border-box;
-        font-family: 'Roboto', 'sans-serif';
+        
     }
-
     body {
-        overflow-x: hidden;
-        background-color: #ECECEC;
+        background-color: #FFFFFF;
+        /* background-color: #ECECEC; */
+        font-family: Montserrat,'sans-serif';
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
     }
-
-    /* @media(max-width: 1000px) {
-        ${MenuItem} {
-            background-color: aquamarine;
-        }
-    } */
+    html, body, #root{
+        height: 100%;
+    }
 `;
 
 export const Body = styled.div`
@@ -37,20 +40,28 @@ export const Body = styled.div`
     display: flex;
     justify-content: center;
     background-color: pink;
-
     :-webkit-scrollbar{
         
     }
 `;
 
 export const Container = styled.div`
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0px 0px 15px #cfcfcf;
-    margin-top: 75px;
-    width: auto;
-    height: auto;
-    background-color: #ffffff;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 93% 7%;
+    
+    main {
+        height: 100%;
+        grid-column: 1/3;
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 50% 50%;  
+    }
+
+    footer {
+        grid-column: 1/3;
+    }
 `;
 
 export const ContainerCenter = styled.div`

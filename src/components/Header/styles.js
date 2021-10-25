@@ -5,7 +5,7 @@ export const HeaderBody = styled.div `
     justify-content: center;
     width: 100vw;
     height: 75px;
-    position: fixed;
+    position: absolute;
     top: 0;
     z-index: 99;
     background-color: var(--headerColor);

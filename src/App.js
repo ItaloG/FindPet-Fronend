@@ -5,9 +5,12 @@ import Router from "./router";
 function App() {
   return (
     <>
-      <GlobalStyles/>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Montserrat"
+      ></link>
+      <GlobalStyles />
       <Router />
-
     </>
   );
 }
