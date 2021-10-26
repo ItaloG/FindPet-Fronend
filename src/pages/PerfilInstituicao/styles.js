@@ -109,11 +109,6 @@ export const ContainerCenter = styled.div`
   }
 `;
 
-
-
-
-
-
 export const Profile = styled.div`
   width: 80%;
   display: flex;
@@ -291,6 +286,10 @@ export const Section = styled.section`
     @media(max-width: 1080px){
       width: 95%;
       grid-template-columns: 40% 60%;
+
+      section {
+        padding-left: 30px;
+      }
     }
 `;
 
@@ -361,8 +360,8 @@ export const Colaboradores = styled.div`
             }
             
             > img {
-                width: 110px;
-                height: 110px;
+                width: 90px;
+                height: 90px;
                 border-radius: 50%;
             }
 
@@ -426,4 +425,35 @@ export const StyledFaMapMarkerAlt = styled(FaMapMarkerAlt)`
   width: 20px;
   height: 20px;
   color: var(--light);
+`;
+
+export const ContainerPerfilAnimal = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: max-content;
+
+
+    > aside {
+        position: absolute;
+        margin-top: -115px;
+        margin-left: 80px;
+    }
+
+    > h3 {
+        font-size: 22px;
+        color: var(--primary);
+    }
+
+    > p {
+        font-size: 16px;
+        color: var(--gray);
+    }
+
+    > img {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+    }
 `;

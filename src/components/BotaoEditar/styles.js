@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { MdEdit } from 'react-icons/md';
 
-const StyledMdEdit = styled(MdEdit)`
+export const StyledMdEdit = styled(MdEdit)`
   width: 25px;
   height: 25px;
   margin-top: -2px;
@@ -9,7 +9,7 @@ const StyledMdEdit = styled(MdEdit)`
 
 `; 
 
-const IconBox = styled.div`
+export const IconBox = styled.div`
     width: 40px;
     height: 40px;
     background-color: white;
@@ -27,15 +27,3 @@ const IconBox = styled.div`
         color: white;
     }
 `;
-
-function BotaoEditar() {
-    return(
-        <>
-            <IconBox>
-                <StyledMdEdit/>
-            </IconBox>
-        </>
-    );
-}
-
-export default BotaoEditar;

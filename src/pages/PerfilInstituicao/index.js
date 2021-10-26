@@ -15,6 +15,7 @@ import {
   Campanhas,
   CampanhasContainer,
   StyledMdEdit,
+  ContainerPerfilAnimal,
 } from "./styles";
 
 import ApoiarIcon from "../../assets/apoiar.svg";
@@ -22,7 +23,6 @@ import DefaultBanner from "../../assets/default_banner.png";
 import DefaultProfile from "../../assets/default_profile_photo.jpg";
 import Footer from "../../components/Footer";
 import BotaoEditar from "../../components/BotaoEditar";
-import MiniPerfilPets from "../../components/MiniPerfilPets";
 
 function PerfilInstituicao() {
   return (
@@ -88,7 +88,7 @@ function PerfilInstituicao() {
                 <div>
                   <div>
                     <aside>
-                      <BotaoEditar/>
+                      <BotaoEditar />
                     </aside>
                     <img src={DefaultProfile} alt={"colaborador"} />
                     <h3>Nome</h3>
@@ -96,7 +96,7 @@ function PerfilInstituicao() {
                   </div>
                   <div>
                     <aside>
-                      <BotaoEditar/>
+                      <BotaoEditar />
                     </aside>
                     <img src={DefaultProfile} alt={"colaborador"} />
                     <h3>Nome</h3>
@@ -104,7 +104,7 @@ function PerfilInstituicao() {
                   </div>
                   <div>
                     <aside>
-                      <BotaoEditar/>
+                      <BotaoEditar />
                     </aside>
                     <img src={DefaultProfile} alt={"colaborador"} />
                     <h3>nome</h3>
@@ -114,7 +114,7 @@ function PerfilInstituicao() {
                 <div>
                   <div>
                     <aside>
-                      <BotaoEditar/>
+                      <BotaoEditar />
                     </aside>
                     <img src={DefaultProfile} alt={"colaborador"} />
                     <h3>nome</h3>
@@ -122,7 +122,7 @@ function PerfilInstituicao() {
                   </div>
                   <div>
                     <aside>
-                      <BotaoEditar/>
+                      <BotaoEditar />
                     </aside>
                     <img src={DefaultProfile} alt={"colaborador"} />
                     <h3>nome</h3>
@@ -130,7 +130,7 @@ function PerfilInstituicao() {
                   </div>
                   <div>
                     <aside>
-                      <BotaoEditar/>
+                      <BotaoEditar />
                     </aside>
                     <img src={DefaultProfile} alt={"colaborador"} />
                     <h3>nome</h3>
@@ -150,19 +150,28 @@ function PerfilInstituicao() {
               <div>
                 <div>
                   <img src={DefaultBanner} alt="campanhas" />
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua
+                  </p>
                 </div>
                 <div>
                   <img src={DefaultBanner} alt="campanhas" />
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua
+                  </p>
                 </div>
               </div>
             </CampanhasContainer>
 
             <div>
               <h1>Animais para adoção</h1>
-              <div> 
-                <MiniPerfilPets/>
+              <div>
+       
+                <PerfilAnimal />
               </div>
             </div>
           </section>
@@ -170,6 +179,19 @@ function PerfilInstituicao() {
       </main>
       <Footer />
     </Container>
+  );
+}
+
+function PerfilAnimal() {
+  return (
+    <ContainerPerfilAnimal>
+      <aside>
+        <BotaoEditar />
+      </aside>
+      <img src={DefaultProfile} alt={"pet"} />
+      <h3>Nome do Pet</h3>
+      <p>Raça</p>
+    </ContainerPerfilAnimal>
   );
 }
 
