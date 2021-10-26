@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { FaStar } from "react-icons/fa";
 import { AiFillHeart } from "react-icons/ai";
 import { RiArrowDownSLine } from "react-icons/ri";
-import { MdEmail, MdPhoneIphone } from "react-icons/md";
+import { MdEmail, MdPhoneIphone, MdEdit } from "react-icons/md";
 import { FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
 
 export const ContainerCenter = styled.div`
@@ -109,12 +109,18 @@ export const ContainerCenter = styled.div`
   }
 `;
 
+
+
+
+
+
 export const Profile = styled.div`
-  width: 90%;
+  width: 80%;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
   margin-top: 100px;
+  background-color: aliceblue;
 
   > aside {
     width: 100%;
@@ -132,6 +138,7 @@ export const Profile = styled.div`
         color: var(--dark);
         font-weight: bold;
         font-size: 1.8em;
+        font-family: 'Montserrat';
       }
 
       > img {
@@ -220,12 +227,12 @@ export const Banner = styled.div`
 `;
 
 export const Section = styled.section`
-  width: 90%;
+  width: 80%;
   grid-column: 1/3;
   margin: 0 auto;
   margin-top: 80px;
   display: grid;
-  grid-template-columns: 20% 80%;
+  grid-template-columns: 30% 70%;
   grid-template-rows: 50% 50%;
 
   > aside {
@@ -273,7 +280,7 @@ export const Section = styled.section`
       display: flex;
       flex-direction: column;
       gap: 20px;
-      padding-left: 20px;
+      padding-left: 200px;
       h1 {
         color: var(--dark);
         font-weight: bold;
@@ -323,7 +330,7 @@ export const CampanhasContainer = styled.div`
 
   img {
     width: 100%;
-    height: 100px;
+    height: 200px;
   }
 `;
 
@@ -354,9 +361,18 @@ export const Colaboradores = styled.div`
             }
             
             > img {
-                width: 40px;
-                height: 40px;
+                width: 110px;
+                height: 110px;
                 border-radius: 50%;
+            }
+
+            > aside {
+              position: absolute;
+              margin-left: 4%;
+
+              :hover {
+                cursor: pointer;
+              }
             }
         }
     }
@@ -391,6 +407,12 @@ export const StyledMdEmail = styled(MdEmail)`
 export const StyledFaPhoneAlt = styled(FaPhoneAlt)`
   width: 20px;
   height: 20px;
+  color: var(--light);
+`;
+
+export const StyledMdEdit = styled(MdEdit)`
+  width: 25px;
+  height: 25px;
   color: var(--light);
 `;
 
