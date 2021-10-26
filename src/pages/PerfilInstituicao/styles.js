@@ -110,7 +110,6 @@ export const ContainerCenter = styled.div`
 `;
 
 export const Profile = styled.div`
-  grid-column: 1/3;
   width: 90%;
   display: flex;
   flex-direction: column;
@@ -151,10 +150,13 @@ export const Profile = styled.div`
     > div:last-child {
       width: 30%;
       display: flex;
+      gap: 20px;
+      justify-content: flex-end;
       flex-wrap: wrap;
+
       > .avaliacoes {
         margin-top: 7px;
-        margin-right: 130px;
+        /* margin-right: 130px; */
 
         div {
           display: flex;
@@ -261,17 +263,68 @@ export const Section = styled.section`
             font-weight: bold;
             font-size: 20px;
         }
+      }
     }
+    
+    > section {
+      grid-row: 1/3;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-left: 20px;
+      h1 {
+        color: var(--dark);
+        font-weight: bold;
+        font-size: 20px;
+      }
+    }
+    
+    @media(max-width: 1080px){
+      width: 95%;
+      grid-template-columns: 40% 60%;
+    }
+`;
+
+export const TextArea = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 100px;
+  > textArea {
+    width: inherit;
+    color: var(--black);
+    background-color: #C4C4C480;
+    font-size: 16px;
+    border: 0px;
+    font-weight: bold;
+    font-style: italic;
+    transition: 0.2s;
+    resize: none;
+  }
+`;
+
+export const CampanhasContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
   }
 
-  > section {
-    grid-row: 1/3;
-
+  p {
+    font-size: 13px;
   }
 
-  @media(max-width: 1080px){
-        grid-template-columns: 30% 70%;
-    }
+  img {
+    width: 100%;
+    height: 100px;
+  }
 `;
 
 export const Colaboradores = styled.div`
@@ -330,8 +383,8 @@ export const StyledHeart = styled(AiFillHeart)`
 `;
 
 export const StyledMdEmail = styled(MdEmail)`
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   color: var(--light);
 `;
 

@@ -11,6 +11,9 @@ import {
   StyledMdPhoneIphone,
   StyledFaMapMarkerAlt,
   Colaboradores,
+  TextArea,
+  Campanhas,
+  CampanhasContainer,
 } from "./styles";
 
 import ApoiarIcon from "../../assets/apoiar.svg";
@@ -81,34 +84,34 @@ function PerfilInstituicao() {
               <Colaboradores>
                 <div>
                   <div>
-                    <img src={DefaultProfile} alt={"colaborador"}/>
+                    <img src={DefaultProfile} alt={"colaborador"} />
                     <h3>nome</h3>
                     <p>Fundador</p>
                   </div>
                   <div>
-                    <img src={DefaultProfile} alt={"colaborador"}/>
+                    <img src={DefaultProfile} alt={"colaborador"} />
                     <h3>nome</h3>
                     <p>Diretor</p>
                   </div>
                   <div>
-                    <img src={DefaultProfile} alt={"colaborador"}/>
+                    <img src={DefaultProfile} alt={"colaborador"} />
                     <h3>nome</h3>
                     <p>Marketing</p>
                   </div>
                 </div>
                 <div>
                   <div>
-                    <img src={DefaultProfile} alt={"colaborador"}/>
+                    <img src={DefaultProfile} alt={"colaborador"} />
                     <h3>nome</h3>
                     <p>Fundador</p>
                   </div>
                   <div>
-                    <img src={DefaultProfile} alt={"colaborador"}/>
+                    <img src={DefaultProfile} alt={"colaborador"} />
                     <h3>nome</h3>
                     <p>Diretor</p>
                   </div>
                   <div>
-                    <img src={DefaultProfile} alt={"colaborador"}/>
+                    <img src={DefaultProfile} alt={"colaborador"} />
                     <h3>nome</h3>
                     <p>Marketing</p>
                   </div>
@@ -116,7 +119,30 @@ function PerfilInstituicao() {
               </Colaboradores>
             </div>
           </aside>
-          <section></section>
+          <section>
+            <TextArea>
+              <textarea maxLength={150} />
+            </TextArea>
+
+            <CampanhasContainer>
+              <h1>Campanhas</h1>
+              <div>
+                <div>
+                  <img src={DefaultBanner} alt="campanhas" />
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                </div>
+                <div>
+                  <img src={DefaultBanner} alt="campanhas" />
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                </div>
+              </div>
+            </CampanhasContainer>
+
+            <div>
+              <h1>Animais para adoção</h1>
+              <div></div>
+            </div>
+          </section>
         </Section>
       </main>
       <Footer />
