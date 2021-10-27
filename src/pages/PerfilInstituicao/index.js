@@ -19,6 +19,7 @@ import {
   ContainerServiços,
   StyledAiOutlinePlusCircle,
   ApoioContainer,
+  DescricaoContainer,
 } from "./styles";
 
 import ApoiarIcon from "../../assets/apoiar.svg";
@@ -94,7 +95,11 @@ function PerfilInstituicao() {
               </div>
             </div>
             <div className="funcionarios">
-              <h1>Nossos colaboradores</h1>
+              <div>
+                <h1>Nossos colaboradores</h1>
+                <div>+ Novo Colaborador</div>
+              </div>
+              
               <Colaboradores>
                 <div>
                   <div>
@@ -160,9 +165,14 @@ function PerfilInstituicao() {
                 <div>Materiais</div>
               </div>
             </ApoioContainer>
-            <TextArea>
-              <textarea maxLength={150} />
-            </TextArea>
+            <DescricaoContainer>
+              <h1>Descrição</h1>
+              <textarea
+                maxLength={150}
+                placeholder="Escreva aqui uma breve descrição sobre sua instituição"
+              />
+              <button>Salvar</button>
+            </DescricaoContainer>
             <CampanhasContainer>
               <h1>Campanhas</h1>
               <div>

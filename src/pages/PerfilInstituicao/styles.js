@@ -283,10 +283,19 @@ export const Section = styled.section`
 
     > .funcionarios {
       height: 100%;
-      > h1 {
-        color: var(--dark);
-        font-weight: bold;
-        font-size: 20px;
+
+      > div:first-child {
+        display: flex;
+        flex-wrap: wrap;
+        > h1 {
+          color: var(--dark);
+          font-weight: bold;
+          font-size: 20px;
+        }
+
+        > div {
+          border: solid 1px var(--primary);
+        }
       }
     }
   }
@@ -329,7 +338,7 @@ export const ApoioContainer = styled.div`
     display: flex;
     gap: 5px;
     color: var(--light);
-    
+
     > div {
       padding: 5px;
       border-radius: 5px;
@@ -338,21 +347,33 @@ export const ApoioContainer = styled.div`
   }
 `;
 
-export const TextArea = styled.div`
+export const DescricaoContainer = styled.div`
   width: 100%;
   display: flex;
-  justify-content: center;
-  height: 100px;
+  flex-direction: column;
+  gap: 10px;
+
   > textArea {
-    width: inherit;
-    color: var(--black);
-    background-color: #c4c4c480;
+    height: 100px;
+    padding: 10px;
+    color: var(--gray);
     font-size: 16px;
-    border: 0px;
-    font-weight: bold;
-    font-style: italic;
+    border: solid 1px var(--gray);
     transition: 0.2s;
     resize: none;
+  }
+
+  > button {
+    background-color: var(--primary);
+    border: none;
+    padding: 7px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1em;
+
+    cursor: pointer;
+
+    align-self: end;
   }
 `;
 
