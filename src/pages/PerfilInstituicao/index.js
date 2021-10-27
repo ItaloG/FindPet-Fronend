@@ -16,6 +16,9 @@ import {
   CampanhasContainer,
   StyledMdEdit,
   ContainerPerfilAnimal,
+  ContainerServiços,
+  StyledAiOutlinePlusCircle,
+  ApoioContainer,
 } from "./styles";
 
 import ApoiarIcon from "../../assets/apoiar.svg";
@@ -35,8 +38,16 @@ function PerfilInstituicao() {
           <aside>
             <div>
               <img src={DefaultProfile} alt="profile" />
-              <h1>Instituto Luísa Mell</h1>
-              <StyledHeart />
+              <div>
+                <h1>Instituto Luísa Mell</h1>
+                <ContainerServiços>
+                  <Servico />
+                  <Servico />
+                  <Servico />
+                  <StyledAiOutlinePlusCircle />
+                </ContainerServiços>
+              </div>
+              <StyledHeart style={{ display: "none" }} />
             </div>
             <div>
               <div className="avaliacoes">
@@ -49,10 +60,10 @@ function PerfilInstituicao() {
                   <span>4.8</span>
                 </div>
                 <div>
-                  <p>Sua avaliação</p>
+                  <p>Suas avaliações (1.448)</p>
                 </div>
               </div>
-              <div>
+              <div style={{ display: "none" }}>
                 <img src={ApoiarIcon} alt="apoio" />
                 <div>
                   Apoiar <StyledRiArrowDownSLine />
@@ -141,10 +152,17 @@ function PerfilInstituicao() {
             </div>
           </aside>
           <section>
+            <ApoioContainer>
+              <h1>Doações</h1>
+              <h2>O que você precisa?</h2>
+              <div>
+                <div>Voluntários</div>
+                <div>Materiais</div>
+              </div>
+            </ApoioContainer>
             <TextArea>
               <textarea maxLength={150} />
             </TextArea>
-
             <CampanhasContainer>
               <h1>Campanhas</h1>
               <div>
@@ -170,7 +188,6 @@ function PerfilInstituicao() {
             <div>
               <h1>Animais para adoção</h1>
               <div>
-       
                 <PerfilAnimal />
               </div>
             </div>
@@ -192,6 +209,14 @@ function PerfilAnimal() {
       <h3>Nome do Pet</h3>
       <p>Raça</p>
     </ContainerPerfilAnimal>
+  );
+}
+
+function Servico() {
+  return (
+    <div>
+      serviço 1 <span>&times;</span>
+    </div>
   );
 }
 

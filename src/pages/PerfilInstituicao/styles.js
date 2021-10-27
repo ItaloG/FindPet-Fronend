@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { FaStar } from "react-icons/fa";
-import { AiFillHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlinePlusCircle } from "react-icons/ai";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { MdEmail, MdPhoneIphone, MdEdit } from "react-icons/md";
 import { FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
@@ -115,7 +115,6 @@ export const Profile = styled.div`
   flex-direction: column;
   margin: 0 auto;
   margin-top: 100px;
-  background-color: aliceblue;
 
   > aside {
     width: 100%;
@@ -128,12 +127,12 @@ export const Profile = styled.div`
       display: flex;
       gap: 7px;
 
-      > h1 {
+      h1 {
         margin-top: 7px;
         color: var(--dark);
         font-weight: bold;
         font-size: 1.8em;
-        font-family: 'Montserrat';
+        font-family: "Montserrat";
       }
 
       > img {
@@ -208,6 +207,30 @@ export const Profile = styled.div`
   }
 `;
 
+export const ContainerServiços = styled.div`
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  color: var(--light);
+  margin-top: 10px;
+  div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px;
+    border: solid var(--light) 2px;
+    border-radius: 20px;
+    font-size: 13px;
+
+    > span {
+      font-size: 30px;
+    }
+  }
+`;
+
 export const Banner = styled.div`
   grid-column: 1/3;
   width: 100%;
@@ -237,60 +260,82 @@ export const Section = styled.section`
     gap: 20px;
 
     > .contatos {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        > h1 {
-            color: var(--dark);
-            font-weight: bold;
-            font-size: 20px;
-        }
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      > h1 {
+        color: var(--dark);
+        font-weight: bold;
+        font-size: 20px;
+      }
       > div {
         display: flex;
         align-items: center;
         text-align: start;
         gap: 5px;
         p {
-            text-transform: uppercase;
-            font-size: .7em;
-            color: var(--gray);
+          text-transform: uppercase;
+          font-size: 0.7em;
+          color: var(--gray);
         }
       }
     }
 
     > .funcionarios {
-        height: 100%;
-        > h1 {
-            color: var(--dark);
-            font-weight: bold;
-            font-size: 20px;
-        }
-      }
-    }
-    
-    > section {
-      grid-row: 1/3;
-      width: 100%;
       height: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      padding-left: 200px;
-      h1 {
+      > h1 {
         color: var(--dark);
         font-weight: bold;
         font-size: 20px;
       }
     }
-    
-    @media(max-width: 1080px){
-      width: 95%;
-      grid-template-columns: 40% 60%;
+  }
 
-      section {
-        padding-left: 30px;
-      }
+  > section {
+    grid-row: 1/3;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-left: 200px;
+    h1 {
+      color: var(--dark);
+      font-weight: bold;
+      font-size: 20px;
     }
+  }
+
+  @media (max-width: 1080px) {
+    width: 95%;
+    grid-template-columns: 40% 60%;
+
+    section {
+      padding-left: 30px;
+    }
+  }
+`;
+
+export const ApoioContainer = styled.div`
+  h2 {
+    margin-top: 5px;
+    font-size: 1em;
+    color: var(--dark);
+    font-weight: 500;
+  }
+
+  > div {
+    margin-top: 10px;
+    display: flex;
+    gap: 5px;
+    color: var(--light);
+    
+    > div {
+      padding: 5px;
+      border-radius: 5px;
+      border: solid 2px var(--light);
+    }
+  }
 `;
 
 export const TextArea = styled.div`
@@ -301,7 +346,7 @@ export const TextArea = styled.div`
   > textArea {
     width: inherit;
     color: var(--black);
-    background-color: #C4C4C480;
+    background-color: #c4c4c480;
     font-size: 16px;
     border: 0px;
     font-weight: bold;
@@ -334,48 +379,47 @@ export const CampanhasContainer = styled.div`
 `;
 
 export const Colaboradores = styled.div`
-    height: 100%;
-    margin-top: 10px;
+  height: 100%;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  > div {
     display: flex;
-    flex-direction: column;
-    gap: 12px;
-
+    justify-content: space-between;
+    text-align: center;
     > div {
-        display: flex;
-        justify-content: space-between;
-        text-align: center;
-        > div {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
 
-            > h3 {
-                color: var(--primary);
-            }
+      > h3 {
+        color: var(--primary);
+      }
 
-            > p {
-                font-size: .8em;
-                color: var(--gray);
-            }
-            
-            > img {
-                width: 90px;
-                height: 90px;
-                border-radius: 50%;
-            }
+      > p {
+        font-size: 0.8em;
+        color: var(--gray);
+      }
 
-            > aside {
-              position: absolute;
-              margin-left: 4%;
+      > img {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+      }
 
-              :hover {
-                cursor: pointer;
-              }
-            }
+      > aside {
+        position: absolute;
+        margin-left: 4%;
+
+        :hover {
+          cursor: pointer;
         }
+      }
     }
-
+  }
 `;
 
 export const StyledRiArrowDownSLine = styled(RiArrowDownSLine)`
@@ -427,33 +471,38 @@ export const StyledFaMapMarkerAlt = styled(FaMapMarkerAlt)`
   color: var(--light);
 `;
 
+export const StyledAiOutlinePlusCircle = styled(AiOutlinePlusCircle)`
+  width: 30px;
+  height: 30px;
+  color: var(--light);
+`;
+
 export const ContainerPerfilAnimal = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: max-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: max-content;
 
+  > aside {
+    position: absolute;
+    margin-top: -115px;
+    margin-left: 80px;
+  }
 
-    > aside {
-        position: absolute;
-        margin-top: -115px;
-        margin-left: 80px;
-    }
+  > h3 {
+    font-size: 22px;
+    color: var(--primary);
+  }
 
-    > h3 {
-        font-size: 22px;
-        color: var(--primary);
-    }
+  > p {
+    font-size: 16px;
+    color: var(--gray);
+  }
 
-    > p {
-        font-size: 16px;
-        color: var(--gray);
-    }
-
-    > img {
-        width: 110px;
-        height: 110px;
-        border-radius: 50%;
-    }
+  > img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+  }
 `;
