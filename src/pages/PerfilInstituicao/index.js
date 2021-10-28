@@ -14,12 +14,13 @@ import {
   TextArea,
   Campanhas,
   CampanhasContainer,
-  StyledMdEdit,
   ContainerPerfilAnimal,
   ContainerServiços,
   StyledAiOutlinePlusCircle,
   ApoioContainer,
   DescricaoContainer,
+  AnimaisContainer,
+  ContainerPerfilColaborador,
 } from "./styles";
 
 import ApoiarIcon from "../../assets/apoiar.svg";
@@ -97,62 +98,20 @@ function PerfilInstituicao() {
             <div className="funcionarios">
               <div>
                 <h1>Nossos colaboradores</h1>
-                <div>+ Novo Colaborador</div>
+                <div><span>+</span> Novo Colaborador</div>
               </div>
-              
               <Colaboradores>
-                <div>
-                  <div>
-                    <aside>
-                      <BotaoEditar />
-                    </aside>
-                    <img src={DefaultProfile} alt={"colaborador"} />
-                    <h3>Nome</h3>
-                    <p>Fundador</p>
-                  </div>
-                  <div>
-                    <aside>
-                      <BotaoEditar />
-                    </aside>
-                    <img src={DefaultProfile} alt={"colaborador"} />
-                    <h3>Nome</h3>
-                    <p>Diretor</p>
-                  </div>
-                  <div>
-                    <aside>
-                      <BotaoEditar />
-                    </aside>
-                    <img src={DefaultProfile} alt={"colaborador"} />
-                    <h3>nome</h3>
-                    <p>Marketing</p>
-                  </div>
-                </div>
-                <div>
-                  <div>
-                    <aside>
-                      <BotaoEditar />
-                    </aside>
-                    <img src={DefaultProfile} alt={"colaborador"} />
-                    <h3>nome</h3>
-                    <p>Fundador</p>
-                  </div>
-                  <div>
-                    <aside>
-                      <BotaoEditar />
-                    </aside>
-                    <img src={DefaultProfile} alt={"colaborador"} />
-                    <h3>nome</h3>
-                    <p>Diretor</p>
-                  </div>
-                  <div>
-                    <aside>
-                      <BotaoEditar />
-                    </aside>
-                    <img src={DefaultProfile} alt={"colaborador"} />
-                    <h3>nome</h3>
-                    <p>Marketing</p>
-                  </div>
-                </div>
+                <PerfilColaborador />
+                <PerfilColaborador />
+                <PerfilColaborador />
+                <PerfilColaborador />
+                <PerfilColaborador />
+                <PerfilColaborador />
+                <PerfilColaborador />
+                <PerfilColaborador />
+                <PerfilColaborador />
+                <PerfilColaborador />
+               
               </Colaboradores>
             </div>
           </aside>
@@ -174,9 +133,15 @@ function PerfilInstituicao() {
               <button>Salvar</button>
             </DescricaoContainer>
             <CampanhasContainer>
-              <h1>Campanhas</h1>
+              <div>
+                <h1>Campanhas</h1>
+                <div><span>+</span>Nova Camapnha</div>
+              </div>
               <div>
                 <div>
+                  <aside>
+                    <BotaoEditar />
+                  </aside>
                   <img src={DefaultBanner} alt="campanhas" />
                   <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
@@ -185,6 +150,9 @@ function PerfilInstituicao() {
                   </p>
                 </div>
                 <div>
+                  <aside>
+                    <BotaoEditar />
+                  </aside>
                   <img src={DefaultBanner} alt="campanhas" />
                   <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
@@ -194,13 +162,15 @@ function PerfilInstituicao() {
                 </div>
               </div>
             </CampanhasContainer>
-
-            <div>
-              <h1>Animais para adoção</h1>
+            <AnimaisContainer>
+              <div>
+                <h1>Animais para adoção</h1>
+                <div><span>+</span> Novo Animal</div>
+              </div>
               <div>
                 <PerfilAnimal />
               </div>
-            </div>
+            </AnimaisContainer>
           </section>
         </Section>
       </main>
@@ -219,6 +189,19 @@ function PerfilAnimal() {
       <h3>Nome do Pet</h3>
       <p>Raça</p>
     </ContainerPerfilAnimal>
+  );
+}
+
+function PerfilColaborador() {
+  return (
+    <ContainerPerfilColaborador>
+      <aside>
+        <BotaoEditar />
+      </aside>
+      <img src={DefaultProfile} alt={"colaborador"} />
+      <h3>nome</h3>
+      <p>Marketing</p>
+    </ContainerPerfilColaborador>
   );
 }
 

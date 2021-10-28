@@ -146,6 +146,12 @@ export const Profile = styled.div`
         z-index: 10;
         border-radius: 50%;
       }
+
+      @media(max-width: 1080px) {
+        h1 {
+          font-size: 1.4em;
+        }
+      }
     }
 
     > div:last-child {
@@ -157,7 +163,6 @@ export const Profile = styled.div`
 
       > .avaliacoes {
         margin-top: 7px;
-        /* margin-right: 130px; */
 
         div {
           display: flex;
@@ -175,6 +180,12 @@ export const Profile = styled.div`
         p {
           color: var(--gray);
           font-size: 1em;
+        }
+
+        @media(max-width: 1080px) {
+          p {
+            font-size: .8em;
+          }
         }
       }
 
@@ -282,11 +293,11 @@ export const Section = styled.section`
     }
 
     > .funcionarios {
-      height: 100%;
-
       > div:first-child {
         display: flex;
         flex-wrap: wrap;
+        gap: 5px;
+
         > h1 {
           color: var(--dark);
           font-weight: bold;
@@ -294,8 +305,18 @@ export const Section = styled.section`
         }
 
         > div {
+          color: var(--light);
+          padding: 5px;
+          border-radius: 4px;
           border: solid 1px var(--primary);
+          cursor: pointer;
+
+          > span {
+            font-size: 20px;
+          }
+
         }
+
       }
     }
   }
@@ -321,6 +342,36 @@ export const Section = styled.section`
 
     section {
       padding-left: 30px;
+    }
+  }
+`;
+
+export const AnimaisContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  > div:first-child {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    > h1 {
+      color: var(--dark);
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    > div {
+      color: var(--light);
+      padding: 5px;
+      border-radius: 4px;
+      border: solid 1px var(--primary);
+       cursor: pointer;
+
+      > span {
+        font-size: 20px;
+      }
     }
   }
 `;
@@ -383,13 +434,49 @@ export const CampanhasContainer = styled.div`
   flex-direction: column;
   gap: 10px;
 
-  > div {
+  > div:first-child {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    > h1 {
+      color: var(--dark);
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    > div {
+      color: var(--light);
+      padding: 5px;
+      border-radius: 4px;
+      border: solid 1px var(--primary);
+      cursor: pointer;
+
+      > span {
+        font-size: 20px;
+      }
+      }
+  }
+
+  > div:last-child {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    
+    > div {
+      display: flex;
+      flex-direction: column;
+      aside {
+        align-self: flex-end;
+        position: absolute;
+         margin-top: 10px;
+        margin-right: 10px;
+      }
+    } 
   }
 
   p {
+    width: 330px;
     font-size: 13px;
   }
 
@@ -400,47 +487,12 @@ export const CampanhasContainer = styled.div`
 `;
 
 export const Colaboradores = styled.div`
-  height: 100%;
   margin-top: 10px;
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-
-  > div {
-    display: flex;
-    justify-content: space-between;
-    text-align: center;
-    > div {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 5px;
-
-      > h3 {
-        color: var(--primary);
-      }
-
-      > p {
-        font-size: 0.8em;
-        color: var(--gray);
-      }
-
-      > img {
-        width: 90px;
-        height: 90px;
-        border-radius: 50%;
-      }
-
-      > aside {
-        position: absolute;
-        margin-left: 4%;
-
-        :hover {
-          cursor: pointer;
-        }
-      }
-    }
-  }
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding-top: 15px;
+  gap: 10px;
 `;
 
 export const StyledRiArrowDownSLine = styled(RiArrowDownSLine)`
@@ -453,6 +505,11 @@ export const StyledStart = styled(FaStar)`
   width: 30px;
   height: 30px;
   color: var(--yellow);
+
+  @media(max-width: 1080px) {
+    width: 20px;
+    height: 20px;
+  }
 `;
 
 export const StyledHeart = styled(AiFillHeart)`
@@ -526,4 +583,37 @@ export const ContainerPerfilAnimal = styled.div`
     height: 110px;
     border-radius: 50%;
   }
+`;
+
+export const ContainerPerfilColaborador = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+
+  text-align: center;
+
+  > h3 {
+    color: var(--primary);
+  }
+
+  > p {
+    font-size: 0.8em;
+    color: var(--gray);
+  }
+
+  img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+  }
+
+  > aside {
+    position: absolute;
+    margin-left: 4%;
+   :hover {
+      cursor: pointer;
+    }
+  }
+
 `;
