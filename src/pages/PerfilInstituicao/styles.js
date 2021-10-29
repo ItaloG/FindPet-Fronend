@@ -5,116 +5,11 @@ import { RiArrowDownSLine } from "react-icons/ri";
 import { MdEmail, MdPhoneIphone, MdEdit } from "react-icons/md";
 import { FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
 
-export const ContainerCenter = styled.div`
-  padding-top: 40px;
-  margin-top: 75px;
-  width: 1100px;
-  height: auto;
-  background-color: peru;
-
-  > .container-perfil-instituicao {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: auto;
-    background-color: white;
-    border-radius: 20px;
-    border: solid 1px #c9c9c9;
-
-    > .capa {
-      width: 100%;
-      height: 250px;
-      background-color: #d9d9d9;
-      border-radius: 20px 20px 0px 0px;
-
-      > img {
-        width: 100%;
-        height: 100%;
-        border-radius: 20px 20px 0px 0px;
-      }
-    }
-
-    > .container-dados {
-      width: 85%;
-      height: 800px;
-      background-color: #c5c5c5;
-
-      > .barra-de-dados {
-        display: flex;
-        justify-content: center;
-        width: 100%auto;
-        height: 80px;
-        background-color: gray;
-
-        > .box {
-          display: flex;
-          width: 25%;
-          background-color: pink;
-          align-items: center;
-        }
-
-        > .box-lg {
-          background-color: purple;
-        }
-
-        > .box-foto {
-          width: 160px;
-
-          > .foto-perfil {
-            position: absolute;
-            margin-top: -80px;
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            background-color: lightgreen;
-            border: solid 1px #c9c9c9;
-
-            > img {
-              width: 100%;
-              height: 100%;
-              border-radius: 100%;
-            }
-          }
-        }
-
-        > .box-titulo {
-          > h1 {
-            font-weight: medium;
-            font-size: 25px;
-          }
-
-          > img {
-            width: 45px;
-            height: 45px;
-          }
-        }
-
-        > .box-avaliacao {
-          > img {
-            width: 25px;
-            height: 25px;
-          }
-
-          > img.estrela-completa {
-            filter: invert(64%) sepia(97%) saturate(338%) hue-rotate(354deg)
-              brightness(102%) contrast(101%);
-          }
-
-          > img.estrela-vazia {
-          }
-        }
-      }
-    }
-  }
-`;
-
 export const Profile = styled.div`
   width: 80%;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  margin-top: 100px;
 
   > aside {
     width: 100%;
@@ -133,15 +28,16 @@ export const Profile = styled.div`
         font-weight: bold;
         font-size: 1.8em;
         font-family: "Montserrat";
+        margin-left: 10px;
       }
 
       > img {
         padding: 2px;
         border: solid 3px var(--dark);
-        margin-top: -50px;
+        margin-top: -70px;
         margin-left: 20px;
-        width: 120px;
-        height: 120px;
+        width: 140px;
+        height: 140px;
         position: relative;
         z-index: 10;
         border-radius: 50%;
@@ -259,7 +155,7 @@ export const Section = styled.section`
   width: 80%;
   grid-column: 1/3;
   margin: 0 auto;
-  margin-top: 80px;
+  margin-top: 50px;
   display: grid;
   grid-template-columns: 30% 70%;
   grid-template-rows: 50% 50%;
@@ -277,7 +173,7 @@ export const Section = styled.section`
       > h1 {
         color: var(--dark);
         font-weight: bold;
-        font-size: 20px;
+        font-size: 1.5rem;
       }
       > div {
         display: flex;
@@ -285,14 +181,17 @@ export const Section = styled.section`
         text-align: start;
         gap: 5px;
         p {
-          text-transform: uppercase;
-          font-size: 0.7em;
+          font-family: 'Montserrat';
+          font-size: 0.9rem;
           color: var(--gray);
+          margin-left: 10px;
         }
       }
     }
 
     > .funcionarios {
+      margin-top: 40px;
+
       > div:first-child {
         display: flex;
         flex-wrap: wrap;
@@ -301,7 +200,7 @@ export const Section = styled.section`
         > h1 {
           color: var(--dark);
           font-weight: bold;
-          font-size: 20px;
+          font-size: 1.5rem;
         }
 
         > div {
@@ -359,7 +258,7 @@ export const AnimaisContainer = styled.div`
     > h1 {
       color: var(--dark);
       font-weight: bold;
-      font-size: 20px;
+      font-size: 1.5rem;
     }
 
     > div {
@@ -373,6 +272,11 @@ export const AnimaisContainer = styled.div`
         font-size: 20px;
       }
     }
+  }
+
+  > div:last-child {
+    display: flex;
+    flex-wrap: wrap;
   }
 `;
 
@@ -414,6 +318,14 @@ export const DescricaoContainer = styled.div`
     resize: none;
   }
 
+  > p {
+    font-family: 'Montserrat';
+    font-style: italic;
+    color: var(--dark);
+    font-size: 16px;
+    font-weight: medium;
+  }
+
   > button {
     background-color: var(--primary);
     border: none;
@@ -442,7 +354,7 @@ export const CampanhasContainer = styled.div`
     > h1 {
       color: var(--dark);
       font-weight: bold;
-      font-size: 20px;
+      font-size: 1.5rem;
     }
 
     > div {
@@ -487,11 +399,10 @@ export const CampanhasContainer = styled.div`
 `;
 
 export const Colaboradores = styled.div`
-  margin-top: 10px;
+  margin-top: 25px;
   display: flex;
-  justify-content: space-around;
   flex-wrap: wrap;
-  padding-top: 15px;
+  justify-content: space-between;
   gap: 10px;
 `;
 
@@ -520,14 +431,14 @@ export const StyledHeart = styled(AiFillHeart)`
 `;
 
 export const StyledMdEmail = styled(MdEmail)`
-  width: 25px;
-  height: 25px;
+  width: 22px;
+  height: 22px;
   color: var(--light);
 `;
 
 export const StyledFaPhoneAlt = styled(FaPhoneAlt)`
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   color: var(--light);
 `;
 
@@ -560,7 +471,8 @@ export const ContainerPerfilAnimal = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: max-content;
+  width: 150px;
+  margin-top: 15px;
 
   > aside {
     position: absolute;
@@ -569,18 +481,18 @@ export const ContainerPerfilAnimal = styled.div`
   }
 
   > h3 {
-    font-size: 22px;
+    font-size: 1.2rem;
     color: var(--primary);
   }
 
   > p {
-    font-size: 16px;
+    font-size: 0.9rem;
     color: var(--gray);
   }
 
   > img {
-    width: 110px;
-    height: 110px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
   }
 `;
@@ -590,11 +502,14 @@ export const ContainerPerfilColaborador = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 5px;
-
   text-align: center;
+  flex-wrap: wrap;
+  max-width: 100px;
+  margin-bottom: 15px;
 
   > h3 {
     color: var(--primary);
+    font-size: 1rem;
   }
 
   > p {

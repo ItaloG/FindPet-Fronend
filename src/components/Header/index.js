@@ -7,12 +7,7 @@ import {
   MenuItem,
   BotaoPerfil,
 } from "./styles";
-import IconInicio from "../../assets/inicio_icon.svg";
-import IconPets from "../../assets/pet_icon.svg";
-import IconFavoritos from "../../assets/heart.svg";
-import IconMapa from "../../assets/mapa2.svg";
-import IconMembro from "../../assets/membro_icon.svg";
-import IconLogo from "../../assets/logo.png";
+import AppLogo from "../../assets/logo-findpet.svg";
 import DefaultProfilePhoto from "../../assets/default_profile_photo.jpg";
 import { useHistory } from "react-router";
 
@@ -23,43 +18,39 @@ function Header() {
     <HeaderBody>
       <HeaderContainer>
         <Logo>
-          <img src={IconLogo} alt="logo"/>
+          <img src={AppLogo} alt="logo"/>
         </Logo>
         <Pesquisar>
           <input placeholder="Pesquisar" />
+          <button>Buscar</button>
         </Pesquisar>
         <Menu>
           <MenuItem onClick={() => {
             history.push("/home")
           }}>
-            <img class="img-padding" src={IconInicio} alt="home"/>
-            <p>Início</p>
-            <span class="menu-item-selected"></span>
+
+            <p>feed</p>
           </MenuItem>
           <MenuItem >
-            <img class="img-padding" src={IconPets} alt="pets"/>
-            <p>Pets</p>
-            <span class="menu-item-selected"></span>
+            
+            <p>pets</p>
           </MenuItem>
           <MenuItem onClick={() => {
             history.push("/favoritos")
           }}>
-            <img src={IconFavoritos} alt="favoritos"/>
-            <p>Favoritos</p>
-            <span class="menu-item-selected"></span>
+            
+            <p>favoritos</p>
           </MenuItem>
           <MenuItem onClick={() => {
             history.push("/mapa")
           }}>
-            <img class="img-padding" src={IconMapa} alt="encontrar"/>
-            <p>Encontrar</p>
-            <span class="menu-item-selected"></span>
+            
+            <p>encontrar</p>
           </MenuItem>
           <MenuItem>
-            <img src={IconMembro} alt="seja membro"/>
-            <p class="menu-item-responsive-hidden">Seja Membro</p>
-            <p class="menu-item-responsive-show">Membros</p>
-            <span class="menu-item-selected"></span>
+            
+            <p class="menu-item-responsive-hidden">seja membro</p>
+            <p class="menu-item-responsive-show">membros</p>
           </MenuItem>
         </Menu>
         <BotaoPerfil>

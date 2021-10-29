@@ -5,6 +5,7 @@ import Favoritos from "./pages/Favoritos";
 import Feed from "./pages/Feed";
 import Login from "./pages/Login";
 import PerfilInstituicao from "./pages/PerfilInstituicao";
+import PerfilInstituicaoUsuario from "./pages/PerfilInstituicao/usuarioindex";
 // import { isSignedIn } from "./services/security";
 
 function AppRoute({ children, ...rest }) {
@@ -34,7 +35,7 @@ function Router() {
           <PerfilInstituicao />
         </AppRoute> */}
         <AppRoute path="/instituicao">
-          <PerfilInstituicao />
+          <PerfilInstituicaoUsuario />
         </AppRoute>
         <AppRoute path="/favoritos">
           <Favoritos />

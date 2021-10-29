@@ -1,63 +1,78 @@
 import styled from 'styled-components';
 
 export const HeaderBody = styled.div `
+    font-family: 'Montserrat';
     display: flex;
     justify-content: center;
     width: 100%;
-    height: 75px;
-    position: absolute;
-    top: 0;
-    z-index: 99;
-    background-color: var(--headerColor);
-    box-shadow: -1px 2px 3px #cfcdca;
+    height: 70px;
+    background-color: white;
+    /* box-shadow: -1px 2px 3px #c6c6c6; */
+    margin-bottom: 80px;
 `;
 
 export const HeaderContainer = styled.div`
     display: flex;
-    width: 1200px;
+    justify-content: space-between;
+    width: 90%;
     height: 100%;
 `;
 
 export const Logo = styled.div`
     display: flex;
     justify-content: center;
-    width: 10%;
+    width: auto;
     height: 100%;
 
     > img {
-        width: 65px;
-        height: 65px;
-        margin-top: 5px;
+        width: 180px;
+        height: auto;
     }
 `;
 
 export const Pesquisar = styled.div`
-    width: 30%;
+    display: flex;
+    align-items: center;
+    width: auto;
     height: 100%;
 
     > input {
         width: 250px;
-        font-size: 16px;
-        padding: 10px;
-        background-color: #fff3e3;
-        border: 0px;
-        box-shadow: -1px 1px 2px #c7c4c1;
+        font-size: 14px;
+        padding: 6px;
+        background-color: white;
+        border: solid 1.5px #C6C6C6;
         border-radius: 5px;
-        color: var(--logoColor);
-        font-weight: bold;
-        margin-top: 18px;
-        padding-left: 20px;
+        color: gray;
+        font-weight: medium;
+        padding-left: 15px;
+        font-family: 'Montserrat';
 
         ::placeholder {
-            color: var(--logoColor);
-            font-style: italic;
+            color: #C6C6C6;
+            font-weight: medium;
         }
+    }
+
+    > button {
+        padding: 6px;
+        padding-right: 12px;
+        padding-left: 12px;
+        font-size: 14px;
+        background-color: #C98822;
+        color: white;
+        border: solid 1.5px #C98822;
+        border-radius: 5px;
+        margin-left: 5px;
+        font-family: 'Montserrat';
+        font-weight: bold;
     }
 `;
 
 export const Menu = styled.div`
+    font-weight: bold;
     display: flex;
-    width: 50%;
+    width: auto;
     height: 100%;
 `;
 
@@ -65,50 +80,19 @@ export const MenuItem = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 20%;
+    justify-content: center;
+    width: auto;
     height: 100%;
     font-size: 16px;
     font-weight: bold;
-    color: var(--logoColor);
-
-    > img {
-        width: 40px;
-        height: 40px;
-        margin-top: 2px;
-        filter: invert(28%) sepia(63%) saturate(3490%) hue-rotate(39deg) brightness(92%) contrast(101%);
-    }
-
-    > img.img-padding {
-        padding: 3px;
-    }
-
-    > p {
-        margin-top: 4px;
-    }
-
-    > span.menu-item-selected {
-        visibility: hidden;
-        opacity: 0;
-        transition: visibility 0s, opacity 0.3s linear;
-        width: 100%;
-        height: 5px;
-        margin-top: 5px;
-        border-radius: 10px;
-        background-color: var(--primary);
-    }
+    margin-left: 20px;
+    margin-right: 20px;
+    color: #92765E;
+    font-family: 'Montserrat';
 
     :hover {
         cursor: pointer;
         color: var(--primary);
-    }
-
-    :hover > img {
-        filter: invert(53%) sepia(67%) saturate(503%) hue-rotate(358deg) brightness(93%) contrast(94%);
-    }
-
-    :hover > span.menu-item-selected {
-        visibility: visible;
-        opacity: 1;
     }
 
     /* Media Queries */
@@ -130,15 +114,15 @@ export const MenuItem = styled.div`
 export const BotaoPerfil = styled.div`
     display: flex;
     justify-content: center;
-    width: 10%;
+    align-items: center;
+    width: auto;
     height: 100%;
 
     > div {
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
         background-color: brown;
         border-radius: 50%;
-        margin-top: 12px;
 
         > img {
             width: 100%;
