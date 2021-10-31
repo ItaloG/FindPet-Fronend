@@ -8,7 +8,8 @@ export const HeaderBody = styled.div `
     height: 70px;
     background-color: white;
     /* box-shadow: -1px 2px 3px #c6c6c6; */
-    margin-bottom: 80px;
+    
+    position: absolute;
 `;
 
 export const HeaderContainer = styled.div`

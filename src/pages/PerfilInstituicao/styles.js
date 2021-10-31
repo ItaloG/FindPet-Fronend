@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { FaStar } from "react-icons/fa";
 import { AiFillHeart, AiOutlinePlusCircle } from "react-icons/ai";
 import { RiArrowDownSLine } from "react-icons/ri";
-import { MdEmail, MdPhoneIphone, MdEdit } from "react-icons/md";
+import { MdEmail, MdPhoneIphone, MdEdit, MdAddAPhoto } from "react-icons/md";
 import { FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
 
 export const Profile = styled.div`
@@ -10,6 +10,7 @@ export const Profile = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  margin-top: 90px;
 
   > aside {
     width: 100%;
@@ -29,18 +30,6 @@ export const Profile = styled.div`
         font-size: 1.8em;
         font-family: "Montserrat";
         margin-left: 10px;
-      }
-
-      > img {
-        padding: 2px;
-        border: solid 3px var(--dark);
-        margin-top: -70px;
-        margin-left: 20px;
-        width: 140px;
-        height: 140px;
-        position: relative;
-        z-index: 10;
-        border-radius: 50%;
       }
 
       @media(max-width: 1080px) {
@@ -114,40 +103,146 @@ export const Profile = styled.div`
   }
 `;
 
-export const ContainerServiços = styled.div`
+export const FotoPerfil = styled.div`
+  z-index: 8;
+  margin-top: -70px;
+  margin-left: 20px;
+  display: flex;
+  justify-content: flex-end;
+  
+  > label {
+    position: absolute;
+    margin-top: 90px;
+    padding: 11px;
+    background-color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: #000 0px 0px 3px 0px;
+  }
+
+  input {
+    display: none;
+  }
+
+  > img {
+    width: 140px;
+    height: 140px;
+    padding: 2px;
+    border: solid 3px var(--dark);
+    border-radius: 50%;
+  }
+`;
+
+export const ContainerServicos = styled.div`
   width: 100%;
   max-width: 350px;
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
-  align-items: center;
   color: var(--light);
   margin-top: 10px;
-  div {
+
+  > div { 
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    > div {
+    width: 100px;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 5px;
-    padding: 4px;
+    padding: 5px;
     border: solid var(--light) 2px;
     border-radius: 20px;
     font-size: 13px;
+    cursor: pointer;
+    
+    > span {
+      font-size: 30px;
+    }
+  }
+  }
+`;
+
+export const ContainerTodosServicos = styled.div`
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: "column";
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  margin-top: 10px;
+  
+  div {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    padding: 5px;
+    border: solid var(--light) 2px;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    
+    :hover {
+      background-color: var(--light);
+      color: #FFF;
+    }
 
     > span {
       font-size: 30px;
     }
   }
+
+  > button {
+    color: #FFF;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    align-self: center;
+    background-color: var(--light);
+    cursor: pointer;
+  }
 `;
 
+
 export const Banner = styled.div`
-  grid-column: 1/3;
   width: 100%;
   height: 100%;
-  /* background-image: url(${(props) => props.src}); */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
 
   img {
     width: 100%;
-    height: 100%;
+    height: 180px;
     border-radius: 20px 20px 0px 0px;
+  }
+
+  input {
+    display: none;
+  }
+
+  label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    position: absolute;
+    margin-bottom: 3px;
+    margin-right: 3px;
+    font-size: .8em;
+    cursor: pointer;
+    box-shadow: #000 0px 0px 3px 0px;
   }
 `;
 
@@ -381,7 +476,7 @@ export const CampanhasContainer = styled.div`
       aside {
         align-self: flex-end;
         position: absolute;
-         margin-top: 10px;
+        margin-top: 10px;
         margin-right: 10px;
       }
     } 
@@ -464,6 +559,12 @@ export const StyledAiOutlinePlusCircle = styled(AiOutlinePlusCircle)`
   width: 30px;
   height: 30px;
   color: var(--light);
+  cursor: pointer;
+`;
+
+export const StyledMdAddAPhoto = styled(MdAddAPhoto)`
+  width: 20px;
+  height: 20px;
 `;
 
 export const ContainerPerfilAnimal = styled.div`

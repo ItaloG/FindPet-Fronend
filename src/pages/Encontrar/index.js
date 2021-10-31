@@ -14,23 +14,23 @@ function Encontrar() {
                 <FlexRow>
                     <Instituicoes>
                         <ContainerFiltros>
-                            <div class="custom-select">
+                            <div className="custom-select">
                                 <select>
                                     <option value="Instituições próximas de você" selected>Instituições próximas de você</option>
                                     <option value="Escolher localização">Escolher localização</option>
                                 </select>
                             </div>
-                            <div class="endereco">
+                            <div className="endereco">
                                 <form>
                                     <input type="text" placeholder="Insira o CEP"></input>
                                     <button>OK</button>
                                 </form>
                             </div>
-                            <div class="filtro">
+                            <div className="filtro">
                                 <img src={IconeFiltro} alt="todos"/>
                                 <p>Todas as Instituições</p>
                             </div>
-                            <div class="filtro">
+                            <div className="filtro">
                                 <img src={IconeOrdenacao} alt="mais proximos"/>
                                 <p>Mais próximas primeiro</p>
                             </div>

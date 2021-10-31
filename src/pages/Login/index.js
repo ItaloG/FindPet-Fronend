@@ -13,7 +13,7 @@ import { useHistory } from "react-router";
 import { macaraCell, mascaraCep, mascaraTell } from "../../utils";
 import { api } from "../../services/api";
 import SpinnerLoading from "../../components/SpinnerLoading/indes";
-import { signIn } from "../../services/security";
+import { getUserId, signIn } from "../../services/security";
 
 function Login() {
   let history = useHistory();
@@ -224,7 +224,9 @@ function Login() {
 
       signIn(response.data);
 
-      return history.push("/home");
+      const id = getUserId();
+
+      return history.push("/instituicao/" + id);
     } catch (error) {
       console.error(error);
       alert(error.response.data.error);

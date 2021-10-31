@@ -4,7 +4,7 @@ function Card({foto, nome_instituicao, icone, distancia, banner}) {
     return (
         <CardContainer>
             <CardHeader>
-                <div class="dados-container">
+                <div className="dados-container">
                     <FotoPerfil>
                         <div>
                             <img src={foto} alt="perfil"/>
@@ -17,7 +17,7 @@ function Card({foto, nome_instituicao, icone, distancia, banner}) {
                         <img src={icone} alt="icone"/>
                     </Icone>
                 </div>
-                <div class="distancia-container">
+                <div className="distancia-container">
                     <Distancia>
                         <p>{distancia}</p>
                     </Distancia>

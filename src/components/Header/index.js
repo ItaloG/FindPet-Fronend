@@ -49,8 +49,8 @@ function Header() {
           </MenuItem>
           <MenuItem>
             
-            <p class="menu-item-responsive-hidden">seja membro</p>
-            <p class="menu-item-responsive-show">membros</p>
+            <p className="menu-item-responsive-hidden">seja membro</p>
+            <p className="menu-item-responsive-show">membros</p>
           </MenuItem>
         </Menu>
         <BotaoPerfil>
