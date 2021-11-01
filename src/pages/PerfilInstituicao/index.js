@@ -510,15 +510,15 @@ function PerfilAnimal() {
   );
 }
 
-function PerfilColaborador() {
+function PerfilColaborador({nome, cargo, handler, img}) {
   return (
     <ContainerPerfilColaborador>
       <aside>
-        <BotaoEditar />
+        <BotaoEditar onClick={handler} />
       </aside>
       <img src={DefaultProfile} alt={"colaborador"} />
-      <h3>nome</h3>
-      <p>Marketing</p>
+      <h3>{nome}</h3>
+      <p>{cargo}</p>
     </ContainerPerfilColaborador>
   );
 }
