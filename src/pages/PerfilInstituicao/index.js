@@ -22,6 +22,8 @@ import {
   StyledMdAddAPhoto,
   FotoPerfil,
   ContainerTodosServicos,
+  ContainerInfo,
+  CadsatroColaborador,
 } from "./styles";
 
 import ApoiarIcon from "../../assets/apoiar.svg";
@@ -29,21 +31,33 @@ import DefaultBanner from "../../assets/default_banner.png";
 import DefaultProfile from "../../assets/default_profile_photo.jpg";
 import Footer from "../../components/Footer";
 import BotaoEditar from "../../components/BotaoEditar";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { api } from "../../services/api";
 import Modal from "../../components/Modal";
 import { useParams } from "react-router";
+import Input from "../../components/Input";
 
 function PerfilInstituicao() {
 
   const { instituicaoId } = useParams();
   const [instituicao, setInstituicao] = useState([]);
-  const [servicos, setServicos] = useState([]);
-
-  const [servicosSel, setServicosSel] = useState([]);
-
-
   const [InstituicaoServicos, setInstituicaoServicos] = useState([]);
+  const [instituicaoEndereco, setInstituicaoEndereco] = useState([]);
+  const [instituicaoTelefones, setInstituicaoTelefones] = useState([]);
+
+  const [colaboradores, setColaboradores] = useState([]);
+  const [colaborador, setColaborador] = useState({
+    nome: "",
+    cpf: "",
+    cargo: "",
+    diaEntrada: "",
+  });
+  const [colaboradorImage, setColaboradorImage] = useState(null);
+  const imageRefColaborador = useRef();
+
+  const [servicos, setServicos] = useState([]);
+  const [servicosSel, setServicosSel] = useState([]);
+  const [cargos, setCargos] = useState([]);
 
   const [banner, setBanner] = useState("");
   const [perfil, setPerfil] = useState("");
@@ -52,15 +66,17 @@ function PerfilInstituicao() {
   const [imagePerfil, setImagePerfil] = useState(null);
 
   const [isOpenservicos, setIsOpenServicos] = useState(false);
+  const [isOpenNewColaboradores, setIsOpenNewColaboradores] = useState(false);
 
   useEffect(() => {
     const loadInstituicao = async () => {
       try {
         const response = await api.get(`/instituicoes/${instituicaoId}`);
 
-        console.log(response.data);
         setInstituicao(response.data);
-        setInstituicaoServicos(response.data.Services)
+        setInstituicaoServicos(response.data.Services);
+        setInstituicaoEndereco(response.data.AddressInstitutions);
+        setInstituicaoTelefones(response.data.TelephoneInstitutions);
         setBanner(response.data.url_foto_banner);
         setPerfil(response.data.url_foto_perfil);
 
@@ -87,6 +103,37 @@ function PerfilInstituicao() {
 
     loadServicos();
   }, []);
+
+  useEffect(() => {
+    const loadCargos = async () => {
+      try {
+
+        const response = await api.get("/cargos");
+
+        setCargos(response.data);
+      } catch (error) {
+        console.error(error);
+        alert(error.response.data.error);
+      }
+    }
+
+    loadCargos();
+  }, []);
+
+  useEffect(() => {
+    const loadColaboradores = async () => {
+      try {
+        const response = await api.get("/funcionarios");
+
+        setColaboradores(response.data);
+      } catch (error) {
+        console.error(error);
+        alert(error.response.data.error);
+      }
+    }
+
+    loadColaboradores();
+  }, [])
 
   const handleBanner = (e) => {
     setImage(e.target.files[0]);
@@ -140,9 +187,19 @@ function PerfilInstituicao() {
     }
   }, [imagePerfil]);
 
-  const handleClose = () => {
+  const handleCloseServicos = () => {
     setServicosSel([])
     setIsOpenServicos(false);
+  };
+
+  const handleCloseNewColaborador = () => {
+    setColaborador({
+      nome: "",
+      cpf: "",
+      cargo: "",
+      diaEntrada: "",
+    })
+    setIsOpenNewColaboradores(false);
   };
 
   const handleServicoSel = (e) => {
@@ -164,8 +221,66 @@ function PerfilInstituicao() {
     }
   }
 
-  console.log(InstituicaoServicos);
-  console.log(servicosSel);
+  const handleInputColaborador = (e) => {
+    setColaborador({ ...colaborador, [e.target.id]: e.target.value });
+  }
+
+  const handleImageColaborador = (e) => {
+    if (e.target.files[0]) {
+      imageRefColaborador.current.src = URL.createObjectURL(e.target.files[0]);
+      imageRefColaborador.current.style.display = "flex";
+    } else {
+      imageRefColaborador.current.src = "";
+      imageRefColaborador.current.style.display = "none";
+    }
+
+    setColaboradorImage(e.target.files[0]);
+  }
+
+  const handleSubmitColaborador = async () => {
+
+    try {
+      const {
+        nome,
+        cargo,
+        cpf,
+        diaEntrada
+      } = colaborador;
+
+      if (cargo === 0) {
+        return alert("escolha um cargo");
+      }
+
+      if (
+        !nome ||
+        !cpf ||
+        !diaEntrada
+      ) {
+        return alert("faltam alguns dados");
+      }
+
+      let data = new FormData();
+
+      data.append("cpf", cpf);
+      data.append("nome", nome);
+      data.append("cargo", cargo);
+      data.append("diaEntrada", diaEntrada);
+      data.append("image", colaboradorImage);
+
+      await api.post("/funcionarios", data, {
+        headers: {
+          "content-type": "multipart/form-data"
+        }
+      });
+
+
+    } catch (error) {
+      console.error(error);
+      alert(error.response.data.error);
+    } 
+  }
+
+  console.log(colaboradores);
 
   return (
     <>
@@ -178,53 +293,55 @@ function PerfilInstituicao() {
               <input type="file" name="banner" id="banner" accept="image/*" onChange={handleBanner} />
             </Banner>
             <aside>
-              <div>
-                <FotoPerfil>
-                  <img src={instituicao.url_foto_perfil ? perfil : DefaultProfile} alt="profile" />
-                  <label htmlFor="profile"><StyledMdAddAPhoto /></label>
-                  <input type="file" name="profile" id="profile" accept="image/*" onChange={handlePerfil} />
-                </FotoPerfil>
+              <ContainerInfo>
                 <div>
-                  <h1>Instituto Luísa Mell</h1>
-                  <ContainerServicos>
-                    {InstituicaoServicos.length === 0 ?
-                      (<p>Adicione serviços para as pessoas saberem o que vc faz</p>)
-                      :
-                      <div>
-                        {InstituicaoServicos.map((is) => (
-                          <Servico id={is.id} servico={is.servico} />
-                        ))}
-                      </div>
-                    }
+                  <FotoPerfil>
+                    <img src={instituicao.url_foto_perfil ? perfil : DefaultProfile} alt="profile" />
+                    <label htmlFor="profile"><StyledMdAddAPhoto /></label>
+                    <input type="file" name="profile" id="profile" accept="image/*" onChange={handlePerfil} />
+                  </FotoPerfil>
+                  <div>
+                    <h1>{instituicao.nome}</h1>
+                  </div>
+                  <StyledHeart style={{ display: "none" }} />
+                </div>
+                <div>
+                  <div className="avaliacoes">
+                    <div>
+                      <StyledStart />
+                      <StyledStart />
+                      <StyledStart />
+                      <StyledStart />
+                      <StyledStart />
+                      <span>4.8</span>
+                    </div>
+                    <div>
+                      <p>Suas avaliações (1.448)</p>
+                    </div>
+                  </div>
+                  <div style={{ display: "none" }}>
+                    <img src={ApoiarIcon} alt="apoio" />
+                    <div>
+                      Apoiar <StyledRiArrowDownSLine />
+                    </div>
+                  </div>
+                </div>
+              </ContainerInfo>
+              <ContainerServicos>
+                {InstituicaoServicos.length === 0 ?
+                  (<p>Adicione serviços para as pessoas saberem o que vc faz</p>)
+                  :
+                  <div>
+                    {InstituicaoServicos.map((is) => (
+                      <Servico id={is.id} servico={is} />
+                    ))}
+                  </div>
+                }
 
-                    <StyledAiOutlinePlusCircle onClick={() => {
-                      setIsOpenServicos(true);
-                    }} />
-                  </ContainerServicos>
-                </div>
-                <StyledHeart style={{ display: "none" }} />
-              </div>
-              <div>
-                <div className="avaliacoes">
-                  <div>
-                    <StyledStart />
-                    <StyledStart />
-                    <StyledStart />
-                    <StyledStart />
-                    <StyledStart />
-                    <span>4.8</span>
-                  </div>
-                  <div>
-                    <p>Suas avaliações (1.448)</p>
-                  </div>
-                </div>
-                <div style={{ display: "none" }}>
-                  <img src={ApoiarIcon} alt="apoio" />
-                  <div>
-                    Apoiar <StyledRiArrowDownSLine />
-                  </div>
-                </div>
-              </div>
+                <StyledAiOutlinePlusCircle onClick={() => {
+                  setIsOpenServicos(true);
+                }} />
+              </ContainerServicos>
             </aside>
           </Profile>
           <Section>
@@ -233,38 +350,33 @@ function PerfilInstituicao() {
                 <h1>Contato</h1>
                 <div>
                   <StyledMdEmail />
-                  <p>contato@instituitoluisamell.com</p>
+                  <p>{instituicao.email}</p>
                 </div>
                 <div>
                   <StyledFaMapMarkerAlt />
-                  <p>Rua Etc e Tal, nº2365 - 06631-000 SP</p>
+                  <p>{instituicaoEndereco.length > 0 ? `${instituicaoEndereco[0].logradouro}, nº${instituicaoEndereco[0].numero} - ${instituicaoEndereco[0].Cep.cep}` : ""}</p>
                 </div>
-                <div>
-                  <StyledFaPhoneAlt />
-                  <p>4707-0000</p>
-                </div>
-                <div>
-                  <StyledMdPhoneIphone />
-                  <p>(11) 98265-0000</p>
-                </div>
+                {instituicaoTelefones.map((t) => (
+                  <div>
+                    {t.numero.length == 9 ? (<StyledFaPhoneAlt />) : (<StyledMdPhoneIphone />)}
+                    <p>{t.numero}</p>
+                  </div>
+                ))}
               </div>
               <div className="funcionarios">
-                <div>
+                <div onClick={() => setIsOpenNewColaboradores(true)}>
                   <h1>Nossos colaboradores</h1>
                   <div><span>+</span> Novo Colaborador</div>
                 </div>
                 <Colaboradores>
-                  <PerfilColaborador />
-                  <PerfilColaborador />
-                  <PerfilColaborador />
-                  <PerfilColaborador />
-                  <PerfilColaborador />
-                  <PerfilColaborador />
-                  <PerfilColaborador />
-                  <PerfilColaborador />
-                  <PerfilColaborador />
-                  <PerfilColaborador />
-
+                  {colaboradores.length === 0 ? (<p>Adicione novos colaboradores</p>) :
+                    (<div>
+                      {
+                        colaboradores.map((c) => (
+                          <PerfilColaborador />
+                        ))
+                      }
+                    </div>)}
                 </Colaboradores>
               </div>
             </aside>
@@ -326,22 +438,59 @@ function PerfilInstituicao() {
               </AnimaisContainer>
             </section>
           </Section>
-          {isOpenservicos && (
-            <Modal title="serviços" handleClose={handleClose}>
-              <ContainerTodosServicos>
-
-                {servicos.map((s) => (
-                  <Servico
-                    handler={handleServicoSel}
-                    servicosSel={servicosSel}
-                    id={s.id}
-                    servico={s.servico} />
-                ))}
-                <button onClick={handleSubmitServicos}>Salvar</button>
-              </ContainerTodosServicos>
-            </Modal>
-          )}
         </main>
+        {isOpenservicos && (
+          <Modal title="serviços" handleClose={handleCloseServicos}>
+            <ContainerTodosServicos>
+
+              {servicos.map((s) => (
+                <ServicoOption
+                  key={s.id}
+                  handler={handleServicoSel}
+                  servicosSel={servicosSel}
+                  id={s.id}
+                  servico={s} />
+              ))}
+              <button className="limpar" onClick={() => { setServicosSel([]) }}>Limpar</button>
+              <button onClick={handleSubmitServicos}>Salvar</button>
+            </ContainerTodosServicos>
+          </Modal>
+        )}
+
+        {isOpenNewColaboradores && (
+          <Modal style={{ height: "1460px" }} title="Novo colaborador" handleClose={handleCloseNewColaborador}>
+            <CadsatroColaborador onSubmit={handleSubmitColaborador}>
+              <Input
+                id="nome"
+                placeholder="Nome do colaborador"
+                value={colaborador.nome}
+                handler={handleInputColaborador}
+              />
+              <Input
+                id="cpf"
+                placeholder="CPF do colaborador"
+                value={colaborador.cpf}
+                handler={handleInputColaborador}
+              />
+              <select id="cargo" onChange={handleInputColaborador}>
+                <option value={0}>Selecione um cargo</option>
+                {cargos.map((c) => (
+                  <option key={c.id} value={c.id}>{c.cargo}</option>
+                ))}
+              </select>
+              <Input
+                id="diaEntrada"
+                type="date"
+                label="dia de entrada"
+                value={colaborador.diaEntrada}
+                handler={handleInputColaborador}
+              />
+              <input accept="image/*" type="file" className="inputColaborador" onChange={handleImageColaborador} />
+              <img alt="pre-visualizaão" ref={imageRefColaborador} />
+              <button>Cadastrar</button>
+            </CadsatroColaborador>
+          </Modal>
+        )}
         <Footer />
       </Container>
     </>
@@ -374,26 +523,36 @@ function PerfilColaborador() {
   );
 }
 
-function Servico({ servico, handleDeleteServico, handler, id, servicosSel }) {
+function ServicoOption({ servico, id, servicosSel, handler }) {
+  let idFound = false;
+  let servicosChecked = servicosSel;
 
-  let idFound = false
+  if (!servicosSel) {
+    servicosChecked = []
+  }
 
-  // servicosSel.map((s) => {
-  //   if (parseInt(s) === id) {
-  //     idFound = true;
-  //   }
-  // })
-
+  servicosChecked.map((s) => {
+    if (parseInt(s) === id) {
+      idFound = true;
+    }
+  })
 
   return (
     <div
       id={id}
       onClick={handler}
       style={idFound ? { backgroundColor: "#CCA583", color: "#FFF" } : {}}>
-      {servico}
-      {handleDeleteServico ?
-        (<span>&times;</span>) :
-        ""}
+      {servico.servico}
+    </div>
+  );
+}
+
+function Servico({ servico, handleDeleteServico, id }) {
+
+  return (
+    <div id={id}>
+      {servico.servico}
+      <span onClick={handleDeleteServico}>&times;</span>
     </div>
   );
 }

@@ -14,93 +14,96 @@ export const Profile = styled.div`
 
   > aside {
     width: 100%;
-    display: flex;
-    gap: 5px;
-    justify-content: space-between;
+    gap: 5px;    
+  }
+`;
 
-    > div {
-      width: 70%;
+export const ContainerInfo = styled.div`
+
       display: flex;
-      gap: 7px;
+      > div {
+        width: 70%;
+        display: flex;
+        gap: 7px;
 
-      h1 {
-        margin-top: 7px;
-        color: var(--dark);
-        font-weight: bold;
-        font-size: 1.8em;
-        font-family: "Montserrat";
-        margin-left: 10px;
-      }
-
-      @media(max-width: 1080px) {
         h1 {
-          font-size: 1.4em;
-        }
-      }
-    }
-
-    > div:last-child {
-      width: 30%;
-      display: flex;
-      gap: 20px;
-      justify-content: flex-end;
-      flex-wrap: wrap;
-
-      > .avaliacoes {
-        margin-top: 7px;
-
-        div {
-          display: flex;
-          align-items: flex-end;
-          justify-content: flex-end;
-        }
-
-        span {
-          margin-left: 5px;
-          font-size: 1.2em;
-          font-weight: bold;
+          margin-top: 7px;
           color: var(--dark);
-        }
-
-        p {
-          color: var(--gray);
-          font-size: 1em;
+          font-weight: bold;
+          font-size: 1.8em;
+          font-family: "Montserrat";
+          margin-left: 10px;
         }
 
         @media(max-width: 1080px) {
-          p {
-            font-size: .8em;
+          h1 {
+            font-size: 1.4em;
           }
         }
       }
 
       > div:last-child {
-        margin-top: 7px;
-        margin-right: 20px;
+        width: 30%;
         display: flex;
-        align-items: center;
-        gap: 10px;
+        gap: 20px;
+        justify-content: flex-end;
+        flex-wrap: wrap;
 
-        > img {
-          width: 30px;
-          height: 30px;
+        > .avaliacoes {
+          margin-top: 7px;
+
+          div {
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+          }
+
+          span {
+            margin-left: 5px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: var(--dark);
+          }
+
+          p {
+            color: var(--gray);
+            font-size: 1em;
+          }
+
+          @media(max-width: 1080px) {
+            p {
+              font-size: .8em;
+            }
+          }
         }
 
-        > div {
+        > div:last-child {
+          margin-top: 7px;
+          margin-right: 20px;
           display: flex;
-          justify-content: center;
-          gap: 5px;
-          /* width: 90px; */
-          /* height: 30px; */
-          padding: 8px;
-          text-align: center;
-          color: #fff;
-          background-color: var(--green);
-          border-radius: 5px;
+          align-items: center;
+          gap: 10px;
+
+          > img {
+            width: 30px;
+            height: 30px;
+          }
+
+          > div {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            /* width: 90px; */
+            /* height: 30px; */
+            padding: 8px;
+            text-align: center;
+            color: #fff;
+            background-color: var(--green);
+            border-radius: 5px;
+          }
         }
       }
-    }
-  }
+  
 `;
 
 export const FotoPerfil = styled.div`
@@ -135,31 +138,34 @@ export const FotoPerfil = styled.div`
 
 export const ContainerServicos = styled.div`
   width: 100%;
-  max-width: 350px;
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+  align-items: center;
   color: var(--light);
   margin-top: 10px;
+  gap: 5px;
 
   > div { 
     display: flex;
-    gap: 10px;
     flex-wrap: wrap;
+    gap: 5px;
+    
     > div {
     width: 100px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 5px;
-    padding: 5px;
+    justify-content: space-around;
+    
     border: solid var(--light) 2px;
     border-radius: 20px;
-    font-size: 13px;
-    cursor: pointer;
+    
+    padding: 5px;
+    font-size: .7em;
+    text-align: center;
+    user-select: none;
     
     > span {
-      font-size: 30px;
+      cursor: pointer;
+      font-size: 20px;
     }
   }
   }
@@ -169,7 +175,6 @@ export const ContainerTodosServicos = styled.div`
   width: 100%;
   max-width: 350px;
   display: flex;
-  flex-direction: "column";
   gap: 10px;
   flex-wrap: wrap;
   justify-content: flex-end;
@@ -198,15 +203,38 @@ export const ContainerTodosServicos = styled.div`
     }
   }
 
-  > button {
+  .limpar {
     color: #FFF;
-    font-weight: bold;
     padding: 10px;
     border: none;
     border-radius: 5px;
     align-self: center;
-    background-color: var(--light);
+    color: #FFF;
     cursor: pointer;
+    background-color: var(--dark);
+
+    :hover {
+      border:solid var(--dark) 1px;
+      background-color: #fff; 
+      color: var(--dark);
+      padding: 9px;
+    }
+  }
+
+  > button:last-child {
+    color: #FFF;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    align-self: center;
+    background-color: var(--secondary);
+    cursor: pointer;
+    :hover {
+      border:solid var(--secondary) 1px;
+      background-color: #fff; 
+      color: var(--secondary);
+      padding: 9px;
+    }
   }
 `;
 
@@ -291,6 +319,7 @@ export const Section = styled.section`
         display: flex;
         flex-wrap: wrap;
         gap: 5px;
+        cursor: pointer;
 
         > h1 {
           color: var(--dark);
@@ -495,10 +524,12 @@ export const CampanhasContainer = styled.div`
 
 export const Colaboradores = styled.div`
   margin-top: 25px;
+> div {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 10px;
+}
 `;
 
 export const StyledRiArrowDownSLine = styled(RiArrowDownSLine)`
@@ -527,6 +558,7 @@ export const StyledHeart = styled(AiFillHeart)`
 
 export const StyledMdEmail = styled(MdEmail)`
   width: 22px;
+  min-width: 22px;
   height: 22px;
   color: var(--light);
 `;
@@ -632,4 +664,44 @@ export const ContainerPerfilColaborador = styled.div`
     }
   }
 
+`;
+
+export const CadsatroColaborador = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  gap: 10px;
+  input, select {
+      padding: 10px;
+      width: 100%;
+      border-radius: 5px;
+      border:solid #C4C4C4  1px;
+      font-size: .9em;
+    }
+
+    label {
+      font-size: .8em;
+    }
+
+    > img {
+    align-self: center;
+    max-width: 40%;
+    display: none;
+  }
+
+  button {
+    width: 75%;
+    height: 15%;
+    margin-top: 15px;
+    background-color: #FFB853;
+    padding: 10px;
+	  border: none;
+	  border-radius: 10px;
+
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.2em;
+    cursor: pointer;
+  }
 `;
