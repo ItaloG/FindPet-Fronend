@@ -7,7 +7,7 @@ export const GlobalStyles = createGlobalStyle`
         --logoColor: #935B00;
         --headerColor: #F6E4CB;
         --backgroundColor: #F3F3F3;
-        --gray: #B9B9B9;
+        --gray: #5c5a5a;
         --dark: #654D41;
         --acent: #C98822;
         --pink: #D37171;

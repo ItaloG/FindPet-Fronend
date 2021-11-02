@@ -67,6 +67,8 @@ function PerfilInstituicao() {
 
   const [isOpenservicos, setIsOpenServicos] = useState(false);
   const [isOpenNewColaboradores, setIsOpenNewColaboradores] = useState(false);
+  const [isEditandoColaborador, setIsEditandoColaborador] = useState(false);
+  const [deleteColaborador, setDeleteColaborador] = useState(false);
 
   useEffect(() => {
     const loadInstituicao = async () => {
@@ -200,6 +202,7 @@ function PerfilInstituicao() {
       diaEntrada: "",
     })
     setIsOpenNewColaboradores(false);
+    setIsEditandoColaborador(false);
   };
 
   const handleServicoSel = (e) => {
@@ -207,7 +210,6 @@ function PerfilInstituicao() {
   }
 
   const handleSubmitServicos = async () => {
-    console.log("toaqui");
     try {
       const response = await api.post("/servicos", { servicos: servicosSel });
 
@@ -277,10 +279,81 @@ function PerfilInstituicao() {
     } catch (error) {
       console.error(error);
       alert(error.response.data.error);
-    } 
+    }
   }
 
-  console.log(colaboradores);
+  const handleColaboradorEditado = async (e) => {
+
+    if (deleteColaborador) {
+      try {
+        return await api.delete(`/funcionarios/${colaborador.id}`);
+      } catch (error) {
+        console.error(error);
+      alert(error.response.data.error);
+      }
+    }
+
+    try {
+      const {
+        id,
+        nome,
+        cargo,
+        cpf,
+        diaEntrada
+      } = colaborador;
+
+      if (cargo === 0) {
+        return alert("escolha um cargo");
+      }
+
+      if (
+        !id ||
+        !nome ||
+        !cpf ||
+        !diaEntrada
+      ) {
+        return alert("faltam alguns dados");
+      }
+
+      let data = new FormData();
+
+      data.append("cpf", cpf);
+      data.append("nome", nome);
+      data.append("cargo", cargo);
+      data.append("diaEntrada", diaEntrada);
+      data.append("image", colaboradorImage);
+
+      await api.put(`/funcionarios/${colaborador.id}`, data, {
+        headers: {
+          "content-type": "multipart/form-data"
+        }
+      });
+    } catch (error) {
+      console.error(error);
+      alert(error.response.data.error);
+    }
+  }
+
+  const handleEditarColaborador = async (id) => {
+    setIsOpenNewColaboradores(true);
+    setIsEditandoColaborador(true);
+
+    try {
+      const response = await api.get(`/funcionarios/${id}`);
+
+      setColaborador({
+        id: response.data.id,
+        nome: response.data.nome,
+        cpf: response.data.cpf,
+        cargo: response.data.Position.id,
+        diaEntrada: response.data.dia_entrada,
+      });
+
+    } catch (error) {
+      console.error(error);
+      alert(error.response.data.error);
+    }
+  }
 
   return (
     <>
@@ -373,7 +446,7 @@ function PerfilInstituicao() {
                     (<div>
                       {
                         colaboradores.map((c) => (
-                          <PerfilColaborador />
+                          <PerfilColaborador id={c.id} handler={handleEditarColaborador} nome={c.nome} img={c.url_foto_perfil} cargo={c.Position.cargo} />
                         ))
                       }
                     </div>)}
@@ -452,14 +525,14 @@ function PerfilInstituicao() {
                   servico={s} />
               ))}
               <button className="limpar" onClick={() => { setServicosSel([]) }}>Limpar</button>
-              <button onClick={handleSubmitServicos}>Salvar</button>
+              <button type="submit" onClick={handleSubmitServicos}>Salvar</button>
             </ContainerTodosServicos>
           </Modal>
         )}
 
         {isOpenNewColaboradores && (
-          <Modal style={{ height: "1460px" }} title="Novo colaborador" handleClose={handleCloseNewColaborador}>
-            <CadsatroColaborador onSubmit={handleSubmitColaborador}>
+          <Modal style={{ height: "1460px" }} title={isEditandoColaborador ? "Editar" : "Novo Colaborador"} handleClose={handleCloseNewColaborador}>
+            <CadsatroColaborador onSubmit={isEditandoColaborador ? handleColaboradorEditado : handleSubmitColaborador}>
               <Input
                 id="nome"
                 placeholder="Nome do colaborador"
@@ -472,7 +545,7 @@ function PerfilInstituicao() {
                 value={colaborador.cpf}
                 handler={handleInputColaborador}
               />
-              <select id="cargo" onChange={handleInputColaborador}>
+              <select id="cargo" value={colaborador.cargo} onChange={handleInputColaborador}>
                 <option value={0}>Selecione um cargo</option>
                 {cargos.map((c) => (
                   <option key={c.id} value={c.id}>{c.cargo}</option>
@@ -487,7 +560,8 @@ function PerfilInstituicao() {
               />
               <input accept="image/*" type="file" className="inputColaborador" onChange={handleImageColaborador} />
               <img alt="pre-visualizaão" ref={imageRefColaborador} />
-              <button>Cadastrar</button>
+              <button >{isEditandoColaborador ? "Editar" : "Cadastrar"}</button>
+              <button onClick={() => setDeleteColaborador(true)} style={isEditandoColaborador ? { display: "block", backgroundColor: "var(--dark)" } : { display: "none" }}>Excluir</button>
             </CadsatroColaborador>
           </Modal>
         )}
@@ -510,13 +584,13 @@ function PerfilAnimal() {
   );
 }
 
-function PerfilColaborador({nome, cargo, handler, img}) {
+function PerfilColaborador({ id, nome, cargo, handler, img }) {
   return (
     <ContainerPerfilColaborador>
-      <aside>
-        <BotaoEditar onClick={handler} />
+      <aside onClick={() => handler(id)}>
+        <BotaoEditar />
       </aside>
-      <img src={DefaultProfile} alt={"colaborador"} />
+      <img src={img ? img : DefaultProfile} alt={"colaborador"} />
       <h3>{nome}</h3>
       <p>{cargo}</p>
     </ContainerPerfilColaborador>
