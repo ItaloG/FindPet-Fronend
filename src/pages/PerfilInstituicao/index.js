@@ -24,6 +24,7 @@ import {
   ContainerTodosServicos,
   ContainerInfo,
   CadsatroColaborador,
+  CadastroCampanha,
 } from "./styles";
 
 import ApoiarIcon from "../../assets/apoiar.svg";
@@ -69,6 +70,7 @@ function PerfilInstituicao() {
   const [isOpenNewColaboradores, setIsOpenNewColaboradores] = useState(false);
   const [isEditandoColaborador, setIsEditandoColaborador] = useState(false);
   const [deleteColaborador, setDeleteColaborador] = useState(false);
+  const [isOpenNewCampanha, setIsOpenNewCampanha] = useState(false);
 
   useEffect(() => {
     const loadInstituicao = async () => {
@@ -122,6 +124,9 @@ function PerfilInstituicao() {
     loadCargos();
   }, []);
 
+
+
+  //carrega os dados
   useEffect(() => {
     const loadColaboradores = async () => {
       try {
@@ -205,6 +210,10 @@ function PerfilInstituicao() {
     setIsEditandoColaborador(false);
   };
 
+  const handleCloseNewCampanha = () => {
+    setIsOpenNewCampanha(false);
+  }
+
   const handleServicoSel = (e) => {
     setServicosSel([...servicosSel, e.target.id])
   }
@@ -239,6 +248,8 @@ function PerfilInstituicao() {
     setColaboradorImage(e.target.files[0]);
   }
 
+
+  // create
   const handleSubmitColaborador = async () => {
 
     try {
@@ -282,6 +293,9 @@ function PerfilInstituicao() {
     }
   }
 
+
+
+  // edit (put)
   const handleColaboradorEditado = async (e) => {
 
     if (deleteColaborador) {
@@ -334,6 +348,9 @@ function PerfilInstituicao() {
     }
   }
 
+
+
+  //edit (get)
   const handleEditarColaborador = async (id) => {
     setIsOpenNewColaboradores(true);
     setIsEditandoColaborador(true);
@@ -473,7 +490,7 @@ function PerfilInstituicao() {
               <CampanhasContainer>
                 <div>
                   <h1>Campanhas</h1>
-                  <div><span>+</span>Nova Camapnha</div>
+                  <div onClick={() => {setIsOpenNewCampanha(true);}}><span>+</span>Nova Camapnha</div>
                 </div>
                 <div>
                   <div>
@@ -530,6 +547,30 @@ function PerfilInstituicao() {
           </Modal>
         )}
 
+        {isOpenNewCampanha && (
+          <Modal title={"Nova Campanha"} handleClose={handleCloseNewCampanha}>
+            <CadastroCampanha>
+              <Input id="titulo" placeholder="Título da campanha"/>
+              <textarea id="descricao" placeholder="Descrição" maxLength={150}/>
+              <Input id="" label="Local:" placeholder="CEP" type="text"/>
+              <Input id="" placeholder="Logradouro" type="text"/>
+              <Input id="" placeholder="Número" type="text"/>
+              <Input id="" placeholder="Complemento" type="text"/>
+              <div className="flex-row">
+                  <Input className="" id="" label="Horário de início:" type="time" />
+                  <Input className="" id="" label="Horário de fim:" type="time" />
+              </div>
+              <div className="flex-row">
+                  <Input className="" id="" label="Data de início:" type="date" />
+                  <Input className="" id="" label="Data de fim:" type="date" />
+              </div>
+              
+              <Input id="banner" label="Banner" type="file" />
+              <button>Enviar</button>
+            </CadastroCampanha>
+          </Modal>
+        )}
+
         {isOpenNewColaboradores && (
           <Modal style={{ height: "1460px" }} title={isEditandoColaborador ? "Editar" : "Novo Colaborador"} handleClose={handleCloseNewColaborador}>
             <CadsatroColaborador onSubmit={isEditandoColaborador ? handleColaboradorEditado : handleSubmitColaborador}>
@@ -565,6 +606,7 @@ function PerfilInstituicao() {
             </CadsatroColaborador>
           </Modal>
         )}
+
         <Footer />
       </Container>
     </>

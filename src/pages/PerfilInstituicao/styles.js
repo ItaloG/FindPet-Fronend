@@ -705,3 +705,46 @@ export const CadsatroColaborador = styled.form`
     cursor: pointer;
   }
 `;
+
+export const CadastroCampanha = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  gap: 10px;
+
+  input, textarea {
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border:solid #C4C4C4  1px;
+    font-size: .9em;
+  }
+
+  textarea {
+    min-height: 130px;
+    max-height: 130px;
+    overflow-y: auto;
+    resize: none;
+  }
+
+  label {
+    font-size: .9em;
+  }
+
+  button {
+    padding: 3px 10px;
+  }
+
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    max-width: 404px;
+
+    input {
+      max-width: 197px;
+    }
+  }
+`;
