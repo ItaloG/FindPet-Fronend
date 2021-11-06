@@ -491,45 +491,52 @@ export const CampanhasContainer = styled.div`
       > span {
         font-size: 20px;
       }
-      }
+    }
   }
 
-  > div:last-child {
+
+    
+`;
+
+export const Campanhas = styled.div`
+  display: flex;
+  flex-direction: column;
+  
+  > div {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    
     > div {
       display: flex;
       flex-direction: column;
-      aside {
+      > aside {
         align-self: flex-end;
         position: absolute;
         margin-top: 10px;
         margin-right: 10px;
       }
-    } 
+    }
   }
 
   p {
-    width: 330px;
-    font-size: 13px;
+  width: 330px;
+  font-size: 13px;
   }
 
   img {
-    width: 100%;
-    height: 200px;
+  width: 100%;
+  height: 200px;
   }
 `;
 
 export const Colaboradores = styled.div`
   margin-top: 25px;
-> div {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 10px;
-}
+  > div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+  }
 `;
 
 export const StyledRiArrowDownSLine = styled(RiArrowDownSLine)`
@@ -685,10 +692,10 @@ export const CadsatroColaborador = styled.form`
     }
 
     > img {
-    align-self: center;
-    max-width: 40%;
-    display: none;
-  }
+      align-self: center;
+      max-width: 40%;
+      display: none;
+    }
 
   button {
     width: 75%;
@@ -713,6 +720,7 @@ export const CadastroCampanha = styled.form`
   justify-content: center;
   margin-top: 10px;
   gap: 10px;
+  max-width: 500px;
 
   input, textarea {
     padding: 10px;
@@ -720,6 +728,12 @@ export const CadastroCampanha = styled.form`
     border-radius: 5px;
     border:solid #C4C4C4  1px;
     font-size: .9em;
+  }
+
+  > img {
+    align-self: center;
+    max-width: 50%;
+    display: none;
   }
 
   textarea {
@@ -734,17 +748,28 @@ export const CadastroCampanha = styled.form`
   }
 
   button {
-    padding: 3px 10px;
+    width: 75%;
+    height: 15%;
+    margin-top: 15px;
+    background-color: #FFB853;
+    padding: 10px;
+	  border: none;
+	  border-radius: 10px;
+
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.2em;
+    cursor: pointer;
   }
 
   .flex-row {
+    width: 100%;
     display: flex;
     flex-direction: row;
     gap: 10px;
-    max-width: 404px;
 
     input {
-      max-width: 197px;
+      max-width: 100%;
     }
   }
 `;

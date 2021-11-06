@@ -23,6 +23,19 @@ export const GlobalStyles = createGlobalStyle`
         box-sizing: border-box;
         
     }
+
+    ::-webkit-scrollbar-track {
+        background-color: #FFF;
+    }
+    ::-webkit-scrollbar {
+        width: 4px;
+        background: var(--primary);
+    }
+    ::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background:  var(--primary);
+    }
+
     body {
         background-color: #FFFFFF;
         /* background-color: #ECECEC; */

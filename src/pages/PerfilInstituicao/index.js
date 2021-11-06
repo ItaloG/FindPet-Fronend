@@ -25,6 +25,7 @@ import {
   ContainerInfo,
   CadsatroColaborador,
   CadastroCampanha,
+  Campanhas,
 } from "./styles";
 
 import ApoiarIcon from "../../assets/apoiar.svg";
@@ -37,6 +38,7 @@ import { api } from "../../services/api";
 import Modal from "../../components/Modal";
 import { useParams } from "react-router";
 import Input from "../../components/Input";
+import { mascaraCep } from "../../utils";
 
 function PerfilInstituicao() {
 
@@ -55,6 +57,23 @@ function PerfilInstituicao() {
   });
   const [colaboradorImage, setColaboradorImage] = useState(null);
   const imageRefColaborador = useRef();
+
+  const [campanhas, setCampanhas] = useState([]);
+  const [campanha, setCampanha] = useState({
+    titulo: "",
+    descricao: "",
+    cep: "",
+    cidade: "",
+    logradouro: "",
+    numero: "",
+    complemento: "",
+    hora_inicio: "",
+    hora_fim: "",
+    data_inicio: "",
+    data_fim: "",
+  });
+  const [campanhaImage, setCampanhaImage] = useState(null);
+  const imageRefCampanha = useRef();
 
   const [servicos, setServicos] = useState([]);
   const [servicosSel, setServicosSel] = useState([]);
@@ -124,7 +143,20 @@ function PerfilInstituicao() {
     loadCargos();
   }, []);
 
+  useEffect(() => {
+    const loadCampanhas = async () => {
+      try {
+        const response = await api.get("/campanhas");
 
+        setCampanhas(response.data);
+      } catch (error) {
+        console.error(error);
+        alert(error.response.data.error);
+      }
+    }
+
+    loadCampanhas();
+  }, [])
 
   //carrega os dados
   useEffect(() => {
@@ -140,7 +172,7 @@ function PerfilInstituicao() {
     }
 
     loadColaboradores();
-  }, [])
+  }, []);
 
   const handleBanner = (e) => {
     setImage(e.target.files[0]);
@@ -211,6 +243,19 @@ function PerfilInstituicao() {
   };
 
   const handleCloseNewCampanha = () => {
+    setCampanha({
+      titulo: "",
+      descricao: "",
+      cep: "",
+      cidade: "",
+      logradouro: "",
+      numero: "",
+      complemento: "",
+      hora_inicio: "",
+      hora_fim: "",
+      data_inicio: "",
+      data_fim: "",
+    })
     setIsOpenNewCampanha(false);
   }
 
@@ -267,7 +312,8 @@ function PerfilInstituicao() {
       if (
         !nome ||
         !cpf ||
-        !diaEntrada
+        !diaEntrada ||
+        !colaboradorImage
       ) {
         return alert("faltam alguns dados");
       }
@@ -303,7 +349,7 @@ function PerfilInstituicao() {
         return await api.delete(`/funcionarios/${colaborador.id}`);
       } catch (error) {
         console.error(error);
-      alert(error.response.data.error);
+        alert(error.response.data.error);
       }
     }
 
@@ -370,6 +416,116 @@ function PerfilInstituicao() {
       console.error(error);
       alert(error.response.data.error);
     }
+  }
+
+  const handleInputCampanha = (e) => {
+    setCampanha({ ...campanha, [e.target.id]: e.target.value });
+  }
+
+  const handleInputCepCampanha = (e) => {
+    let cep = e.target.value;
+    cep = mascaraCep(cep);
+    setCampanha({ ...campanha, cep: cep });
+  }
+
+  useEffect(() => {
+    const getEndereco = async (cep) => {
+      const dados = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+      const endereco = await dados.json();
+      setCampanha({
+        titulo: campanha.titulo,
+        descricao: campanha.descricao,
+        cep: campanha.cep,
+        cidade: endereco.localidade,
+        logradouro: endereco.logradouro,
+        numero: campanha.numero,
+        complemento: campanha.complemento,
+        hora_inicio: campanha.hora_inicio,
+        hora_fim: campanha.hora_fim,
+        data_inicio: campanha.data_inicio,
+        data_fim: campanha.data_fim,
+      });
+    };
+
+    if (campanha.cep.length === 9) {
+      getEndereco(campanha.cep);
+    }
+  }, [campanha.cep]);
+
+  const handleImageCampanha = (e) => {
+    if (e.target.files[0]) {
+      imageRefCampanha.current.src = URL.createObjectURL(e.target.files[0]);
+      imageRefCampanha.current.style.display = "flex";
+    } else {
+      imageRefCampanha.current.src = "";
+      imageRefCampanha.current.style.display = "none";
+    }
+
+    setCampanhaImage(e.target.files[0]);
+  }
+
+  const handleSubmitCampanhas = async () => {
+    try {
+
+      const {
+        cep,
+        cidade,
+        complemento,
+        data_fim,
+        data_inicio,
+        descricao,
+        hora_fim,
+        hora_inicio,
+        logradouro,
+        numero,
+        titulo,
+      } = campanha;
+
+      if (
+        !cep ||
+        !cidade ||
+        !data_fim ||
+        !data_inicio ||
+        !descricao ||
+        !hora_fim ||
+        !hora_inicio ||
+        !logradouro ||
+        !numero ||
+        !titulo ||
+        !campanhaImage
+      ) {
+        return alert("faltam alguns dados");
+      }
+
+      let data = new FormData();
+
+      data.append("titulo", titulo);
+      data.append("cep", cep);
+      data.append("numero", numero);
+      data.append("logradouro", logradouro);
+      data.append("complemento", complemento);
+      data.append("cidade", cidade)
+      data.append("descricao", descricao);
+      data.append("data_inicio", data_inicio);
+      data.append("data_fim", data_fim);
+      data.append("hora_inicio", hora_inicio);
+      data.append("hora_fim", hora_fim);
+      data.append("image", campanhaImage);
+
+      await api.post("/campanhas", data, {
+        headers: {
+          "content-type": "miltipart/form-data"
+        }
+      });
+
+    } catch (error) {
+      console.error(error);
+      alert(error.response.data.error);
+    }
+  }
+
+  const handleEditarCampanha = async (id) => {
+    console.log(id);
   }
 
   return (
@@ -462,8 +618,8 @@ function PerfilInstituicao() {
                   {colaboradores.length === 0 ? (<p>Adicione novos colaboradores</p>) :
                     (<div>
                       {
-                        colaboradores.map((c) => (
-                          <PerfilColaborador id={c.id} handler={handleEditarColaborador} nome={c.nome} img={c.url_foto_perfil} cargo={c.Position.cargo} />
+                        colaboradores.map((c, index) => (
+                          <PerfilColaborador key={index} id={c.id} handler={handleEditarColaborador} nome={c.nome} img={c.url_foto_perfil} cargo={c.Position.cargo} />
                         ))
                       }
                     </div>)}
@@ -490,32 +646,22 @@ function PerfilInstituicao() {
               <CampanhasContainer>
                 <div>
                   <h1>Campanhas</h1>
-                  <div onClick={() => {setIsOpenNewCampanha(true);}}><span>+</span>Nova Camapnha</div>
-                </div>
-                <div>
-                  <div>
-                    <aside>
-                      <BotaoEditar />
-                    </aside>
-                    <img src={DefaultBanner} alt="campanhas" />
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                      do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua
-                    </p>
-                  </div>
-                  <div>
-                    <aside>
-                      <BotaoEditar />
-                    </aside>
-                    <img src={DefaultBanner} alt="campanhas" />
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                      do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua
-                    </p>
+                  <div onClick={() => { setIsOpenNewCampanha(true) }}>
+                    <span>+</span>Nova Camapnha
                   </div>
                 </div>
+                <Campanhas>
+                  {campanhas.length === 0 ? (<p>Adicione uma nova capmanhs</p>) :
+                    (
+                      <div>
+                        {
+                          campanhas.map((c, index) => (
+                            <Campanha key={index} id={c.id} handler={handleEditarCampanha} titulo={c.titulo} img={c.url_foto} descricao={c.descricao} />
+                          ))
+                        }
+                      </div>
+                    )}
+                </Campanhas>
               </CampanhasContainer>
               <AnimaisContainer>
                 <div>
@@ -548,25 +694,90 @@ function PerfilInstituicao() {
         )}
 
         {isOpenNewCampanha && (
-          <Modal title={"Nova Campanha"} handleClose={handleCloseNewCampanha}>
-            <CadastroCampanha>
-              <Input id="titulo" placeholder="Título da campanha"/>
-              <textarea id="descricao" placeholder="Descrição" maxLength={150}/>
-              <Input id="" label="Local:" placeholder="CEP" type="text"/>
-              <Input id="" placeholder="Logradouro" type="text"/>
-              <Input id="" placeholder="Número" type="text"/>
-              <Input id="" placeholder="Complemento" type="text"/>
+          <Modal style={{ height: "1460px" }} title={"Nova Campanha"} handleClose={handleCloseNewCampanha}>
+            <CadastroCampanha onSubmit={handleSubmitCampanhas}>
+              <Input
+                id="titulo"
+                placeholder="Título da campanha"
+                value={campanha.titulo}
+                handler={handleInputCampanha}
+              />
+              <textarea
+                id="descricao"
+                placeholder="Descrição"
+                value={campanha.descricao}
+                onChange={handleInputCampanha}
+                maxLength={150}
+              />
+              <Input
+                type="text"
+                label="Local:"
+                id="cep"
+                placeholder="CEP"
+                pattern="(\d{5})-(\d{3})*"
+                value={campanha.cep}
+                handler={handleInputCepCampanha}
+              />
+              <Input
+                id="cidade"
+                placeholder="Cidade"
+                value={campanha.cidade}
+                handler={handleInputCampanha}
+              />
+              <Input
+                id="logradouro"
+                placeholder="Ruas/Avenida"
+                value={campanha.logradouro}
+                handler={handleInputCampanha}
+              />
+              <Input
+                id="numero"
+                placeholder="Número"
+                value={campanha.numero}
+                handler={handleInputCampanha}
+              />
+              <Input
+                id="complemento"
+                placeholder="Complemento"
+                value={campanha.complemento}
+                handler={handleInputCampanha}
+              />
               <div className="flex-row">
-                  <Input className="" id="" label="Horário de início:" type="time" />
-                  <Input className="" id="" label="Horário de fim:" type="time" />
+                <Input
+                  label="Horário de início:"
+                  id="hora_inicio"
+                  value={campanha.hora_inicio}
+                  handler={handleInputCampanha}
+                  type="time"
+                />
+                <Input
+                  label="Horário de fim:"
+                  id="hora_fim"
+                  value={campanha.hora_fim}
+                  handler={handleInputCampanha}
+                  type="time"
+                />
               </div>
               <div className="flex-row">
-                  <Input className="" id="" label="Data de início:" type="date" />
-                  <Input className="" id="" label="Data de fim:" type="date" />
+                <Input
+                  label="Data de início:"
+                  id="data_inicio"
+                  value={campanha.data_inicio}
+                  handler={handleInputCampanha}
+                  type="date"
+                />
+                <Input
+                  label="Data de fim:"
+                  id="data_fim"
+                  value={campanha.data_fim}
+                  handler={handleInputCampanha}
+                  type="date"
+                />
               </div>
-              
-              <Input id="banner" label="Banner" type="file" />
-              <button>Enviar</button>
+
+              <input id="banner" accept="image/*" type="file" onChange={handleImageCampanha} />
+              <img alt="pre-vizualização" ref={imageRefCampanha} />
+              <button>Cadastrar</button>
             </CadastroCampanha>
           </Modal>
         )}
@@ -599,14 +810,13 @@ function PerfilInstituicao() {
                 value={colaborador.diaEntrada}
                 handler={handleInputColaborador}
               />
-              <input accept="image/*" type="file" className="inputColaborador" onChange={handleImageColaborador} />
-              <img alt="pre-visualizaão" ref={imageRefColaborador} />
+              <input label="Foto" accept="image/*" type="file" onChange={handleImageColaborador} />
+              <img alt="pre-visualização" ref={imageRefColaborador} />
               <button >{isEditandoColaborador ? "Editar" : "Cadastrar"}</button>
               <button onClick={() => setDeleteColaborador(true)} style={isEditandoColaborador ? { display: "block", backgroundColor: "var(--dark)" } : { display: "none" }}>Excluir</button>
             </CadsatroColaborador>
           </Modal>
         )}
-
         <Footer />
       </Container>
     </>
@@ -636,6 +846,21 @@ function PerfilColaborador({ id, nome, cargo, handler, img }) {
       <h3>{nome}</h3>
       <p>{cargo}</p>
     </ContainerPerfilColaborador>
+  );
+}
+
+function Campanha({ id, titulo, descricao, handler, img }) {
+  return (
+    <div>
+      <aside onClick={() => handler(id)}>
+        <BotaoEditar />
+      </aside>
+      <img src={img ? img : DefaultBanner} alt="campanhas" />
+      <h1>{titulo}</h1>
+      <p>
+        {descricao}
+      </p>
+    </div>
   );
 }
 
