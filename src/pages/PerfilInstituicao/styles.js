@@ -397,8 +397,10 @@ export const AnimaisContainer = styled.div`
       }
     }
   }
+`;
 
-  > div:last-child {
+export const Aniamis = styled.div`
+  div {
     display: flex;
     flex-wrap: wrap;
   }

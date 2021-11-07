@@ -26,6 +26,7 @@ import {
   CadsatroColaborador,
   CadastroCampanha,
   Campanhas,
+  Aniamis,
 } from "./styles";
 
 import ApoiarIcon from "../../assets/apoiar.svg";
@@ -75,6 +76,11 @@ function PerfilInstituicao() {
   const [campanhaImage, setCampanhaImage] = useState(null);
   const imageRefCampanha = useRef();
 
+  const [animais, setAnimais] = useState([]);
+  const [animal, setAnimal] = useState({
+
+  });
+
   const [servicos, setServicos] = useState([]);
   const [servicosSel, setServicosSel] = useState([]);
   const [cargos, setCargos] = useState([]);
@@ -90,6 +96,7 @@ function PerfilInstituicao() {
   const [isEditandoColaborador, setIsEditandoColaborador] = useState(false);
   const [deleteColaborador, setDeleteColaborador] = useState(false);
   const [isOpenNewCampanha, setIsOpenNewCampanha] = useState(false);
+  const [isEditandoCampanha, setIsEditandoCampanha] = useState(false);
 
   useEffect(() => {
     const loadInstituicao = async () => {
@@ -156,7 +163,22 @@ function PerfilInstituicao() {
     }
 
     loadCampanhas();
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    const loadAnimais = async () => {
+      try {
+        const response = await api.get("/animais");
+
+        setAnimais(response.data);
+      } catch (error) {
+        console.error(error);
+        alert(error.response.data.error);
+      }
+    }
+
+    loadAnimais();
+  }, []);
 
   //carrega os dados
   useEffect(() => {
@@ -257,6 +279,7 @@ function PerfilInstituicao() {
       data_fim: "",
     })
     setIsOpenNewCampanha(false);
+    setIsEditandoCampanha(false);
   }
 
   const handleServicoSel = (e) => {
@@ -525,7 +548,15 @@ function PerfilInstituicao() {
   }
 
   const handleEditarCampanha = async (id) => {
-    console.log(id);
+    setIsOpenNewCampanha(true);
+    setIsEditandoCampanha(true);
+
+    try {
+
+    } catch (error) {
+
+    }
+
   }
 
   return (
@@ -668,9 +699,16 @@ function PerfilInstituicao() {
                   <h1>Animais para adoção</h1>
                   <div><span>+</span> Novo Animal</div>
                 </div>
-                <div>
-                  <PerfilAnimal />
-                </div>
+                <Aniamis>
+                  {Aniamis.length === 0 ? (<p>Adicione novos animais</p>) :
+                    (<div>
+                      {
+                        animais.map((a, index) => (
+                          <PerfilAnimal key={index}  id={a.id} nome={a.nome} raca={a.TypeAnimal.tipo} img={a.url_foto_perfil}/>
+                        ))
+                      }
+                    </div>)}
+                </Aniamis>
               </AnimaisContainer>
             </section>
           </Section>
@@ -701,6 +739,7 @@ function PerfilInstituicao() {
                 placeholder="Título da campanha"
                 value={campanha.titulo}
                 handler={handleInputCampanha}
+                required
               />
               <textarea
                 id="descricao"
@@ -708,6 +747,7 @@ function PerfilInstituicao() {
                 value={campanha.descricao}
                 onChange={handleInputCampanha}
                 maxLength={150}
+                required
               />
               <Input
                 type="text"
@@ -717,24 +757,28 @@ function PerfilInstituicao() {
                 pattern="(\d{5})-(\d{3})*"
                 value={campanha.cep}
                 handler={handleInputCepCampanha}
+                required
               />
               <Input
                 id="cidade"
                 placeholder="Cidade"
                 value={campanha.cidade}
                 handler={handleInputCampanha}
+                required
               />
               <Input
                 id="logradouro"
                 placeholder="Ruas/Avenida"
                 value={campanha.logradouro}
                 handler={handleInputCampanha}
+                required
               />
               <Input
                 id="numero"
                 placeholder="Número"
                 value={campanha.numero}
                 handler={handleInputCampanha}
+                required
               />
               <Input
                 id="complemento"
@@ -749,6 +793,7 @@ function PerfilInstituicao() {
                   value={campanha.hora_inicio}
                   handler={handleInputCampanha}
                   type="time"
+                  required
                 />
                 <Input
                   label="Horário de fim:"
@@ -756,6 +801,7 @@ function PerfilInstituicao() {
                   value={campanha.hora_fim}
                   handler={handleInputCampanha}
                   type="time"
+                  required
                 />
               </div>
               <div className="flex-row">
@@ -765,6 +811,7 @@ function PerfilInstituicao() {
                   value={campanha.data_inicio}
                   handler={handleInputCampanha}
                   type="date"
+                  required
                 />
                 <Input
                   label="Data de fim:"
@@ -772,6 +819,7 @@ function PerfilInstituicao() {
                   value={campanha.data_fim}
                   handler={handleInputCampanha}
                   type="date"
+                  required
                 />
               </div>
 
@@ -823,15 +871,15 @@ function PerfilInstituicao() {
   );
 }
 
-function PerfilAnimal() {
+function PerfilAnimal({ id, nome, raca, handler, img }) {
   return (
     <ContainerPerfilAnimal>
-      <aside>
+      <aside onClick={() => handler(id)}>
         <BotaoEditar />
       </aside>
-      <img src={DefaultProfile} alt={"pet"} />
-      <h3>Nome do Pet</h3>
-      <p>Raça</p>
+      <img src={img ? img : DefaultProfile} alt={"pet"} />
+      <h3>{nome}</h3>
+      <p>{raca}</p>
     </ContainerPerfilAnimal>
   );
 }

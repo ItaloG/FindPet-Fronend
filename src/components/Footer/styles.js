@@ -10,4 +10,5 @@ export const Container = styled.footer`
     color: #FFF;
     font-size: 1em;
     padding: 10px;
+    margin-top: 15px;
 `;
