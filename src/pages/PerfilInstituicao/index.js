@@ -34,6 +34,7 @@ import DefaultBanner from "../../assets/default_banner.png";
 import DefaultProfile from "../../assets/default_profile_photo.jpg";
 import Footer from "../../components/Footer";
 import BotaoEditar from "../../components/BotaoEditar";
+import BotaoExcluir from "../../components/BotaoExcluir";
 import { useEffect, useRef, useState } from "react";
 import { api } from "../../services/api";
 import Modal from "../../components/Modal";
@@ -95,6 +96,7 @@ function PerfilInstituicao() {
   const [isOpenNewColaboradores, setIsOpenNewColaboradores] = useState(false);
   const [isEditandoColaborador, setIsEditandoColaborador] = useState(false);
   const [deleteColaborador, setDeleteColaborador] = useState(false);
+  const [deleteCampanha, setDeleteCampanha] = useState(false);
   const [isOpenNewCampanha, setIsOpenNewCampanha] = useState(false);
   const [isEditandoCampanha, setIsEditandoCampanha] = useState(false);
 
@@ -427,6 +429,8 @@ function PerfilInstituicao() {
     try {
       const response = await api.get(`/funcionarios/${id}`);
 
+      console.log(response.data)
+
       setColaborador({
         id: response.data.id,
         nome: response.data.nome,
@@ -552,11 +556,42 @@ function PerfilInstituicao() {
     setIsEditandoCampanha(true);
 
     try {
+      const response = await api.get(`/campanhas/${id}`);
+      console.log(response.data)
+
+      setCampanha({
+        id: response.data[0].id,
+        titulo: response.data[0].titulo,
+        descricao: response.data[0].descricao,
+        cep: response.data[0].cep_id,
+        cidade: response.data[0].cidade,
+        logradouro: response.data[0].logradouro,
+        numero: response.data[0].numero,
+        complemento: response.data[0].complemento,
+        hora_inicio: response.data[0].hora_inicio,
+        hora_fim: response.data[0].hora_fim,
+        data_inicio: response.data[0].data_inicio,
+        data_fim: response.data[0].data_fim,
+      })
 
     } catch (error) {
-
+        console.error(error);
+        alert(error.response.data.error);
     }
 
+  }
+
+  const handleExcluirCampanha = async (id) => {
+    try {
+        await api.delete(`/campanhas/${id}`);
+        alert("Campanha excluída");
+        setDeleteCampanha(true);
+    }
+    
+    catch (error) {
+      console.error(error);
+      alert(error);
+    }
   }
 
   return (
@@ -681,13 +716,14 @@ function PerfilInstituicao() {
                     <span>+</span>Nova Camapnha
                   </div>
                 </div>
+
                 <Campanhas>
                   {campanhas.length === 0 ? (<p>Adicione uma nova capmanhs</p>) :
                     (
                       <div>
                         {
                           campanhas.map((c, index) => (
-                            <Campanha key={index} id={c.id} handler={handleEditarCampanha} titulo={c.titulo} img={c.url_foto} descricao={c.descricao} />
+                            <Campanha key={index} id={c.id} handlerEditar={handleEditarCampanha} handlerExcluir={handleExcluirCampanha} titulo={c.titulo} img={c.url_foto} descricao={c.descricao} />
                           ))
                         }
                       </div>
@@ -897,11 +933,14 @@ function PerfilColaborador({ id, nome, cargo, handler, img }) {
   );
 }
 
-function Campanha({ id, titulo, descricao, handler, img }) {
+function Campanha({ id, titulo, descricao, handlerEditar, handlerExcluir, img }) {
   return (
     <div>
-      <aside onClick={() => handler(id)}>
+      <aside onClick={() => handlerEditar(id)}>
         <BotaoEditar />
+      </aside>
+      <aside onClick={() => handlerExcluir(id)}>
+        <BotaoExcluir/>
       </aside>
       <img src={img ? img : DefaultBanner} alt="campanhas" />
       <h1>{titulo}</h1>

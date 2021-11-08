@@ -495,8 +495,6 @@ export const CampanhasContainer = styled.div`
       }
     }
   }
-
-
     
 `;
 
@@ -516,6 +514,10 @@ export const Campanhas = styled.div`
         position: absolute;
         margin-top: 10px;
         margin-right: 10px;
+      }
+
+      > aside:first-child {
+        margin-top: 60px;
       }
     }
   }
