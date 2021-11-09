@@ -1,3 +1,18 @@
+/*
+
+(/) Create campanha 
+(/) Read campanha 
+(•) Update campanha 
+(/) Delete campanha
+
+(•) Create animal 
+(•) Read animal 
+(•) Update animal 
+(•) Delete animal
+
+*/
+
+
 import { Container } from "../../GlobalStyles";
 import {
   Banner,
@@ -99,6 +114,9 @@ function PerfilInstituicao() {
   const [deleteCampanha, setDeleteCampanha] = useState(false);
   const [isOpenNewCampanha, setIsOpenNewCampanha] = useState(false);
   const [isEditandoCampanha, setIsEditandoCampanha] = useState(false);
+  const [isOpenNewAnimal, setIsOpenNewAnimal] = useState(false);
+  const [isEditandoAnimal, setIsEditandoAnimal] = useState(false);
+  const [deleteAnimal, setDeleteAnimal] = useState(false);
 
   useEffect(() => {
     const loadInstituicao = async () => {
@@ -265,6 +283,17 @@ function PerfilInstituicao() {
     setIsOpenNewColaboradores(false);
     setIsEditandoColaborador(false);
   };
+
+  const handleCloseNewAnimal = () => {
+    setAnimal({
+      tipoAnimal: "",
+      nome: "",
+      personalidade: "",
+      idade: "",
+      castrado: "",
+      historia: "",
+    })
+  }
 
   const handleCloseNewCampanha = () => {
     setCampanha({
@@ -551,6 +580,76 @@ function PerfilInstituicao() {
     }
   }
 
+  const handleCampanhaEditada = async (e) => {
+
+    if (deleteCampanha) {
+      try {
+        return await api.delete(`/campanhas/${campanha.id}`);
+      } catch (error) {
+        console.error(error);
+        alert(error.response.data.error)
+      }
+    }
+
+    try {
+
+      const {
+        cep,
+        cidade,
+        complemento,
+        data_fim,
+        data_inicio,
+        descricao,
+        hora_fim,
+        hora_inicio,
+        logradouro,
+        numero,
+        titulo,
+      } = campanha;
+
+      if (
+        !cep ||
+        !cidade ||
+        !data_fim ||
+        !data_inicio ||
+        !descricao ||
+        !hora_fim ||
+        !hora_inicio ||
+        !logradouro ||
+        !numero ||
+        !titulo ||
+        !campanhaImage
+      ) {
+        return alert("faltam alguns dados");
+      }
+
+      let data = new FormData();
+
+      data.append("titulo", titulo);
+      data.append("cep", cep);
+      data.append("numero", numero);
+      data.append("logradouro", logradouro);
+      data.append("complemento", complemento);
+      data.append("cidade", cidade)
+      data.append("descricao", descricao);
+      data.append("data_inicio", data_inicio);
+      data.append("data_fim", data_fim);
+      data.append("hora_inicio", hora_inicio);
+      data.append("hora_fim", hora_fim);
+      data.append("image", campanhaImage);
+
+      await api.put(`/campanhas/${campanha.id}`, data, {
+        headers: {
+          "content-type": "miltipart/form-data"
+        }
+      });
+
+    } catch (error) {
+      console.error(error);
+      alert(error.response.data.error);
+    }
+  }
+
   const handleEditarCampanha = async (id) => {
     setIsOpenNewCampanha(true);
     setIsEditandoCampanha(true);
@@ -571,7 +670,7 @@ function PerfilInstituicao() {
         hora_inicio: response.data[0].hora_inicio,
         hora_fim: response.data[0].hora_fim,
         data_inicio: response.data[0].data_inicio,
-        data_fim: response.data[0].data_fim,
+        data_fim: response.data[0].data_fim
       })
 
     } catch (error) {
@@ -697,7 +796,7 @@ function PerfilInstituicao() {
                 <h1>Doações</h1>
                 <h2>O que você precisa?</h2>
                 <div>
-                  <div>Voluntários</div>
+                  <div>Voluntários</div> 
                   <div>Materiais</div>
                 </div>
               </ApoioContainer>
@@ -723,7 +822,7 @@ function PerfilInstituicao() {
                       <div>
                         {
                           campanhas.map((c, index) => (
-                            <Campanha key={index} id={c.id} handlerEditar={handleEditarCampanha} handlerExcluir={handleExcluirCampanha} titulo={c.titulo} img={c.url_foto} descricao={c.descricao} />
+                            <Campanha key={index} id={c.id} handlerEditar={handleEditarCampanha} handlerExcluir={handleExcluirCampanha} titulo={c.titulo} img={c.url_foto} descricao={c.descricao}  />
                           ))
                         }
                       </div>
@@ -769,7 +868,7 @@ function PerfilInstituicao() {
 
         {isOpenNewCampanha && (
           <Modal style={{ height: "1460px" }} title={"Nova Campanha"} handleClose={handleCloseNewCampanha}>
-            <CadastroCampanha onSubmit={handleSubmitCampanhas}>
+            <CadastroCampanha onSubmit={isEditandoCampanha ? handleCampanhaEditada : handleSubmitCampanhas}>
               <Input
                 id="titulo"
                 placeholder="Título da campanha"
@@ -984,5 +1083,7 @@ function Servico({ servico, handleDeleteServico, id }) {
     </div>
   );
 }
+
+
 
 export default PerfilInstituicao;
