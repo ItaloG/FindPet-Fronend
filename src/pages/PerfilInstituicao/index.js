@@ -831,7 +831,7 @@ function PerfilInstituicao() {
               <AnimaisContainer>
                 <div>
                   <h1>Animais para adoção</h1>
-                  <div><span>+</span> Novo Animal</div>
+                  <div onClick={() => {setIsOpenNewAnimal(true)}}><span>+</span> Novo Animal</div>
                 </div>
                 <Aniamis>
                   {Aniamis.length === 0 ? (<p>Adicione novos animais</p>) :
@@ -1005,7 +1005,7 @@ function PerfilInstituicao() {
 
           </Modal>
         )}
-        
+
         <Footer />
       </Container>
     </>
