@@ -115,8 +115,6 @@ function PerfilInstituicao() {
   const [isOpenNewCampanha, setIsOpenNewCampanha] = useState(false);
   const [isEditandoCampanha, setIsEditandoCampanha] = useState(false);
   const [isOpenNewAnimal, setIsOpenNewAnimal] = useState(false);
-  const [isEditandoAnimal, setIsEditandoAnimal] = useState(false);
-  const [deleteAnimal, setDeleteAnimal] = useState(false);
 
   useEffect(() => {
     const loadInstituicao = async () => {
@@ -293,6 +291,7 @@ function PerfilInstituicao() {
       castrado: "",
       historia: "",
     })
+    setIsOpenNewAnimal(false);
   }
 
   const handleCloseNewCampanha = () => {
@@ -1000,6 +999,13 @@ function PerfilInstituicao() {
             </CadsatroColaborador>
           </Modal>
         )}
+
+        {isOpenNewAnimal && (
+          <Modal title={"Novo Animal"} handleClose={handleCloseNewAnimal}>
+
+          </Modal>
+        )}
+        
         <Footer />
       </Container>
     </>
