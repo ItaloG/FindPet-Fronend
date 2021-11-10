@@ -6,7 +6,7 @@
 (/) Delete campanha
 
 (•) Create animal 
-(•) Read animal 
+(/) Read animal 
 (•) Update animal 
 (•) Delete animal
 
@@ -42,11 +42,13 @@ import {
   CadastroCampanha,
   Campanhas,
   Aniamis,
+  CadastroAnimal,
 } from "./styles";
 
 import ApoiarIcon from "../../assets/apoiar.svg";
 import DefaultBanner from "../../assets/default_banner.png";
 import DefaultProfile from "../../assets/default_profile_photo.jpg";
+import DefaultPetProfile from "../../assets/default-pet-photo.jpg"
 import Footer from "../../components/Footer";
 import BotaoEditar from "../../components/BotaoEditar";
 import BotaoExcluir from "../../components/BotaoExcluir";
@@ -1002,7 +1004,44 @@ function PerfilInstituicao() {
 
         {isOpenNewAnimal && (
           <Modal title={"Novo Animal"} handleClose={handleCloseNewAnimal}>
-
+            <CadastroAnimal>
+              <div className="container-foto-animais">
+                <img alt="pre-visualização" ref={imageRefColaborador} src={DefaultPetProfile}/>
+              </div>
+              <input accept="image/*" type="file" onChange={handleImageColaborador} />
+              <label>
+                Nome
+                <Input id="" placeholder="" value="" handler=""/>
+              </label>
+              <label>
+                Tipo
+                <select>
+                  <option>Cachorro</option>
+                  <option>Gato</option>
+                </select>
+              </label>
+              <label>
+                Personalidade
+                <select>
+                  <option>Calmo</option>
+                  <option>Agitado</option>
+                </select>
+              </label>
+              <label>
+                Idade
+                <input type="number" placeholder="1" min="1" max="30"/>
+              </label>
+              
+              <label>
+                Castrado?
+                <select>
+                  <option>Sim</option>
+                  <option>Não</option>
+                </select>
+              </label>
+              <textarea placeholder="Conte um pouco sobre a história deste Pet..." resize="none"/>
+              <button>Cadastrar</button>
+            </CadastroAnimal>
           </Modal>
         )}
 
@@ -1018,7 +1057,9 @@ function PerfilAnimal({ id, nome, raca, handler, img }) {
       <aside onClick={() => handler(id)}>
         <BotaoEditar />
       </aside>
-      <img src={img ? img : DefaultProfile} alt={"pet"} />
+      <div>
+        <img src={img ? img : DefaultProfile} alt={"pet"} />
+      </div>
       <h3>{nome}</h3>
       <p>{raca}</p>
     </ContainerPerfilAnimal>

@@ -634,10 +634,20 @@ export const ContainerPerfilAnimal = styled.div`
     color: var(--gray);
   }
 
-  > img {
+  > div {
     width: 100px;
     height: 100px;
     border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+    >img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 `;
 
@@ -776,4 +786,83 @@ export const CadastroCampanha = styled.form`
       max-width: 100%;
     }
   }
+`;
+
+export const CadastroAnimal = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  gap: 10px;
+  max-width: 500px;
+  font-family: 'Montserrat';
+
+  input, textarea, select {
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border:solid #C4C4C4  1px;
+    font-size: .9em;
+    font-family: 'Montserrat';
+  }
+
+  select, select option  {
+    text-transform: uppercase;
+  }
+
+ .container-foto-animais {
+    width: 150px;
+    height: 150px;
+    background-color: pink;
+    border-radius: 50%;
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+
+    > img {
+    width: auto;
+    height: 150px;
+    /* display: none; */
+    }
+  }
+
+  textarea {
+    min-height: 130px;
+    max-height: 130px;
+    overflow-y: auto;
+    resize: none;
+  }
+
+  label {
+    width: 100%;
+    font-size: .9em;
+  }
+
+  button {
+    width: 75%;
+    height: 15%;
+    margin-top: 15px;
+    background-color: #FFB853;
+    padding: 10px;
+	  border: none;
+	  border-radius: 10px;
+
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.2em;
+    cursor: pointer;
+    font-family: 'Montserrat';
+  }
+
+  /* .flex-row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    input {
+      max-width: 100%;
+    }
+  } */
 `;
