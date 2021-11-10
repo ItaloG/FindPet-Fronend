@@ -1,22 +1,23 @@
 import styled from "styled-components";
 
 export const Container = styled.div `
-  position: absolute;
+  position: fixed;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   z-index: 10;
   background-color: #33333380;
   
 
   display: flex;
   justify-content: center;
-  align-items: center;    
+  align-items: middle;    
 `;
 
 export const ModalContainer = styled.div `
     min-width: 250px;
     min-height: 250px;
     padding: 20px;
+    height: max-content;
 
     z-index: 19;
     overflow-y: auto;
@@ -24,7 +25,6 @@ export const ModalContainer = styled.div `
     background-color: #FFFFFF;
     box-shadow: 0px 0px 10px black;
     border-radius: 10px;
-    position: relative;
 
     > span {
         position: absolute;

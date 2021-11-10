@@ -339,6 +339,11 @@ function PerfilInstituicao() {
     setColaborador({ ...colaborador, [e.target.id]: e.target.value });
   }
 
+  const handleInputAnimal = (e) => {
+    setAnimal({ ...animal, [e.target.id]: e.target.value });
+  }
+
+
   const handleImageColaborador = (e) => {
     if (e.target.files[0]) {
       imageRefColaborador.current.src = URL.createObjectURL(e.target.files[0]);
@@ -372,6 +377,8 @@ function PerfilInstituicao() {
         diaEntrada
       } = colaborador;
 
+      
+
       if (cargo === 0) {
         return alert("escolha um cargo");
       }
@@ -394,6 +401,73 @@ function PerfilInstituicao() {
       data.append("image", colaboradorImage);
 
       await api.post("/funcionarios", data, {
+        headers: {
+          "content-type": "multipart/form-data"
+        }
+      });
+
+
+    } catch (error) {
+      console.error(error);
+      alert(error.response.data.error);
+    }
+  }
+
+  const handleSubmitAnimal = async () => {
+
+    try {
+      const {
+        nome,
+        instituicao,
+        tipo,
+        personalidade,
+        idade,
+        castrado,
+        historia
+      } = animal;
+
+      console.log("foto: " + animalImage);
+      console.log("nome: " + nome);
+      console.log("inst: " + instituicao);
+      console.log("tipo: " + tipo);
+      console.log("person: " + personalidade);
+      console.log("idade: " + idade);
+      console.log("castrado: " + castrado);
+      console.log("historia: " + historia);
+      alert('a')
+
+      // tipo === "GATO" ? tipo = 2 : tipo = 1;
+      // castrado === "SIM" ? castrado = true : castrado = false;
+
+      // if (personalidade === 0) {
+      //   return alert("Selecione a personalidade do animal");
+      // }
+
+      if (
+        !nome ||
+        !instituicao ||
+        !tipo ||
+        !personalidade ||
+        !idade ||
+        !castrado ||
+        !historia ||
+        !animalImage
+      ) {
+        return alert("faltam alguns dados");
+      }
+
+      let data = new FormData();
+      
+      data.append("nome", nome);
+      data.append("instituicao", instituicao);
+      data.append("tipo", tipo);
+      data.append("personalidade", personalidade);
+      data.append("idade", idade);
+      data.append("castrado", castrado);
+      data.append("historia", historia);
+      data.append("image", animalImage);
+
+      await api.post("/animais", data, {
         headers: {
           "content-type": "multipart/form-data"
         }
@@ -1016,42 +1090,43 @@ function PerfilInstituicao() {
 
         {isOpenNewAnimal && (
           <Modal title={"Novo Animal"} handleClose={handleCloseNewAnimal}>
-            <CadastroAnimal>
+            <CadastroAnimal onSubmit={handleSubmitAnimal}>
               <div className="container-foto-animais">
                 <img alt="pre-visualização" ref={imageRefAnimal} src={DefaultPetProfile}/>
               </div>
-              <input accept="image/*" type="file" onChange={handleImageAnimal} />
+              <input id="foto" accept="image/*" type="file" onChange={handleImageAnimal} />
               <label>
                 Nome
-                <Input id="" placeholder="" value="" handler=""/>
+                <Input id="nome" placeholder="" value={animal.nome} handler={handleInputAnimal}/>
+              </label>
+              <label>
+                Instituicao id
+                <input id="instituicao" value={animal.instituicao} onChange={handleInputAnimal} type="number" placeholder="1" min="1" max="2"/>
               </label>
               <label>
                 Tipo
-                <select>
-                  <option>Cachorro</option>
-                  <option>Gato</option>
-                </select>
+                <input id="tipo" onChange={handleInputAnimal} value={animal.tipo} type="number" placeholder="1" min="1" max="2"/>
               </label>
               <label>
                 Personalidade
-                <select>
-                  <option>Calmo</option>
-                  <option>Agitado</option>
+                <select id="personalidade" onChange={handleInputAnimal}>
+                  <option value="TRANQUILO">Tranquilo</option>
+                  <option value="AGITADO">Agitado</option>
                 </select>
               </label>
               <label>
                 Idade
-                <input type="number" placeholder="1" min="1" max="30"/>
+                <input id="idade" onChange={handleInputAnimal} value={animal.idade} type="number" placeholder="1" min="1" max="9"/>
               </label>
               
               <label>
                 Castrado?
-                <select>
-                  <option>Sim</option>
-                  <option>Não</option>
+                <select id="castrado" onChange={handleInputAnimal}>
+                  <option value={true}>Sim</option>
+                  <option value={false}>Não</option>
                 </select>
               </label>
-              <textarea placeholder="Conte um pouco sobre a história deste Pet..." resize="none"/>
+              <textarea id="historia" value={animal.historia}onChange={handleInputAnimal} placeholder="Conte um pouco sobre a história deste Pet..." resize="none"/>
               <button>Cadastrar</button>
             </CadastroAnimal>
           </Modal>
