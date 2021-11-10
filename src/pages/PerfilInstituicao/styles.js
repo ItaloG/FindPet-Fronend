@@ -814,15 +814,17 @@ export const CadastroAnimal = styled.form`
  .container-foto-animais {
     width: 150px;
     height: 150px;
-    background-color: pink;
+    background-color: white;
     border-radius: 50%;
     display: flex;
     overflow: hidden;
     justify-content: center;
+    align-items: center;
 
     > img {
-    width: auto;
-    height: 150px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     /* display: none; */
     }
   }

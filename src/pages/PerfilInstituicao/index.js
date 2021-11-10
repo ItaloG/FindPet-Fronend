@@ -77,6 +77,9 @@ function PerfilInstituicao() {
   const [colaboradorImage, setColaboradorImage] = useState(null);
   const imageRefColaborador = useRef();
 
+  const [animalImage, setAnimalImage] = useState(null);
+  const imageRefAnimal = useRef();
+
   const [campanhas, setCampanhas] = useState([]);
   const [campanha, setCampanha] = useState({
     titulo: "",
@@ -346,6 +349,15 @@ function PerfilInstituicao() {
     }
 
     setColaboradorImage(e.target.files[0]);
+  }
+
+  const handleImageAnimal = (e) => {
+    if (e.target.files[0]) {
+      imageRefAnimal.current.src = URL.createObjectURL(e.target.files[0]);
+    } else {
+      imageRefAnimal.current.src = "";
+    }
+    setAnimalImage(e.target.files[0]);
   }
 
 
@@ -1006,9 +1018,9 @@ function PerfilInstituicao() {
           <Modal title={"Novo Animal"} handleClose={handleCloseNewAnimal}>
             <CadastroAnimal>
               <div className="container-foto-animais">
-                <img alt="pre-visualização" ref={imageRefColaborador} src={DefaultPetProfile}/>
+                <img alt="pre-visualização" ref={imageRefAnimal} src={DefaultPetProfile}/>
               </div>
-              <input accept="image/*" type="file" onChange={handleImageColaborador} />
+              <input accept="image/*" type="file" onChange={handleImageAnimal} />
               <label>
                 Nome
                 <Input id="" placeholder="" value="" handler=""/>
