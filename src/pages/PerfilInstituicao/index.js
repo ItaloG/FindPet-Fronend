@@ -45,9 +45,7 @@ import Input from "../../components/Input";
 import { mascaraCep } from "../../utils";
 
 function PerfilInstituicao() {
-
-  const [titulo, setTitulo] = useState('oioi')
-
+  const [titulo, setTitulo] = useState("oioi");
 
   const { instituicaoId } = useParams();
   const [instituicao, setInstituicao] = useState([]);
@@ -440,7 +438,7 @@ function PerfilInstituicao() {
   };
 
   // edit (put)
-  const handleColaboradorEditado = async (e) => {
+  const handleSubmitColaboradorEditado = async (e) => {
     if (deleteColaborador) {
       try {
         return await api.delete(`/funcionarios/${colaborador.id}`);
@@ -565,7 +563,6 @@ function PerfilInstituicao() {
         titulo,
       } = campanha;
 
-
       let data = new FormData();
 
       data.append("titulo", titulo);
@@ -592,7 +589,7 @@ function PerfilInstituicao() {
     }
   };
 
-  const handleCampanhaEditada = async (e) => {
+  const handleSubmitCampanhaEditada = async () => {
     if (deleteCampanha) {
       try {
         return await api.delete(`/campanhas/${campanha.id}`);
@@ -652,10 +649,10 @@ function PerfilInstituicao() {
       console.log(response.data);
 
       setCampanha({
-        // id: response.data.id,
+        id: response.data.id,
         titulo: response.data.titulo,
         descricao: response.data.descricao,
-        // cep: response.data.cep_id,
+        cep: response.data.cep_id,
         cidade: response.data.cidade,
         logradouro: response.data.logradouro,
         numero: response.data.numero,
@@ -878,7 +875,7 @@ function PerfilInstituicao() {
                   <h1>{titulo}</h1>
                   <div
                     onClick={() => {
-                      setTitulo('olaola')
+                      setTitulo("olaola");
                     }}
                   >
                     <span>+</span> {titulo}
@@ -935,13 +932,13 @@ function PerfilInstituicao() {
         {isOpenNewCampanha && (
           <Modal
             style={{ height: "1460px" }}
-            title={"Nova Campanha"}
+            title={isOpenNewCampanha ? "Editar" : "Nova Campanha"}
             handleClose={handleCloseNewCampanha}
           >
             <CadastroCampanha
               onSubmit={
                 isEditandoCampanha
-                  ? handleCampanhaEditada
+                  ? handleSubmitCampanhaEditada
                   : handleSubmitCampanhas
               }
             >
@@ -1055,7 +1052,7 @@ function PerfilInstituicao() {
             <CadsatroColaborador
               onSubmit={
                 isEditandoColaborador
-                  ? handleColaboradorEditado
+                  ? handleSubmitColaboradorEditado
                   : handleSubmitColaborador
               }
             >
