@@ -1,18 +1,3 @@
-/*
-
-(/) Create campanha 
-(/) Read campanha 
-(•) Update campanha 
-(/) Delete campanha
-
-(•) Create animal 
-(/) Read animal 
-(•) Update animal 
-(•) Delete animal
-
-*/
-
-
 import { Container } from "../../GlobalStyles";
 import {
   Banner,
@@ -48,7 +33,7 @@ import {
 import ApoiarIcon from "../../assets/apoiar.svg";
 import DefaultBanner from "../../assets/default_banner.png";
 import DefaultProfile from "../../assets/default_profile_photo.jpg";
-import DefaultPetProfile from "../../assets/default-pet-photo.jpg"
+import DefaultPetProfile from "../../assets/default-pet-photo.jpg";
 import Footer from "../../components/Footer";
 import BotaoEditar from "../../components/BotaoEditar";
 import BotaoExcluir from "../../components/BotaoExcluir";
@@ -60,6 +45,9 @@ import Input from "../../components/Input";
 import { mascaraCep } from "../../utils";
 
 function PerfilInstituicao() {
+
+  const [titulo, setTitulo] = useState('oioi')
+
 
   const { instituicaoId } = useParams();
   const [instituicao, setInstituicao] = useState([]);
@@ -99,8 +87,15 @@ function PerfilInstituicao() {
 
   const [animais, setAnimais] = useState([]);
   const [animal, setAnimal] = useState({
-
+    nome: "",
+    tipoAnimal: "",
+    personalidade: "",
+    idade: "",
+    castrado: "",
+    historia: "",
+    condicaoEspecial: "",
   });
+  const [tiposAnimal, setTiposAnimal] = useState([]);
 
   const [servicos, setServicos] = useState([]);
   const [servicosSel, setServicosSel] = useState([]);
@@ -132,12 +127,11 @@ function PerfilInstituicao() {
         setInstituicaoTelefones(response.data.TelephoneInstitutions);
         setBanner(response.data.url_foto_banner);
         setPerfil(response.data.url_foto_perfil);
-
       } catch (error) {
         console.error(error);
         alert(error.response.data.error);
       }
-    }
+    };
 
     loadInstituicao();
   }, []);
@@ -152,7 +146,7 @@ function PerfilInstituicao() {
         console.error(error);
         alert(error.response.data.error);
       }
-    }
+    };
 
     loadServicos();
   }, []);
@@ -160,7 +154,6 @@ function PerfilInstituicao() {
   useEffect(() => {
     const loadCargos = async () => {
       try {
-
         const response = await api.get("/cargos");
 
         setCargos(response.data);
@@ -168,7 +161,7 @@ function PerfilInstituicao() {
         console.error(error);
         alert(error.response.data.error);
       }
-    }
+    };
 
     loadCargos();
   }, []);
@@ -183,7 +176,7 @@ function PerfilInstituicao() {
         console.error(error);
         alert(error.response.data.error);
       }
-    }
+    };
 
     loadCampanhas();
   }, []);
@@ -198,9 +191,20 @@ function PerfilInstituicao() {
         console.error(error);
         alert(error.response.data.error);
       }
-    }
+    };
 
     loadAnimais();
+  }, []);
+
+  useEffect(() => {
+    const loadTiposAnimal = async () => {
+      setTiposAnimal([
+        { id: 1, tipo: "CACHORRO" },
+        { id: 2, tipo: "GATO" },
+      ]);
+    };
+
+    loadTiposAnimal();
   }, []);
 
   //carrega os dados
@@ -214,18 +218,18 @@ function PerfilInstituicao() {
         console.error(error);
         alert(error.response.data.error);
       }
-    }
+    };
 
     loadColaboradores();
   }, []);
 
   const handleBanner = (e) => {
     setImage(e.target.files[0]);
-  }
+  };
 
   const handlePerfil = (e) => {
     setImagePerfil(e.target.files[0]);
-  }
+  };
 
   useEffect(() => {
     const changeBanner = async () => {
@@ -233,14 +237,18 @@ function PerfilInstituicao() {
 
       data.append("image", image);
 
-      const response = await api.put(`/instituicoes/${instituicaoId}/banner`, data, {
-        headers: {
-          "content-type": "multipart/form-data"
+      const response = await api.put(
+        `/instituicoes/${instituicaoId}/banner`,
+        data,
+        {
+          headers: {
+            "content-type": "multipart/form-data",
+          },
         }
-      });
+      );
 
       setBanner(response.data.image);
-    }
+    };
     if (image) {
       changeBanner();
     }
@@ -253,18 +261,22 @@ function PerfilInstituicao() {
       data.append("image", imagePerfil);
 
       try {
-        const response = await api.put(`/instituicoes/${instituicaoId}/perfil`, data, {
-          headers: {
-            "content-type": "multipart/form-data"
+        const response = await api.put(
+          `/instituicoes/${instituicaoId}/perfil`,
+          data,
+          {
+            headers: {
+              "content-type": "multipart/form-data",
+            },
           }
-        });
+        );
 
         setPerfil(response.data.image);
       } catch (error) {
         console.error(error);
         alert(error.response.data.error);
       }
-    }
+    };
 
     if (imagePerfil) {
       changePerfil();
@@ -272,7 +284,7 @@ function PerfilInstituicao() {
   }, [imagePerfil]);
 
   const handleCloseServicos = () => {
-    setServicosSel([])
+    setServicosSel([]);
     setIsOpenServicos(false);
   };
 
@@ -282,7 +294,7 @@ function PerfilInstituicao() {
       cpf: "",
       cargo: "",
       diaEntrada: "",
-    })
+    });
     setIsOpenNewColaboradores(false);
     setIsEditandoColaborador(false);
   };
@@ -295,9 +307,9 @@ function PerfilInstituicao() {
       idade: "",
       castrado: "",
       historia: "",
-    })
+    });
     setIsOpenNewAnimal(false);
-  }
+  };
 
   const handleCloseNewCampanha = () => {
     setCampanha({
@@ -312,37 +324,35 @@ function PerfilInstituicao() {
       hora_fim: "",
       data_inicio: "",
       data_fim: "",
-    })
+    });
     setIsOpenNewCampanha(false);
     setIsEditandoCampanha(false);
-  }
+  };
 
   const handleServicoSel = (e) => {
-    setServicosSel([...servicosSel, e.target.id])
-  }
+    setServicosSel([...servicosSel, e.target.id]);
+  };
 
   const handleSubmitServicos = async () => {
     try {
       const response = await api.post("/servicos", { servicos: servicosSel });
 
       setInstituicaoServicos([...InstituicaoServicos, response.data]);
-
     } catch (error) {
       console.error(error);
       alert(error.response.data.error);
     } finally {
       setIsOpenServicos(false);
     }
-  }
+  };
 
   const handleInputColaborador = (e) => {
     setColaborador({ ...colaborador, [e.target.id]: e.target.value });
-  }
+  };
 
   const handleInputAnimal = (e) => {
     setAnimal({ ...animal, [e.target.id]: e.target.value });
-  }
-
+  };
 
   const handleImageColaborador = (e) => {
     if (e.target.files[0]) {
@@ -354,7 +364,7 @@ function PerfilInstituicao() {
     }
 
     setColaboradorImage(e.target.files[0]);
-  }
+  };
 
   const handleImageAnimal = (e) => {
     if (e.target.files[0]) {
@@ -363,32 +373,18 @@ function PerfilInstituicao() {
       imageRefAnimal.current.src = "";
     }
     setAnimalImage(e.target.files[0]);
-  }
-
+  };
 
   // create
   const handleSubmitColaborador = async () => {
-
     try {
-      const {
-        nome,
-        cargo,
-        cpf,
-        diaEntrada
-      } = colaborador;
-
-      
+      const { nome, cargo, cpf, diaEntrada } = colaborador;
 
       if (cargo === 0) {
         return alert("escolha um cargo");
       }
 
-      if (
-        !nome ||
-        !cpf ||
-        !diaEntrada ||
-        !colaboradorImage
-      ) {
+      if (!nome || !cpf || !diaEntrada || !colaboradorImage) {
         return alert("faltam alguns dados");
       }
 
@@ -402,65 +398,30 @@ function PerfilInstituicao() {
 
       await api.post("/funcionarios", data, {
         headers: {
-          "content-type": "multipart/form-data"
-        }
+          "content-type": "multipart/form-data",
+        },
       });
-
-
     } catch (error) {
       console.error(error);
       alert(error.response.data.error);
     }
-  }
+  };
 
   const handleSubmitAnimal = async () => {
-
     try {
       const {
         nome,
-        instituicao,
-        tipo,
+        tipoAnimal,
         personalidade,
         idade,
         castrado,
-        historia
+        historia,
+        condicaoEspecial,
       } = animal;
 
-      console.log("foto: " + animalImage);
-      console.log("nome: " + nome);
-      console.log("inst: " + instituicao);
-      console.log("tipo: " + tipo);
-      console.log("person: " + personalidade);
-      console.log("idade: " + idade);
-      console.log("castrado: " + castrado);
-      console.log("historia: " + historia);
-      alert('a')
-
-      // tipo === "GATO" ? tipo = 2 : tipo = 1;
-      // castrado === "SIM" ? castrado = true : castrado = false;
-
-      // if (personalidade === 0) {
-      //   return alert("Selecione a personalidade do animal");
-      // }
-
-      if (
-        !nome ||
-        !instituicao ||
-        !tipo ||
-        !personalidade ||
-        !idade ||
-        !castrado ||
-        !historia ||
-        !animalImage
-      ) {
-        return alert("faltam alguns dados");
-      }
-
       let data = new FormData();
-      
+
       data.append("nome", nome);
-      data.append("instituicao", instituicao);
-      data.append("tipo", tipo);
       data.append("personalidade", personalidade);
       data.append("idade", idade);
       data.append("castrado", castrado);
@@ -469,22 +430,17 @@ function PerfilInstituicao() {
 
       await api.post("/animais", data, {
         headers: {
-          "content-type": "multipart/form-data"
-        }
+          "content-type": "multipart/form-data",
+        },
       });
-
-
     } catch (error) {
       console.error(error);
       alert(error.response.data.error);
     }
-  }
-
-
+  };
 
   // edit (put)
   const handleColaboradorEditado = async (e) => {
-
     if (deleteColaborador) {
       try {
         return await api.delete(`/funcionarios/${colaborador.id}`);
@@ -495,24 +451,13 @@ function PerfilInstituicao() {
     }
 
     try {
-      const {
-        id,
-        nome,
-        cargo,
-        cpf,
-        diaEntrada
-      } = colaborador;
+      const { id, nome, cargo, cpf, diaEntrada } = colaborador;
 
       if (cargo === 0) {
         return alert("escolha um cargo");
       }
 
-      if (
-        !id ||
-        !nome ||
-        !cpf ||
-        !diaEntrada
-      ) {
+      if (!id || !nome || !cpf || !diaEntrada) {
         return alert("faltam alguns dados");
       }
 
@@ -526,16 +471,14 @@ function PerfilInstituicao() {
 
       await api.put(`/funcionarios/${colaborador.id}`, data, {
         headers: {
-          "content-type": "multipart/form-data"
-        }
+          "content-type": "multipart/form-data",
+        },
       });
     } catch (error) {
       console.error(error);
       alert(error.response.data.error);
     }
-  }
-
-
+  };
 
   //edit (get)
   const handleEditarColaborador = async (id) => {
@@ -545,7 +488,7 @@ function PerfilInstituicao() {
     try {
       const response = await api.get(`/funcionarios/${id}`);
 
-      console.log(response.data)
+      console.log(response.data);
 
       setColaborador({
         id: response.data.id,
@@ -554,22 +497,21 @@ function PerfilInstituicao() {
         cargo: response.data.Position.id,
         diaEntrada: response.data.dia_entrada,
       });
-
     } catch (error) {
       console.error(error);
       alert(error.response.data.error);
     }
-  }
+  };
 
   const handleInputCampanha = (e) => {
     setCampanha({ ...campanha, [e.target.id]: e.target.value });
-  }
+  };
 
   const handleInputCepCampanha = (e) => {
     let cep = e.target.value;
     cep = mascaraCep(cep);
     setCampanha({ ...campanha, cep: cep });
-  }
+  };
 
   useEffect(() => {
     const getEndereco = async (cep) => {
@@ -605,11 +547,10 @@ function PerfilInstituicao() {
     }
 
     setCampanhaImage(e.target.files[0]);
-  }
+  };
 
   const handleSubmitCampanhas = async () => {
     try {
-
       const {
         cep,
         cidade,
@@ -624,21 +565,6 @@ function PerfilInstituicao() {
         titulo,
       } = campanha;
 
-      if (
-        !cep ||
-        !cidade ||
-        !data_fim ||
-        !data_inicio ||
-        !descricao ||
-        !hora_fim ||
-        !hora_inicio ||
-        !logradouro ||
-        !numero ||
-        !titulo ||
-        !campanhaImage
-      ) {
-        return alert("faltam alguns dados");
-      }
 
       let data = new FormData();
 
@@ -647,7 +573,7 @@ function PerfilInstituicao() {
       data.append("numero", numero);
       data.append("logradouro", logradouro);
       data.append("complemento", complemento);
-      data.append("cidade", cidade)
+      data.append("cidade", cidade);
       data.append("descricao", descricao);
       data.append("data_inicio", data_inicio);
       data.append("data_fim", data_fim);
@@ -657,29 +583,26 @@ function PerfilInstituicao() {
 
       await api.post("/campanhas", data, {
         headers: {
-          "content-type": "miltipart/form-data"
-        }
+          "content-type": "miltipart/form-data",
+        },
       });
-
     } catch (error) {
       console.error(error);
       alert(error.response.data.error);
     }
-  }
+  };
 
   const handleCampanhaEditada = async (e) => {
-
     if (deleteCampanha) {
       try {
         return await api.delete(`/campanhas/${campanha.id}`);
       } catch (error) {
         console.error(error);
-        alert(error.response.data.error)
+        alert(error);
       }
     }
 
     try {
-
       const {
         cep,
         cidade,
@@ -694,22 +617,6 @@ function PerfilInstituicao() {
         titulo,
       } = campanha;
 
-      if (
-        !cep ||
-        !cidade ||
-        !data_fim ||
-        !data_inicio ||
-        !descricao ||
-        !hora_fim ||
-        !hora_inicio ||
-        !logradouro ||
-        !numero ||
-        !titulo ||
-        !campanhaImage
-      ) {
-        return alert("faltam alguns dados");
-      }
-
       let data = new FormData();
 
       data.append("titulo", titulo);
@@ -717,7 +624,7 @@ function PerfilInstituicao() {
       data.append("numero", numero);
       data.append("logradouro", logradouro);
       data.append("complemento", complemento);
-      data.append("cidade", cidade)
+      data.append("cidade", cidade);
       data.append("descricao", descricao);
       data.append("data_inicio", data_inicio);
       data.append("data_fim", data_fim);
@@ -727,15 +634,14 @@ function PerfilInstituicao() {
 
       await api.put(`/campanhas/${campanha.id}`, data, {
         headers: {
-          "content-type": "miltipart/form-data"
-        }
+          "content-type": "miltipart/form-data",
+        },
       });
-
     } catch (error) {
       console.error(error);
-      alert(error.response.data.error);
+      alert(error);
     }
-  }
+  };
 
   const handleEditarCampanha = async (id) => {
     setIsOpenNewCampanha(true);
@@ -743,42 +649,38 @@ function PerfilInstituicao() {
 
     try {
       const response = await api.get(`/campanhas/${id}`);
-      console.log(response.data)
+      console.log(response.data);
 
       setCampanha({
-        id: response.data[0].id,
-        titulo: response.data[0].titulo,
-        descricao: response.data[0].descricao,
-        cep: response.data[0].cep_id,
-        cidade: response.data[0].cidade,
-        logradouro: response.data[0].logradouro,
-        numero: response.data[0].numero,
-        complemento: response.data[0].complemento,
-        hora_inicio: response.data[0].hora_inicio,
-        hora_fim: response.data[0].hora_fim,
-        data_inicio: response.data[0].data_inicio,
-        data_fim: response.data[0].data_fim
-      })
-
+        // id: response.data.id,
+        titulo: response.data.titulo,
+        descricao: response.data.descricao,
+        // cep: response.data.cep_id,
+        cidade: response.data.cidade,
+        logradouro: response.data.logradouro,
+        numero: response.data.numero,
+        complemento: response.data.complemento,
+        hora_inicio: response.data.hora_inicio,
+        hora_fim: response.data.hora_fim,
+        data_inicio: response.data.data_inicio,
+        data_fim: response.data.data_fim,
+      });
     } catch (error) {
-        console.error(error);
-        alert(error.response.data.error);
-    }
-
-  }
-
-  const handleExcluirCampanha = async (id) => {
-    try {
-        await api.delete(`/campanhas/${id}`);
-        alert("Campanha excluída");
-        setDeleteCampanha(true);
-    }
-    
-    catch (error) {
       console.error(error);
       alert(error);
     }
-  }
+  };
+
+  const handleExcluirCampanha = async (id) => {
+    try {
+      await api.delete(`/campanhas/${id}`);
+      alert("Campanha excluída");
+      setDeleteCampanha(true);
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+  };
 
   return (
     <>
@@ -786,17 +688,41 @@ function PerfilInstituicao() {
         <main>
           <Profile>
             <Banner>
-              <img src={instituicao.url_foto_banner ? banner : DefaultBanner} alt="banner" />
-              <label htmlFor="banner"><StyledMdAddAPhoto /> Mudar foto de capa</label>
-              <input type="file" name="banner" id="banner" accept="image/*" onChange={handleBanner} />
+              <img
+                src={instituicao.url_foto_banner ? banner : DefaultBanner}
+                alt="banner"
+              />
+              <label htmlFor="banner">
+                <StyledMdAddAPhoto /> Mudar foto de capa
+              </label>
+              <input
+                type="file"
+                name="banner"
+                id="banner"
+                accept="image/*"
+                onChange={handleBanner}
+              />
             </Banner>
             <aside>
               <ContainerInfo>
                 <div>
                   <FotoPerfil>
-                    <img src={instituicao.url_foto_perfil ? perfil : DefaultProfile} alt="profile" />
-                    <label htmlFor="profile"><StyledMdAddAPhoto /></label>
-                    <input type="file" name="profile" id="profile" accept="image/*" onChange={handlePerfil} />
+                    <img
+                      src={
+                        instituicao.url_foto_perfil ? perfil : DefaultProfile
+                      }
+                      alt="profile"
+                    />
+                    <label htmlFor="profile">
+                      <StyledMdAddAPhoto />
+                    </label>
+                    <input
+                      type="file"
+                      name="profile"
+                      id="profile"
+                      accept="image/*"
+                      onChange={handlePerfil}
+                    />
                   </FotoPerfil>
                   <div>
                     <h1>{instituicao.nome}</h1>
@@ -826,19 +752,21 @@ function PerfilInstituicao() {
                 </div>
               </ContainerInfo>
               <ContainerServicos>
-                {InstituicaoServicos.length === 0 ?
-                  (<p>Adicione serviços para as pessoas saberem o que vc faz</p>)
-                  :
+                {InstituicaoServicos.length === 0 ? (
+                  <p>Adicione serviços para as pessoas saberem o que vc faz</p>
+                ) : (
                   <div>
                     {InstituicaoServicos.map((is) => (
                       <Servico id={is.id} servico={is} />
                     ))}
                   </div>
-                }
+                )}
 
-                <StyledAiOutlinePlusCircle onClick={() => {
-                  setIsOpenServicos(true);
-                }} />
+                <StyledAiOutlinePlusCircle
+                  onClick={() => {
+                    setIsOpenServicos(true);
+                  }}
+                />
               </ContainerServicos>
             </aside>
           </Profile>
@@ -852,11 +780,19 @@ function PerfilInstituicao() {
                 </div>
                 <div>
                   <StyledFaMapMarkerAlt />
-                  <p>{instituicaoEndereco.length > 0 ? `${instituicaoEndereco[0].logradouro}, nº${instituicaoEndereco[0].numero} - ${instituicaoEndereco[0].Cep.cep}` : ""}</p>
+                  <p>
+                    {instituicaoEndereco.length > 0
+                      ? `${instituicaoEndereco[0].logradouro}, nº${instituicaoEndereco[0].numero} - ${instituicaoEndereco[0].Cep.cep}`
+                      : ""}
+                  </p>
                 </div>
                 {instituicaoTelefones.map((t) => (
                   <div>
-                    {t.numero.length == 9 ? (<StyledFaPhoneAlt />) : (<StyledMdPhoneIphone />)}
+                    {t.numero.length == 9 ? (
+                      <StyledFaPhoneAlt />
+                    ) : (
+                      <StyledMdPhoneIphone />
+                    )}
                     <p>{t.numero}</p>
                   </div>
                 ))}
@@ -864,17 +800,27 @@ function PerfilInstituicao() {
               <div className="funcionarios">
                 <div onClick={() => setIsOpenNewColaboradores(true)}>
                   <h1>Nossos colaboradores</h1>
-                  <div><span>+</span> Novo Colaborador</div>
+                  <div>
+                    <span>+</span> Novo Colaborador
+                  </div>
                 </div>
                 <Colaboradores>
-                  {colaboradores.length === 0 ? (<p>Adicione novos colaboradores</p>) :
-                    (<div>
-                      {
-                        colaboradores.map((c, index) => (
-                          <PerfilColaborador key={index} id={c.id} handler={handleEditarColaborador} nome={c.nome} img={c.url_foto_perfil} cargo={c.Position.cargo} />
-                        ))
-                      }
-                    </div>)}
+                  {colaboradores.length === 0 ? (
+                    <p>Adicione novos colaboradores</p>
+                  ) : (
+                    <div>
+                      {colaboradores.map((c, index) => (
+                        <PerfilColaborador
+                          key={index}
+                          id={c.id}
+                          handler={handleEditarColaborador}
+                          nome={c.nome}
+                          img={c.url_foto_perfil}
+                          cargo={c.Position.cargo}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </Colaboradores>
               </div>
             </aside>
@@ -883,7 +829,7 @@ function PerfilInstituicao() {
                 <h1>Doações</h1>
                 <h2>O que você precisa?</h2>
                 <div>
-                  <div>Voluntários</div> 
+                  <div>Voluntários</div>
                   <div>Materiais</div>
                 </div>
               </ApoioContainer>
@@ -898,38 +844,62 @@ function PerfilInstituicao() {
               <CampanhasContainer>
                 <div>
                   <h1>Campanhas</h1>
-                  <div onClick={() => { setIsOpenNewCampanha(true) }}>
+                  <div
+                    onClick={() => {
+                      setIsOpenNewCampanha(true);
+                    }}
+                  >
                     <span>+</span>Nova Camapnha
                   </div>
                 </div>
 
                 <Campanhas>
-                  {campanhas.length === 0 ? (<p>Adicione uma nova capmanhs</p>) :
-                    (
-                      <div>
-                        {
-                          campanhas.map((c, index) => (
-                            <Campanha key={index} id={c.id} handlerEditar={handleEditarCampanha} handlerExcluir={handleExcluirCampanha} titulo={c.titulo} img={c.url_foto} descricao={c.descricao}  />
-                          ))
-                        }
-                      </div>
-                    )}
+                  {campanhas.length === 0 ? (
+                    <p>Adicione uma nova capmanhs</p>
+                  ) : (
+                    <div>
+                      {campanhas.map((c, index) => (
+                        <Campanha
+                          key={index}
+                          id={c.id}
+                          handlerEditar={handleEditarCampanha}
+                          handlerExcluir={handleExcluirCampanha}
+                          titulo={c.titulo}
+                          img={c.url_foto}
+                          descricao={c.descricao}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </Campanhas>
               </CampanhasContainer>
               <AnimaisContainer>
                 <div>
-                  <h1>Animais para adoção</h1>
-                  <div onClick={() => {setIsOpenNewAnimal(true)}}><span>+</span> Novo Animal</div>
+                  <h1>{titulo}</h1>
+                  <div
+                    onClick={() => {
+                      setTitulo('olaola')
+                    }}
+                  >
+                    <span>+</span> {titulo}
+                  </div>
                 </div>
                 <Aniamis>
-                  {Aniamis.length === 0 ? (<p>Adicione novos animais</p>) :
-                    (<div>
-                      {
-                        animais.map((a, index) => (
-                          <PerfilAnimal key={index}  id={a.id} nome={a.nome} raca={a.TypeAnimal.tipo} img={a.url_foto_perfil}/>
-                        ))
-                      }
-                    </div>)}
+                  {Aniamis.length === 0 ? (
+                    <p>Adicione novos animais</p>
+                  ) : (
+                    <div>
+                      {animais.map((a, index) => (
+                        <PerfilAnimal
+                          key={index}
+                          id={a.id}
+                          nome={a.nome}
+                          raca={a.TypeAnimal.tipo}
+                          img={a.url_foto_perfil}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </Aniamis>
               </AnimaisContainer>
             </section>
@@ -938,24 +908,43 @@ function PerfilInstituicao() {
         {isOpenservicos && (
           <Modal title="serviços" handleClose={handleCloseServicos}>
             <ContainerTodosServicos>
-
               {servicos.map((s) => (
                 <ServicoOption
                   key={s.id}
                   handler={handleServicoSel}
                   servicosSel={servicosSel}
                   id={s.id}
-                  servico={s} />
+                  servico={s}
+                />
               ))}
-              <button className="limpar" onClick={() => { setServicosSel([]) }}>Limpar</button>
-              <button type="submit" onClick={handleSubmitServicos}>Salvar</button>
+              <button
+                className="limpar"
+                onClick={() => {
+                  setServicosSel([]);
+                }}
+              >
+                Limpar
+              </button>
+              <button type="submit" onClick={handleSubmitServicos}>
+                Salvar
+              </button>
             </ContainerTodosServicos>
           </Modal>
         )}
 
         {isOpenNewCampanha && (
-          <Modal style={{ height: "1460px" }} title={"Nova Campanha"} handleClose={handleCloseNewCampanha}>
-            <CadastroCampanha onSubmit={isEditandoCampanha ? handleCampanhaEditada : handleSubmitCampanhas}>
+          <Modal
+            style={{ height: "1460px" }}
+            title={"Nova Campanha"}
+            handleClose={handleCloseNewCampanha}
+          >
+            <CadastroCampanha
+              onSubmit={
+                isEditandoCampanha
+                  ? handleCampanhaEditada
+                  : handleSubmitCampanhas
+              }
+            >
               <Input
                 id="titulo"
                 placeholder="Título da campanha"
@@ -1045,7 +1034,12 @@ function PerfilInstituicao() {
                 />
               </div>
 
-              <input id="banner" accept="image/*" type="file" onChange={handleImageCampanha} />
+              <input
+                id="banner"
+                accept="image/*"
+                type="file"
+                onChange={handleImageCampanha}
+              />
               <img alt="pre-vizualização" ref={imageRefCampanha} />
               <button>Cadastrar</button>
             </CadastroCampanha>
@@ -1053,8 +1047,18 @@ function PerfilInstituicao() {
         )}
 
         {isOpenNewColaboradores && (
-          <Modal style={{ height: "1460px" }} title={isEditandoColaborador ? "Editar" : "Novo Colaborador"} handleClose={handleCloseNewColaborador}>
-            <CadsatroColaborador onSubmit={isEditandoColaborador ? handleColaboradorEditado : handleSubmitColaborador}>
+          <Modal
+            style={{ height: "1460px" }}
+            title={isEditandoColaborador ? "Editar" : "Novo Colaborador"}
+            handleClose={handleCloseNewColaborador}
+          >
+            <CadsatroColaborador
+              onSubmit={
+                isEditandoColaborador
+                  ? handleColaboradorEditado
+                  : handleSubmitColaborador
+              }
+            >
               <Input
                 id="nome"
                 placeholder="Nome do colaborador"
@@ -1067,10 +1071,16 @@ function PerfilInstituicao() {
                 value={colaborador.cpf}
                 handler={handleInputColaborador}
               />
-              <select id="cargo" value={colaborador.cargo} onChange={handleInputColaborador}>
+              <select
+                id="cargo"
+                value={colaborador.cargo}
+                onChange={handleInputColaborador}
+              >
                 <option value={0}>Selecione um cargo</option>
                 {cargos.map((c) => (
-                  <option key={c.id} value={c.id}>{c.cargo}</option>
+                  <option key={c.id} value={c.id}>
+                    {c.cargo}
+                  </option>
                 ))}
               </select>
               <Input
@@ -1080,53 +1090,107 @@ function PerfilInstituicao() {
                 value={colaborador.diaEntrada}
                 handler={handleInputColaborador}
               />
-              <input label="Foto" accept="image/*" type="file" onChange={handleImageColaborador} />
+              <input
+                label="Foto"
+                accept="image/*"
+                type="file"
+                onChange={handleImageColaborador}
+              />
               <img alt="pre-visualização" ref={imageRefColaborador} />
-              <button >{isEditandoColaborador ? "Editar" : "Cadastrar"}</button>
-              <button onClick={() => setDeleteColaborador(true)} style={isEditandoColaborador ? { display: "block", backgroundColor: "var(--dark)" } : { display: "none" }}>Excluir</button>
+              <button>{isEditandoColaborador ? "Editar" : "Cadastrar"}</button>
+              <button
+                onClick={() => setDeleteColaborador(true)}
+                style={
+                  isEditandoColaborador
+                    ? { display: "block", backgroundColor: "var(--dark)" }
+                    : { display: "none" }
+                }
+              >
+                Excluir
+              </button>
             </CadsatroColaborador>
           </Modal>
         )}
 
         {isOpenNewAnimal && (
-          <Modal title={"Novo Animal"} handleClose={handleCloseNewAnimal}>
+          <Modal title="Novo Animal" handleClose={handleCloseNewAnimal}>
             <CadastroAnimal onSubmit={handleSubmitAnimal}>
               <div className="container-foto-animais">
-                <img alt="pre-visualização" ref={imageRefAnimal} src={DefaultPetProfile}/>
+                <img
+                  alt="pre-visualização"
+                  ref={imageRefAnimal}
+                  src={DefaultPetProfile}
+                />
               </div>
-              <input id="foto" accept="image/*" type="file" onChange={handleImageAnimal} />
+              <input
+                id="foto"
+                accept="image/*"
+                type="file"
+                onChange={handleImageAnimal}
+                required
+              />
               <label>
                 Nome
-                <Input id="nome" placeholder="" value={animal.nome} handler={handleInputAnimal}/>
+                <Input
+                  id="nome"
+                  placeholder=""
+                  value={animal.nome}
+                  handler={handleInputAnimal}
+                  required
+                />
               </label>
-              <label>
+              {/* <label>
                 Instituicao id
                 <input id="instituicao" value={animal.instituicao} onChange={handleInputAnimal} type="number" placeholder="1" min="1" max="2"/>
-              </label>
+              </label> */}
+              <select required>
+                <option value="">Selecione um tipo</option>
+                {tiposAnimal.map((tp) => (
+                  <option value={tp.id}>{tp.tipo}</option>
+                ))}
+              </select>
               <label>
-                Tipo
-                <input id="tipo" onChange={handleInputAnimal} value={animal.tipo} type="number" placeholder="1" min="1" max="2"/>
-              </label>
-              <label>
-                Personalidade
-                <select id="personalidade" onChange={handleInputAnimal}>
-                  <option value="TRANQUILO">Tranquilo</option>
-                  <option value="AGITADO">Agitado</option>
-                </select>
+                <label>
+                  Personalidade
+                  <Input
+                    id="personalidade"
+                    placeholder=""
+                    value={animal.personalidade}
+                    handler={handleInputAnimal}
+                    required
+                  />
+                </label>
               </label>
               <label>
                 Idade
-                <input id="idade" onChange={handleInputAnimal} value={animal.idade} type="number" placeholder="1" min="1" max="9"/>
+                <input
+                  id="idade"
+                  onChange={handleInputAnimal}
+                  value={animal.idade}
+                  type="number"
+                  placeholder="1"
+                  min="1"
+                  max="9"
+                  required
+                />
               </label>
-              
+
               <label>
                 Castrado?
-                <select id="castrado" onChange={handleInputAnimal}>
+                <select id="castrado" onChange={handleInputAnimal} required>
+                  <option value="">Selecione</option>
                   <option value={true}>Sim</option>
                   <option value={false}>Não</option>
                 </select>
               </label>
-              <textarea id="historia" value={animal.historia}onChange={handleInputAnimal} placeholder="Conte um pouco sobre a história deste Pet..." resize="none"/>
+              <textarea
+                id="historia"
+                value={animal.historia}
+                onChange={handleInputAnimal}
+                placeholder="Conte um pouco sobre a história deste Pet..."
+                resize="none"
+                required
+              />
               <button>Cadastrar</button>
             </CadastroAnimal>
           </Modal>
@@ -1166,20 +1230,25 @@ function PerfilColaborador({ id, nome, cargo, handler, img }) {
   );
 }
 
-function Campanha({ id, titulo, descricao, handlerEditar, handlerExcluir, img }) {
+function Campanha({
+  id,
+  titulo,
+  descricao,
+  handlerEditar,
+  handlerExcluir,
+  img,
+}) {
   return (
     <div>
       <aside onClick={() => handlerEditar(id)}>
         <BotaoEditar />
       </aside>
       <aside onClick={() => handlerExcluir(id)}>
-        <BotaoExcluir/>
+        <BotaoExcluir />
       </aside>
       <img src={img ? img : DefaultBanner} alt="campanhas" />
       <h1>{titulo}</h1>
-      <p>
-        {descricao}
-      </p>
+      <p>{descricao}</p>
     </div>
   );
 }
@@ -1189,27 +1258,27 @@ function ServicoOption({ servico, id, servicosSel, handler }) {
   let servicosChecked = servicosSel;
 
   if (!servicosSel) {
-    servicosChecked = []
+    servicosChecked = [];
   }
 
   servicosChecked.map((s) => {
     if (parseInt(s) === id) {
       idFound = true;
     }
-  })
+  });
 
   return (
     <div
       id={id}
       onClick={handler}
-      style={idFound ? { backgroundColor: "#CCA583", color: "#FFF" } : {}}>
+      style={idFound ? { backgroundColor: "#CCA583", color: "#FFF" } : {}}
+    >
       {servico.servico}
     </div>
   );
 }
 
 function Servico({ servico, handleDeleteServico, id }) {
-
   return (
     <div id={id}>
       {servico.servico}
@@ -1217,7 +1286,5 @@ function Servico({ servico, handleDeleteServico, id }) {
     </div>
   );
 }
-
-
 
 export default PerfilInstituicao;
