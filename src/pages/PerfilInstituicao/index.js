@@ -530,9 +530,11 @@ function PerfilInstituicao() {
       });
     };
 
-    if (campanha.cep.length === 9) {
+    if (campanha.cep.length === 9 && !isEditandoCampanha) {
       getEndereco(campanha.cep);
     }
+
+    return true;
   }, [campanha.cep]);
 
   const handleImageCampanha = (e) => {
@@ -590,15 +592,6 @@ function PerfilInstituicao() {
   };
 
   const handleSubmitCampanhaEditada = async () => {
-    if (deleteCampanha) {
-      try {
-        return await api.delete(`/campanhas/${campanha.id}`);
-      } catch (error) {
-        console.error(error);
-        alert(error);
-      }
-    }
-
     try {
       const {
         cep,
@@ -652,7 +645,7 @@ function PerfilInstituicao() {
         id: response.data.id,
         titulo: response.data.titulo,
         descricao: response.data.descricao,
-        cep: response.data.cep_id,
+        cep: response.data.Cep.cep,
         cidade: response.data.cidade,
         logradouro: response.data.logradouro,
         numero: response.data.numero,
