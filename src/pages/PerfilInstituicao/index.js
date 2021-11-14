@@ -486,8 +486,6 @@ function PerfilInstituicao() {
     try {
       const response = await api.get(`/funcionarios/${id}`);
 
-      console.log(response.data);
-
       setColaborador({
         id: response.data.id,
         nome: response.data.nome,
@@ -639,6 +637,7 @@ function PerfilInstituicao() {
 
     try {
       const response = await api.get(`/campanhas/${id}`);
+
       console.log(response.data);
 
       setCampanha({
@@ -924,7 +923,7 @@ function PerfilInstituicao() {
 
         {isOpenNewCampanha && (
           <Modal
-            style={{ height: "1460px" }}
+            style={{ height: document.body.scrollHeight }}
             title={isOpenNewCampanha ? "Editar" : "Nova Campanha"}
             handleClose={handleCloseNewCampanha}
           >
