@@ -29,6 +29,8 @@ import {
   Aniamis,
   CadastroAnimal,
   RadioGroup,
+  CondicaoEspecial,
+  ContainerCondicoesEspeciais,
 } from "./styles";
 
 import ApoiarIcon from "../../assets/apoiar.svg";
@@ -85,14 +87,18 @@ function PerfilInstituicao() {
     tipoAnimal: "",
     personalidade: "",
     idade: 0,
-    castrado: "",
+    castrado: "0",
     historia: "",
-    condicaoEspecial: "",
   });
   const [animalImage, setAnimalImage] = useState(null);
   const imageRefAnimal = useRef();
 
   const [tiposAnimal, setTiposAnimal] = useState([]);
+  const [condicoesEspeciais, setCondicoesEspeciais] = useState([]);
+  const [condicoesEspeciaisSel, setCondicoesEspeciaisSel] = useState([]);
+  const condicoesEspeciaisRef = useRef();
+
+  const [hasCondicaoEspecial, setHasCondicaoEspecial] = useState(false);
 
   const [servicos, setServicos] = useState([]);
   const [servicosSel, setServicosSel] = useState([]);
@@ -209,6 +215,21 @@ function PerfilInstituicao() {
     loadTiposAnimal();
   }, []);
 
+  useEffect(() => {
+    const loadCondicoesEspeciais = async () => {
+      try {
+        const response = await api.get("/condicoesEspeciais");
+
+        setCondicoesEspeciais(response.data);
+      } catch (error) {
+        console.error(error);
+        alert(error.response.data.error);
+      }
+    }
+
+    loadCondicoesEspeciais();
+  }, [])
+
   //carrega os dados
   useEffect(() => {
     const loadColaboradores = async () => {
@@ -306,8 +327,8 @@ function PerfilInstituicao() {
       tipoAnimal: "",
       nome: "",
       personalidade: "",
-      idade: "",
-      castrado: "",
+      idade: 0,
+      castrado: "0",
       historia: "",
     });
     setIsOpenNewAnimal(false);
@@ -413,27 +434,42 @@ function PerfilInstituicao() {
     }
   };
 
-  const handleSubmitAnimal = async () => {
+  const handleSubmitAnimal = async (e) => {
+
+    const {
+      nome,
+      tipoAnimal,
+      personalidade,
+      idade,
+      castrado,
+      historia,
+    } = animal;
+
+    if (tipoAnimal === 0) {
+      return alert("Escolha um tipo de animal");
+    }
+
+    if (!nome || !historia || !animalImage) {
+      return alert("Faltam alguns dados");
+    }
+
+    let data = new FormData();
+
+    data.append("nome", nome);
+    data.append("personalidade", personalidade);
+    data.append("idade", idade);
+    data.append("castrado", castrado);
+    data.append("historia", historia);
+    data.append("tipoAnimal", tipoAnimal);
+    data.append("image", animalImage);
+    
+    const condicoesEspeciais = condicoesEspeciaisSel.reduce((s, ce) => (s += ce.id + ","), "")
+    
+    console.log("AAAAAAA", condicoesEspeciais);
+
+    data.append("condicoesEpeciais", condicoesEspeciais.substr(0, condicoesEspeciais.length - 1));
+
     try {
-      const {
-        nome,
-        tipoAnimal,
-        personalidade,
-        idade,
-        castrado,
-        historia,
-        condicaoEspecial,
-      } = animal;
-
-      let data = new FormData();
-
-      data.append("nome", nome);
-      data.append("personalidade", personalidade);
-      data.append("idade", idade);
-      data.append("castrado", castrado);
-      data.append("historia", historia);
-      data.append("image", animalImage);
-
       await api.post("/animais", data, {
         headers: {
           "content-type": "multipart/form-data",
@@ -679,7 +715,32 @@ function PerfilInstituicao() {
     }
   };
 
-  console.log(animal);
+  const handleCondicoesEspeciais = (e) => {
+    const idSel = e.target.value
+
+    const condicaoEspecialSel = condicoesEspeciais.find((ce) => ce.id.toString() === idSel);
+
+    if (condicaoEspecialSel && !condicoesEspeciaisSel.includes(condicaoEspecialSel))
+      setCondicoesEspeciaisSel([...condicoesEspeciaisSel, condicaoEspecialSel]);
+
+    e.target[e.target.selectedIndex].disabled = true;
+    e.target.value = "";
+  }
+
+  const handleUnselCondicaoEspecial = (idUnsel) => {
+    setCondicoesEspeciaisSel(condicoesEspeciaisSel.filter((ce) => ce.id !== idUnsel));
+
+    const { options } = condicoesEspeciaisRef.current;
+
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].value === idUnsel.toString()) options[i].disabled = false;
+    }
+  }
+
+  const handleHasNotCondicaoEspecial = () => {
+    setHasCondicaoEspecial(false);
+    setCondicoesEspeciaisSel([]);
+  }
 
   return (
     <>
@@ -1142,21 +1203,95 @@ function PerfilInstituicao() {
                 handler={handleInputAnimal}
                 required
               />
-              
-              <select required>
+
+              <select
+                id="tipoAnimal"
+                value={animal.tipoAnimal}
+                onChange={handleInputAnimal}
+                required
+              >
                 <option value="">Selecione um tipo de animal</option>
                 {tiposAnimal.map((tp) => (
-                  <option value={tp.id}>{tp.tipo}</option>
+                  <option key={tp.id} value={tp.id}>{tp.tipo}</option>
                 ))}
               </select>
+              <label>
+                Possui condição especial?
+                <RadioGroup>
+                  <div>
+                    <input
+                      type="radio"
+                      name="condicaoEspecial"
+                      id="possui"
+                      onChange={() => setHasCondicaoEspecial(true)}
+                    />
+                    <label htmlFor="possui">Sim</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      name="condicaoEspecial"
+                      id="naoPossui"
+                      onChange={handleHasNotCondicaoEspecial}
+                      defaultChecked
+                    />
+                    <label htmlFor="naoPossui">Não</label>
+                  </div>
+                </RadioGroup>
+              </label>
+              {hasCondicaoEspecial &&
+                (<>
+                  <label>
+                    Condições especiais
+                    <select
+                      id="condicaoEspecial"
+                      onChange={handleCondicoesEspeciais}
+                      ref={condicoesEspeciaisRef}
+                    >
+                      <option value="">Selecione</option>
+                      {condicoesEspeciais.map((ce) => (
+                        <option key={ce.id} value={ce.id}>{ce.condicao}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <ContainerCondicoesEspeciais>
+                    {condicoesEspeciaisSel.map((ce) => (
+                      <CondicaoEspecial
+                        key={ce.id}
+                      >
+                        {ce.condicao}
+                        <span onClick={() => handleUnselCondicaoEspecial(ce.id)}>&times;</span>
+                      </CondicaoEspecial>
+                    ))}
+                  </ContainerCondicoesEspeciais>
+                </>)}
+              <label>
+                Castrado?
+                <RadioGroup>
+                  <div>
+                    <input
+                      type="radio"
+                      value="1"
+                      name="castrado"
+                      id="simCastrado"
+                      onChange={handleRadioInputAnimal}
+                    />
+                    <label htmlFor="simCastrado">Sim</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      value="0"
+                      name="castrado"
+                      id="naoCastrado"
+                      onChange={handleRadioInputAnimal}
+                      defaultChecked
+                    />
+                    <label htmlFor="naoCastrado">Não</label>
+                  </div>
+                </RadioGroup>
+              </label>
 
-              <textarea
-                id="personalidade"
-                value={animal.personalidade}
-                onChange={handleInputAnimal}
-                placeholder="Comente sobre a personalidade desse pet..."
-                required
-              />
               <Input
                 id="idade"
                 label="Idade"
@@ -1166,39 +1301,27 @@ function PerfilInstituicao() {
                 min="1"
                 required
               />
+
               <label>
-                Castrado?
-                <RadioGroup>
-                  <div>
-                    <input
-                      type="radio"
-                      value={true}
-                      name="turma"
-                      id="simCastrado"
-                      onChange={handleRadioInputAnimal}
-                    />
-                    <label htmlFor="simCastrado">Sim</label>
-                  </div>
-                  <div>
-                    <input
-                      type="radio"
-                      value={false}
-                      name="turma"
-                      id="naoCastrado"
-                      onChange={handleRadioInputAnimal}
-                      defaultChecked
-                    />
-                    <label htmlFor="naoCastrado">Não</label>
-                  </div>
-                </RadioGroup>
+                Personalidade
+                <textarea
+                  id="personalidade"
+                  value={animal.personalidade}
+                  onChange={handleInputAnimal}
+                  placeholder="Descreva a personalidade desse pet..."
+                  required
+                />
               </label>
-              <textarea
-                id="historia"
-                value={animal.historia}
-                onChange={handleInputAnimal}
-                placeholder="Conte um pouco sobre a história deste Pet..."
-                required
-              />
+              <label>
+                História
+                <textarea
+                  id="historia"
+                  value={animal.historia}
+                  onChange={handleInputAnimal}
+                  placeholder="Conte um pouco sobre a história deste Pet..."
+                  required
+                />
+              </label>
               <button>Cadastrar</button>
             </CadastroAnimal>
           </Modal>

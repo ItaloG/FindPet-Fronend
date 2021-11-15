@@ -876,3 +876,27 @@ export const RadioGroup = styled.div`
   }
   
 `;
+
+export const ContainerCondicoesEspeciais = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
+export const CondicaoEspecial = styled.article`
+  width: fit-content;
+  padding: 2px 10px;
+  display: flex;
+  align-items: center;
+  color: var(--dark);
+  border-radius: 4px;
+  border: solid 1px var(--light);
+  margin: 0px 10px 10px 0px;
+  > span {
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    :hover {
+      color: var(--primary);
+    }
+  }
+`;
