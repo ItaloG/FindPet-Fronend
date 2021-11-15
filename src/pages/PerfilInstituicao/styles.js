@@ -805,6 +805,7 @@ export const CadastroAnimal = styled.form`
     border:solid #C4C4C4  1px;
     font-size: .9em;
     font-family: 'Montserrat';
+    resize: none;
   }
 
   select, select option  {
@@ -825,7 +826,6 @@ export const CadastroAnimal = styled.form`
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* display: none; */
     }
   }
 
@@ -857,14 +857,22 @@ export const CadastroAnimal = styled.form`
     font-family: 'Montserrat';
   }
 
-  /* .flex-row {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
+`;
 
-    input {
-      max-width: 100%;
-    }
-  } */
+export const RadioGroup = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  font-size: 16px;
+  > div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 16px;
+      > input {
+        width: 20px;
+        height: 20px;
+      }
+  }
+  
 `;

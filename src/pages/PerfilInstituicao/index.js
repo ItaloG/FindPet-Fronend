@@ -28,6 +28,7 @@ import {
   Campanhas,
   Aniamis,
   CadastroAnimal,
+  RadioGroup,
 } from "./styles";
 
 import ApoiarIcon from "../../assets/apoiar.svg";
@@ -45,8 +46,6 @@ import Input from "../../components/Input";
 import { mascaraCep } from "../../utils";
 
 function PerfilInstituicao() {
-  const [titulo, setTitulo] = useState("oioi");
-
   const { instituicaoId } = useParams();
   const [instituicao, setInstituicao] = useState([]);
   const [InstituicaoServicos, setInstituicaoServicos] = useState([]);
@@ -62,9 +61,6 @@ function PerfilInstituicao() {
   });
   const [colaboradorImage, setColaboradorImage] = useState(null);
   const imageRefColaborador = useRef();
-
-  const [animalImage, setAnimalImage] = useState(null);
-  const imageRefAnimal = useRef();
 
   const [campanhas, setCampanhas] = useState([]);
   const [campanha, setCampanha] = useState({
@@ -88,11 +84,14 @@ function PerfilInstituicao() {
     nome: "",
     tipoAnimal: "",
     personalidade: "",
-    idade: "",
+    idade: 0,
     castrado: "",
     historia: "",
     condicaoEspecial: "",
   });
+  const [animalImage, setAnimalImage] = useState(null);
+  const imageRefAnimal = useRef();
+
   const [tiposAnimal, setTiposAnimal] = useState([]);
 
   const [servicos, setServicos] = useState([]);
@@ -196,10 +195,15 @@ function PerfilInstituicao() {
 
   useEffect(() => {
     const loadTiposAnimal = async () => {
-      setTiposAnimal([
-        { id: 1, tipo: "CACHORRO" },
-        { id: 2, tipo: "GATO" },
-      ]);
+      try {
+        const response = await api.get("/tiposAnimal");
+
+        setTiposAnimal(response.data);
+      } catch (error) {
+        console.error(error);
+        alert(error.response.data.error);
+      }
+
     };
 
     loadTiposAnimal();
@@ -351,6 +355,10 @@ function PerfilInstituicao() {
   const handleInputAnimal = (e) => {
     setAnimal({ ...animal, [e.target.id]: e.target.value });
   };
+
+  const handleRadioInputAnimal = (e) => {
+    setAnimal({ ...animal, castrado: e.target.value })
+  }
 
   const handleImageColaborador = (e) => {
     if (e.target.files[0]) {
@@ -671,6 +679,8 @@ function PerfilInstituicao() {
     }
   };
 
+  console.log(animal);
+
   return (
     <>
       <Container>
@@ -864,13 +874,13 @@ function PerfilInstituicao() {
               </CampanhasContainer>
               <AnimaisContainer>
                 <div>
-                  <h1>{titulo}</h1>
+                  <h1>Animais</h1>
                   <div
                     onClick={() => {
-                      setTitulo("olaola");
+                      setIsOpenNewAnimal(true);
                     }}
                   >
-                    <span>+</span> {titulo}
+                    <span>+</span> Novo animal
                   </div>
                 </div>
                 <Aniamis>
@@ -1102,7 +1112,11 @@ function PerfilInstituicao() {
         )}
 
         {isOpenNewAnimal && (
-          <Modal title="Novo Animal" handleClose={handleCloseNewAnimal}>
+          <Modal
+            style={{ height: document.body.scrollHeight }}
+            title="Novo Animal"
+            handleClose={handleCloseNewAnimal}
+          >
             <CadastroAnimal onSubmit={handleSubmitAnimal}>
               <div className="container-foto-animais">
                 <img
@@ -1111,73 +1125,78 @@ function PerfilInstituicao() {
                   src={DefaultPetProfile}
                 />
               </div>
-              <input
-                id="foto"
-                accept="image/*"
-                type="file"
-                onChange={handleImageAnimal}
-                required
-              />
               <label>
-                Nome
-                <Input
-                  id="nome"
-                  placeholder=""
-                  value={animal.nome}
-                  handler={handleInputAnimal}
+                Foto do animal
+                <input
+                  id="foto"
+                  accept="image/*"
+                  type="file"
+                  onChange={handleImageAnimal}
                   required
                 />
               </label>
-              {/* <label>
-                Instituicao id
-                <input id="instituicao" value={animal.instituicao} onChange={handleInputAnimal} type="number" placeholder="1" min="1" max="2"/>
-              </label> */}
+              <Input
+                id="nome"
+                placeholder="Nome do animal"
+                value={animal.nome}
+                handler={handleInputAnimal}
+                required
+              />
+              
               <select required>
-                <option value="">Selecione um tipo</option>
+                <option value="">Selecione um tipo de animal</option>
                 {tiposAnimal.map((tp) => (
                   <option value={tp.id}>{tp.tipo}</option>
                 ))}
               </select>
-              <label>
-                <label>
-                  Personalidade
-                  <Input
-                    id="personalidade"
-                    placeholder=""
-                    value={animal.personalidade}
-                    handler={handleInputAnimal}
-                    required
-                  />
-                </label>
-              </label>
-              <label>
-                Idade
-                <input
-                  id="idade"
-                  onChange={handleInputAnimal}
-                  value={animal.idade}
-                  type="number"
-                  placeholder="1"
-                  min="1"
-                  max="9"
-                  required
-                />
-              </label>
 
+              <textarea
+                id="personalidade"
+                value={animal.personalidade}
+                onChange={handleInputAnimal}
+                placeholder="Comente sobre a personalidade desse pet..."
+                required
+              />
+              <Input
+                id="idade"
+                label="Idade"
+                handler={handleInputAnimal}
+                value={animal.idade}
+                type="number"
+                min="1"
+                required
+              />
               <label>
                 Castrado?
-                <select id="castrado" onChange={handleInputAnimal} required>
-                  <option value="">Selecione</option>
-                  <option value={true}>Sim</option>
-                  <option value={false}>Não</option>
-                </select>
+                <RadioGroup>
+                  <div>
+                    <input
+                      type="radio"
+                      value={true}
+                      name="turma"
+                      id="simCastrado"
+                      onChange={handleRadioInputAnimal}
+                    />
+                    <label htmlFor="simCastrado">Sim</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      value={false}
+                      name="turma"
+                      id="naoCastrado"
+                      onChange={handleRadioInputAnimal}
+                      defaultChecked
+                    />
+                    <label htmlFor="naoCastrado">Não</label>
+                  </div>
+                </RadioGroup>
               </label>
               <textarea
                 id="historia"
                 value={animal.historia}
                 onChange={handleInputAnimal}
                 placeholder="Conte um pouco sobre a história deste Pet..."
-                resize="none"
                 required
               />
               <button>Cadastrar</button>
