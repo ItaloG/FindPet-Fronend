@@ -332,7 +332,7 @@ export const Services = styled.div`
         margin-bottom: 10px;
     }
 
-    > div {
+    > :nth-child(2) {
       width: 100%;
       height: auto;
       font-size: 0.9rem;
@@ -340,6 +340,14 @@ export const Services = styled.div`
       padding-bottom: 10px;
       display: flex;
       align-items: center;
+    }
+
+    > :last-child {
+      width: 100%;
+      height: auto;
+      /* background-color: lightblue; */
+      display: flex;
+      flex-wrap: wrap;
     }
 `;
 

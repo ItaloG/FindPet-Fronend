@@ -83,6 +83,8 @@ import { mascaraCep } from "../../utils";
 import Employee from "./Components/Employee";
 import Campaign from "./Components/Campaign";
 import Pet from "./Components/Pet";
+import Service from "./Components/Service";
+import Donation from "./Components/Donation";
 
 function PerfilInstituicao() {
   let editable = true;
@@ -892,7 +894,30 @@ function PerfilInstituicao() {
                   <Services>
                     <h2>Serviços</h2>
                     <div>
-                      <p>Liste aqui os serviços que você oferece:</p>
+                      <p>Selecione os serviços que você oferece:</p>
+                    </div>
+                    <div>
+                      <Service/>
+                      <Service/>
+                      <Service/>
+                      <Service/>
+                      <Service/>
+                    </div>
+                  </Services>
+                )}
+                {editable && (
+                  <Services>
+                    <h2>Doações</h2>
+                    <div>
+                      <p>O que você precisa?</p>
+                    </div>
+                    <div>
+                      <Service/>
+                      <Service/>
+                      <Service/>
+                      <Service/>
+                      <Service/>
+                      <Donation type={2} title={'Castração'}/>
                     </div>
                   </Services>
                 )}
