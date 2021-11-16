@@ -13,7 +13,9 @@ function Header() {
       </Logo>
 
       <Menu>
-        <MenuItem>
+        <MenuItem onClick={() => {
+            history.push("/home")
+          }}>
         {/* <IconHome/> */}
           <p>Feed</p>
         </MenuItem>
@@ -24,11 +26,15 @@ function Header() {
         {/* <MenuItem>
           <p>Instituições</p>
         </MenuItem> */}
-        <MenuItem>
+        <MenuItem onClick={() => {
+            history.push("/favoritos")
+          }}>
         {/* <IconFavorite/> */}
           <p>Favoritos</p>
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={() => {
+            history.push("/mapa")
+          }}>
         {/* <IconMap/> */}
           <p>Mapa</p>
         </MenuItem>

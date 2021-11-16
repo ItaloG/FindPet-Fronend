@@ -7,9 +7,10 @@ export const Container = styled.div`
     height: auto;
     margin: 0 auto;
     background-color: white;
+    padding-top: 8rem;
 `;
 
-export const Profile = styled.div`
+export const Profile = styled.main`
     width: 100%;
     height: auto;
 `;

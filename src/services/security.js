@@ -1,84 +1,84 @@
-// import jwtDecode from "jwt-decode";
-// import { api } from "./api";
+import jwtDecode from "jwt-decode";
+import { api } from "./api";
 
-// const USER_KEY = "@user";
+const USER_KEY = "@user";
 
-// export const signIn = (user) => {
-//   localStorage.setItem(USER_KEY, JSON.stringify(user));
+export const signIn = (user) => {
+  localStorage.setItem(USER_KEY, JSON.stringify(user));
 
-//   //setando o token como padrão em todas as requisições
-//   api.defaults.headers.common["Authorization"] = `Bearer${user.token}`;
-// };
+  //setando o token como padrão em todas as requisições
+  api.defaults.headers.common["Authorization"] = `Bearer${user.token}`;
+};
 
-// export const signOut = () => {
-//   localStorage.removeItem(USER_KEY);
+export const signOut = () => {
+  localStorage.removeItem(USER_KEY);
 
-//   api.defaults.headers.common["Authorization"] = undefined;
-// };
+  api.defaults.headers.common["Authorization"] = undefined;
+};
 
-// export const getUserId = () => {
-//   const user = JSON.parse(localStorage.getItem(USER_KEY));
+export const getUserId = () => {
+  const user = JSON.parse(localStorage.getItem(USER_KEY));
 
-//   if (user && user.token) {
-//     const jwtDecoded = jwtDecode(user.token);
+  if (user && user.token) {
+    const jwtDecoded = jwtDecode(user.token);
     
-//     const id = jwtDecoded.institutionId;
+    const id = jwtDecoded.institutionId;
 
-//     return id;
-//   }
+    return id;
+  }
 
-// };
+};
 
-// export const setUser = (student) => {
-//   const user = JSON.parse(localStorage.getItem(USER_KEY));
+export const setUser = (student) => {
+  const user = JSON.parse(localStorage.getItem(USER_KEY));
 
-//   user.student = student;
+  user.student = student;
 
-//   localStorage.setItem(USER_KEY, JSON.stringify(user));
-// };
+  localStorage.setItem(USER_KEY, JSON.stringify(user));
+};
 
-// export const isSignedIn = () => {
-//   const user = JSON.parse(localStorage.getItem(USER_KEY));
+export const isSignedIn = () => {
+  const user = JSON.parse(localStorage.getItem(USER_KEY));
 
-//   if (user && user.token) {
-//     const jwtDecoded = jwtDecode(user.token);
+  if (user && user.token) {
+    const jwtDecoded = jwtDecode(user.token);
 
-//     const nowTime = (Date.now() / 1000) | 0;
+    const nowTime = (Date.now() / 1000) | 0;
 
-//     if (jwtDecoded.exp < nowTime) {
-//       return signOut();
-//     }
+    if (jwtDecoded.exp < nowTime) {
+      return signOut();
+    }
 
-//     api.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
-//     return true;
-//   }
+    api.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
+    return true;
+  }
 
-//   return false;
-// };
+  return false;
+};
 
-// export const isAdmin = () => {
-//   const user = JSON.parse(localStorage.getItem(USER_KEY));
+export const isAdmin = () => {
+  const user = JSON.parse(localStorage.getItem(USER_KEY));
 
-//   try {
-//     if (user && user.token) {
-//       const jwtDecoded = jwtDecode(user.token);
+  try {
+    if (user && user.token) {
+      const jwtDecoded = jwtDecode(user.token);
 
-//       const nowTime = (Date.now() / 1000) | 0;
+      const nowTime = (Date.now() / 1000) | 0;
 
-//       if (jwtDecoded.exp < nowTime) {
-//         return signOut();
-//       }
+      if (jwtDecoded.exp < nowTime) {
+        return signOut();
+      }
 
-//       if (jwtDecoded.perfil !== "admin") {
-//         return signOut();
-//       }
+      if (jwtDecoded.perfil !== "admin") {
+        return signOut();
+      }
 
-//       api.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
-//       return true;
-//     }
+      api.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
+      return true;
+    }
 
-//     return false;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
+    return false;
+  } catch (error) {
+    console.error(error);
+  }
+};

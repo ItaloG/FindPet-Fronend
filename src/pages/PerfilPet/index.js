@@ -28,7 +28,7 @@ import DefaultPetPhoto from "../../assets/default-pet-photo.jpg";
 import Banner from "../../assets/banner3.png"
 
 function PerfilPet(props) {
-  let editable = props;
+  let editable = false;
 
   return (
     <>

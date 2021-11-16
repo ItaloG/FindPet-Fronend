@@ -11,9 +11,10 @@ export const Container = styled.header`
     width: 100%;
     height: 3.7rem;
     background-color: white;
-    box-shadow: -1px 2px 3px #dbdbdb;
+    box-shadow: -1px 1px 3px #dbdbdb;
     display: flex;
-    margin-bottom: 4rem;
+    position: fixed;
+    z-index: 99999;
 `;
 
 export const Logo = styled.div`

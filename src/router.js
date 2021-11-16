@@ -7,15 +7,19 @@ import Login from "./pages/Login";
 import PerfilInstituicao from "./pages/PerfilInstituicao";
 import PerfilPet from "./pages/PerfilPet"
 // import PerfilInstituicaoUsuario from "./pages/PerfilInstituicao/usuarioindex";
-// import { isSignedIn } from "./services/security";
+import { isSignedIn } from "./services/security";
 
 function AppRoute({ children, ...rest }) {
+  if (isSignedIn()) {
     return (
       <Route {...rest}>
         <Header />
         {children}
       </Route>
     )
+  } else {
+    return <Redirect to="/" />;
+  }
 }
 
 function Router() {
