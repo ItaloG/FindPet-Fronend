@@ -60,6 +60,10 @@ import {
   IconPhone,
   Employees,
   EditCoverPhoto,
+  Campaigns,
+  Description,
+  Pets,
+  Services,
 } from "./styles";
 
 import DefaultPetPhoto from "../../assets/default-pet-photo.jpg";
@@ -76,6 +80,9 @@ import Modal from "../../components/Modal";
 import { useParams } from "react-router";
 import Input from "../../components/Input";
 import { mascaraCep } from "../../utils";
+import Employee from "./Components/Employee";
+import Campaign from "./Components/Campaign";
+import Pet from "./Components/Pet";
 
 function PerfilInstituicao() {
   let editable = true;
@@ -854,60 +861,82 @@ function PerfilInstituicao() {
           <ProfileBody>
             <div>
               <div>
-                <Contact>
-                  <h2>Contato</h2>
-                  <div>
-                    <IconEmail />
-                    <p>{instituicao.email}</p>
-                  </div>
-                  <div>
-                    <IconPlace />
-                    <p>
-                      {instituicaoEndereco.length > 0
-                        ? `${instituicaoEndereco[0].logradouro}, nº${instituicaoEndereco[0].numero} - ${instituicaoEndereco[0].Cep.cep}`
-                        : ""}
-                    </p>
-                  </div>
-                  {instituicaoTelefones.map((t) => (
+                {!editable && (
+                  <Contact>
+                    <h2>Contato</h2>
                     <div>
-                      {t.numero.length == 9 ? <IconTelephone /> : <IconPhone />}
-                      <p>{t.numero}</p>
+                      <IconEmail />
+                      <p>{instituicao.email}</p>
                     </div>
-                  ))}
-                </Contact>
+                    <div>
+                      <IconPlace />
+                      <p>
+                        {instituicaoEndereco.length > 0
+                          ? `${instituicaoEndereco[0].logradouro}, nº${instituicaoEndereco[0].numero} - ${instituicaoEndereco[0].Cep.cep}`
+                          : ""}
+                      </p>
+                    </div>
+                    {instituicaoTelefones.map((t) => (
+                      <div>
+                        {t.numero.length == 9 ? (
+                          <IconTelephone />
+                        ) : (
+                          <IconPhone />
+                        )}
+                        <p>{t.numero}</p>
+                      </div>
+                    ))}
+                  </Contact>
+                )}
+                {editable && (
+                  <Services>
+                    <h2>Serviços</h2>
+                    <div>
+                      <p>Liste aqui os serviços que você oferece:</p>
+                    </div>
+                  </Services>
+                )}
                 <Employees>
-                  <h2>Nossos Colaboradores</h2>
-                  <div></div>
+                  <div>
+                    <h2>Nossos Colaboradores</h2>
+                    <button onClick={() => setIsOpenNewColaboradores(true)}>
+                      + <small>Novo</small>
+                    </button>
+                  </div>
+
+                  {colaboradores.length === 0 ? (
+                    <p>Não há colaboradores para mostrar.</p>
+                  ) : (
+                    <div>
+                      {colaboradores.map((c, index) => (
+                        <Employee
+                          key={index}
+                          id={c.id}
+                          handler={handleEditarColaborador}
+                          nome={c.nome}
+                          img={c.url_foto_perfil}
+                          cargo={c.Position.cargo}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </Employees>
               </div>
               <div>
-                <PetGallery>
-                  <h2>Fotos</h2>
-                  <div>
-                    <div>
-                      <button>
-                        <IconPrevious />
-                      </button>
-                      <button>
-                        <IconNext />
-                      </button>
-                    </div>
-                    <div>
-                      <img src={Banner} alt="" />
-                    </div>
-                  </div>
-                </PetGallery>
-                <PetHistory>
-                  <h2>Histórico</h2>
+                <Description>
                   {editable && (
-                    <textarea>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                      Duis aute irure dolor in reprehenderit in voluptate velit
-                      esse cillum dolore eu fugiat nulla pariatur.
-                    </textarea>
+                    <>
+                      <h2>Descrição</h2>
+                      <textarea>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua. Ut enim ad minim veniam, quis nostrud
+                        exercitation ullamco laboris nisi ut aliquip ex ea
+                        commodo consequat. Duis aute irure dolor in
+                        reprehenderit in voluptate velit esse cillum dolore eu
+                        fugiat nulla pariatur.
+                      </textarea>
+                    </>
                   )}
                   {!editable && (
                     <p>
@@ -919,7 +948,57 @@ function PerfilInstituicao() {
                       esse cillum dolore eu fugiat nulla pariatur.
                     </p>
                   )}
-                </PetHistory>
+                </Description>
+                <Campaigns>
+                  <div>
+                    <h2>Campanhas</h2>
+                    <button onClick={() => setIsOpenNewCampanha(true)}>
+                      + <small>Nova</small>
+                    </button>
+                  </div>
+
+                  {campanhas.length === 0 ? (
+                    <p>Não há campanhas para mostrar.</p>
+                  ) : (
+                    <div>
+                      {campanhas.map((c, index) => (
+                        <Campaign
+                          key={index}
+                          id={c.id}
+                          handlerEditar={handleEditarCampanha}
+                          handlerExcluir={handleExcluirCampanha}
+                          titulo={c.titulo}
+                          img={c.url_foto}
+                          descricao={c.descricao}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </Campaigns>
+                <Pets>
+                  <div>
+                    <h2>Animais para adoção</h2>
+                    <button onClick={() => setIsOpenNewAnimal(true)}>
+                      + <small>Novo</small>
+                    </button>
+                  </div>
+
+                  {animais.length === 0 ? (
+                    <p>Não há animais para mostrar.</p>
+                  ) : (
+                    <div>
+                      {animais.map((a, index) => (
+                        <Pet
+                          key={index}
+                          id={a.id}
+                          nome={a.nome}
+                          raca={a.TypeAnimal.tipo}
+                          img={a.url_foto_perfil}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </Pets>
               </div>
             </div>
           </ProfileBody>
@@ -931,46 +1010,11 @@ function PerfilInstituicao() {
     //   <Container>
     //     <main>
     //       <Profile>
-    //         <Banner>
-    //           <img
-    //             src={instituicao.url_foto_banner ? banner : DefaultBanner}
-    //             alt="banner"
-    //           />
-    //           <label htmlFor="banner">
-    //             <StyledMdAddAPhoto /> Mudar foto de capa
-    //           </label>
-    //           <input
-    //             type="file"
-    //             name="banner"
-    //             id="banner"
-    //             accept="image/*"
-    //             onChange={handleBanner}
-    //           />
-    //         </Banner>
+    //
     //         <aside>
     //           <ContainerInfo>
     //             <div>
-    //               <FotoPerfil>
-    //                 <img
-    //                   src={
-    //                     instituicao.url_foto_perfil ? perfil : DefaultProfile
-    //                   }
-    //                   alt="profile"
-    //                 />
-    //                 <label htmlFor="profile">
-    //                   <StyledMdAddAPhoto />
-    //                 </label>
-    //                 <input
-    //                   type="file"
-    //                   name="profile"
-    //                   id="profile"
-    //                   accept="image/*"
-    //                   onChange={handlePerfil}
-    //                 />
-    //               </FotoPerfil>
-    //               <div>
-    //                 <h1>{instituicao.nome}</h1>
-    //               </div>
+    //
     //               <StyledHeart style={{ display: "none" }} />
     //             </div>
     //             <div>
@@ -1016,57 +1060,8 @@ function PerfilInstituicao() {
     //       </Profile>
     //       <Section>
     //         <aside>
-    //           <div className="contatos">
-    //             <h1>Contato</h1>
-    //             <div>
-    //               <StyledMdEmail />
-    //               <p>{instituicao.email}</p>
-    //             </div>
-    //             <div>
-    //               <StyledFaMapMarkerAlt />
-    //               <p>
-    //                 {instituicaoEndereco.length > 0
-    //                   ? `${instituicaoEndereco[0].logradouro}, nº${instituicaoEndereco[0].numero} - ${instituicaoEndereco[0].Cep.cep}`
-    //                   : ""}
-    //               </p>
-    //             </div>
-    //             {instituicaoTelefones.map((t) => (
-    //               <div>
-    //                 {t.numero.length == 9 ? (
-    //                   <StyledFaPhoneAlt />
-    //                 ) : (
-    //                   <StyledMdPhoneIphone />
-    //                 )}
-    //                 <p>{t.numero}</p>
-    //               </div>
-    //             ))}
-    //           </div>
-    //           <div className="funcionarios">
-    //             <div onClick={() => setIsOpenNewColaboradores(true)}>
-    //               <h1>Nossos colaboradores</h1>
-    //               <div>
-    //                 <span>+</span> Novo Colaborador
-    //               </div>
-    //             </div>
-    //             <Colaboradores>
-    //               {colaboradores.length === 0 ? (
-    //                 <p>Adicione novos colaboradores</p>
-    //               ) : (
-    //                 <div>
-    //                   {colaboradores.map((c, index) => (
-    //                     <PerfilColaborador
-    //                       key={index}
-    //                       id={c.id}
-    //                       handler={handleEditarColaborador}
-    //                       nome={c.nome}
-    //                       img={c.url_foto_perfil}
-    //                       cargo={c.Position.cargo}
-    //                     />
-    //                   ))}
-    //                 </div>
-    //               )}
-    //             </Colaboradores>
-    //           </div>
+    //
+    //
     //         </aside>
     //         <section>
     //           <ApoioContainer>
@@ -1077,78 +1072,11 @@ function PerfilInstituicao() {
     //               <div>Materiais</div>
     //             </div>
     //           </ApoioContainer>
-    //           <DescricaoContainer>
-    //             <h1>Descrição</h1>
-    //             <textarea
-    //               maxLength={150}
-    //               placeholder="Escreva aqui uma breve descrição sobre sua instituição"
-    //             />
-    //             <button>Salvar</button>
-    //           </DescricaoContainer>
-    //           <CampanhasContainer>
-    //             <div>
-    //               <h1>Campanhas</h1>
-    //               <div
-    //                 onClick={() => {
-    //                   setIsOpenNewCampanha(true);
-    //                 }}
-    //               >
-    //                 <span>+</span>Nova Camapnha
-    //               </div>
-    //             </div>
 
-    //             <Campanhas>
-    //               {campanhas.length === 0 ? (
-    //                 <p>Adicione uma nova capmanhs</p>
-    //               ) : (
-    //                 <div>
-    //                   {campanhas.map((c, index) => (
-    //                     <Campanha
-    //                       key={index}
-    //                       id={c.id}
-    //                       handlerEditar={handleEditarCampanha}
-    //                       handlerExcluir={handleExcluirCampanha}
-    //                       titulo={c.titulo}
-    //                       img={c.url_foto}
-    //                       descricao={c.descricao}
-    //                     />
-    //                   ))}
-    //                 </div>
-    //               )}
-    //             </Campanhas>
-    //           </CampanhasContainer>
-    //           <AnimaisContainer>
-    //             <div>
-    //               <h1>Animais</h1>
-    //               <div
-    //                 onClick={() => {
-    //                   setIsOpenNewAnimal(true);
-    //                 }}
-    //               >
-    //                 <span>+</span> Novo animal
-    //               </div>
-    //             </div>
-    //             <Aniamis>
-    //               {Aniamis.length === 0 ? (
-    //                 <p>Adicione novos animais</p>
-    //               ) : (
-    //                 <div>
-    //                   {animais.map((a, index) => (
-    //                     <PerfilAnimal
-    //                       key={index}
-    //                       id={a.id}
-    //                       nome={a.nome}
-    //                       raca={a.TypeAnimal.tipo}
-    //                       img={a.url_foto_perfil}
-    //                     />
-    //                   ))}
-    //                 </div>
-    //               )}
-    //             </Aniamis>
-    //           </AnimaisContainer>
     //         </section>
     //       </Section>
     //     </main>
+
     //     {isOpenservicos && (
     //       <Modal title="serviços" handleClose={handleCloseServicos}>
     //         <ContainerTodosServicos>

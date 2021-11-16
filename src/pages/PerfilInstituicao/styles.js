@@ -319,6 +319,30 @@ export const Contact = styled.div`
     }
 `;
 
+export const Services = styled.div`
+    width: 100%;
+    height: auto;
+    background-color: white;
+    font-weight: 500;
+    margin-bottom: 50px;
+
+    > h2 {
+        font-style: normal;
+        color: #92765E;
+        margin-bottom: 10px;
+    }
+
+    > div {
+      width: 100%;
+      height: auto;
+      font-size: 0.9rem;
+      color: #bababa;
+      padding-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+`;
+
 export const IconEmail = styled(MdEmail)`
   width: 25px;
   height: 25px;
@@ -349,65 +373,47 @@ export const Employees = styled.div`
     height: auto;
     background-color: white;
 
-    > h2 {
+    > div:first-child {
+      display: flex;
+
+      > h2 {
         color: #92765E;
         margin-bottom: 20px;
+      }
+
+      > button {
+        width: fit-content;
+        height: fit-content;
+        padding: 5px 15px;
+        margin-left: 10px;
+        border: 0;
+        border-radius: 7px;
+        font-family: 'Montserrat';
+        font-weight: 600;
+        font-size: 1rem;
+        color: white;
+        background-color: var(--dark);
+        text-transform: uppercase;
+
+        :hover {
+          cursor: pointer;
+        }
+      }
     }
 
-    > div {
+    > p {
+      font-family: 'Montserrat';
+      font-size: 0.9rem;
+      color: #bababa;
+      font-weight: 500;
+    }
+
+    > div:last-child {
       width: 100%;
       height: auto;
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-    }
-
-    > table {
-        width: 100%;
-        border-collapse: collapse;
-
-        > tr td {
-            border-bottom: solid 1px #c9c9c9;
-            padding: 7px 0;
-            margin: 0;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        > tr td:first-child {
-            font-weight: bold;
-            color: var(--primary);
-            width: 45%;
-        }
-
-        > tr td:last-child {
-            border-left: solid 1px #c9c9c9;
-            padding-left: 10px;
-            font-weight: 500;
-            color: #bababa;
-            width: 55%;
-
-            > button {
-                border: 0;
-                background-color: transparent;
-                margin-left: 5px;
-            }
-
-            > input, select {
-                width: 95%;
-                padding: 3px 10px;
-                font-family: 'Montserrat';
-                color: var(--gray);
-                font-weight: 500;
-                font-size: 1rem;
-                border: solid 1px #c9c9c9;
-                border-radius: 1px;
-            }
-
-            select {
-                padding-left: 5px;
-            }
-        }
+      gap: 15px;
     }
 `;
 
@@ -423,48 +429,45 @@ export const IconEdit = styled(MdModeEditOutline)`
     color: var(--primary); 
 `;
 
-export const PetGallery = styled.div`
+export const Campaigns = styled.div`
     width: 100%;
-    height: 300px;
+    min-height: 300px;
+    height: auto;
     margin-bottom: 50px;
 
-    > h2 {
+    > div:first-child {
+      display: flex;
+
+      > h2 {
         color: #92765E;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
+      }
+
+      > button {
+        width: fit-content;
+        height: fit-content;
+        padding: 5px 15px;
+        margin-left: 10px;
+        border: 0;
+        border-radius: 7px;
+        font-family: 'Montserrat';
+        font-weight: 600;
+        font-size: 1rem;
+        color: white;
+        background-color: var(--dark);
+        text-transform: uppercase;
+
+        :hover {
+          cursor: pointer;
+        }
+      }
     }
 
-    > div {
+    > div:last-child {
         width: 100%;
-        height: 260px;
-        background-color: #bababa;
-
-        > div:first-child {
-            width: 540px;
-            height: auto;
-            display: flex;
-            justify-content: space-between;
-            z-index: 999;
-            position: absolute;
-            margin-top: 100px;
-
-            > button {
-                background-color: transparent;
-                border: 0;
-            }
-        }
-
-        > div:last-child {
-            width: 100%;
-            height: 260px;
-            display: flex;
-            background-color: pink;
-
-            > img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-        }
+        min-height: 260px;
+        height: auto;
+        background-color: white;
     }
 `;
 
@@ -480,9 +483,10 @@ export const IconNext = styled(MdNavigateNext)`
     color: white;
 `;
 
-export const PetHistory = styled.div`
+export const Description = styled.div`
     width: 100%;
     height: auto;
+    margin-bottom: 50px;
 
     > h2 {
         color: #92765E;
@@ -506,6 +510,55 @@ export const PetHistory = styled.div`
         font-weight: 500;
         border-radius: 1px;
         font-size: 0.9rem;
+    }
+`;
+
+export const Pets = styled.div`
+    width: 100%;
+    height: auto;
+    background-color: white;
+
+    > div:first-child {
+      display: flex;
+
+      > h2 {
+        color: #92765E;
+        margin-bottom: 20px;
+      }
+
+      > button {
+        width: fit-content;
+        height: fit-content;
+        padding: 5px 15px;
+        margin-left: 10px;
+        border: 0;
+        border-radius: 7px;
+        font-family: 'Montserrat';
+        font-weight: 600;
+        font-size: 1rem;
+        color: white;
+        background-color: var(--dark);
+        text-transform: uppercase;
+
+        :hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    > p {
+      font-family: 'Montserrat';
+      font-size: 0.9rem;
+      color: #bababa;
+      font-weight: 500;
+    }
+
+    > div:last-child {
+      width: 100%;
+      height: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 15px;
     }
 `;
 
@@ -669,6 +722,8 @@ export const ContainerServicos = styled.div`
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
+
+    
     
     > div {
     width: 100px;
