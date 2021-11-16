@@ -1,13 +1,5 @@
-import {
-  HeaderBody,
-  HeaderContainer,
-  Logo,
-  Pesquisar,
-  Menu,
-  MenuItem,
-  BotaoPerfil,
-} from "./styles";
-import AppLogo from "../../assets/logo-findpet.svg";
+import { Body, BotaoPerfil, Box, Container, IconFavorite, IconHome, IconMap, IconMember, IconPet, IconSearch, Logo, Menu, MenuItem, Profile, SearchBox } from "./styles"
+import LogoImg from "../../assets/logo-findpet.svg";
 import DefaultProfilePhoto from "../../assets/default_profile_photo.jpg";
 import { useHistory } from "react-router";
 
@@ -15,8 +7,55 @@ function Header() {
   let history = useHistory();
 
   return (
-    <HeaderBody>
-      <HeaderContainer>
+    <Container>
+      <Logo>
+        <img src={LogoImg} alt="FindPet" />
+      </Logo>
+
+      <Menu>
+        <MenuItem>
+        {/* <IconHome/> */}
+          <p>Feed</p>
+        </MenuItem>
+        <MenuItem>
+        {/* <IconPet/> */}
+          <p>Pets</p>
+        </MenuItem>
+        {/* <MenuItem>
+          <p>Instituições</p>
+        </MenuItem> */}
+        <MenuItem>
+        {/* <IconFavorite/> */}
+          <p>Favoritos</p>
+        </MenuItem>
+        <MenuItem>
+        {/* <IconMap/> */}
+          <p>Mapa</p>
+        </MenuItem>
+        <MenuItem>
+        {/* <IconMember/> */}
+          <p>Seja Membro</p>
+        </MenuItem>
+      </Menu>
+
+      <SearchBox>
+        <input type="text" placeholder="Encontre pessoas e instituições..."/>
+        {/* <button>Buscar</button> */}
+        <IconSearch/>
+      </SearchBox>
+
+      <Profile>
+          <div>
+            <img src={DefaultProfilePhoto} alt="perfil"/>
+          </div>
+        </Profile>
+    </Container>
+  );
+}
+
+export default Header;
+
+{/* <HeaderContainer>
         <Logo>
           <img src={AppLogo} alt="logo"/>
         </Logo>
@@ -58,9 +97,4 @@ function Header() {
             <img src={DefaultProfilePhoto} alt="perfil"/>
           </div>
         </BotaoPerfil>
-      </HeaderContainer>
-    </HeaderBody>
-  );
-}
-
-export default Header;
+      </HeaderContainer> */}

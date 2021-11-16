@@ -1,73 +1,97 @@
 import styled from 'styled-components';
+import { HiSearch } from 'react-icons/hi';
+import { ImHome } from 'react-icons/im';
+import { MdPets, MdOutlineFavorite, MdStars } from 'react-icons/md';
+import { FaMap } from 'react-icons/fa'
 
-export const HeaderBody = styled.div `
+export const Container = styled.header`
     font-family: 'Montserrat';
     display: flex;
-    justify-content: center;
-    width: 100%;
-    height: 70px;
-    background-color: white;
-    /* box-shadow: -1px 2px 3px #c6c6c6; */
-    
-    position: absolute;
-`;
-
-export const HeaderContainer = styled.div`
-    display: flex;
     justify-content: space-between;
-    width: 90%;
-    height: 100%;
+    width: 100%;
+    height: 3.7rem;
+    background-color: white;
+    box-shadow: -1px 2px 3px #dbdbdb;
+    display: flex;
+    margin-bottom: 4rem;
 `;
 
 export const Logo = styled.div`
-    display: flex;
-    justify-content: center;
-    width: auto;
+    width: 10.5rem;
     height: 100%;
+    /* background-color: aqua; */
+    display: flex;
+    align-items: center;
+    margin-left: 1.5rem;
 
     > img {
-        width: 180px;
+        width: 100%;
         height: auto;
     }
 `;
 
-export const Pesquisar = styled.div`
+export const SearchBox = styled.div`
+    width: 20rem;
+    height: 100%;
+    /* background-color: aquamarine; */
+    margin-left: 2rem;
     display: flex;
     align-items: center;
-    width: auto;
-    height: 100%;
 
     > input {
-        width: 250px;
-        font-size: 14px;
-        padding: 6px;
-        background-color: white;
-        border: solid 1.5px #C6C6C6;
-        border-radius: 5px;
-        color: gray;
-        font-weight: medium;
-        padding-left: 15px;
+        width: 100%;
+        height: 2.2rem;
+        border: 0;
+        background-color: #f0f0f0;
+        border-radius: 12px;
+        padding-left: 1rem;
+        font-size: 0.8rem;
+        color: #c9c9c9;
         font-family: 'Montserrat';
+        font-weight: 500;
 
         ::placeholder {
-            color: #C6C6C6;
-            font-weight: medium;
+            color: #c9c9c9;
         }
     }
+`;
 
-    > button {
-        padding: 6px;
-        padding-right: 12px;
-        padding-left: 12px;
-        font-size: 14px;
-        background-color: #C98822;
-        color: white;
-        border: solid 1.5px #C98822;
-        border-radius: 5px;
-        margin-left: 5px;
-        font-family: 'Montserrat';
-        font-weight: bold;
-    }
+export const IconSearch = styled(HiSearch)`
+    width: 1.5rem;
+    height: 1.5rem;
+    color: #c9c9c9;
+    position: absolute;
+    margin-left: 18rem;
+`;
+
+export const IconHome = styled(ImHome)`
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--primary)
+`;
+
+export const IconPet = styled(MdPets)`
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--primary)
+`;
+
+export const IconFavorite = styled(MdOutlineFavorite)`
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--primary)
+`;
+
+export const IconMap = styled(FaMap)`
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--primary)
+`;
+
+export const IconMember = styled(MdStars)`
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--primary)
 `;
 
 export const Menu = styled.div`
@@ -84,50 +108,42 @@ export const MenuItem = styled.div`
     justify-content: center;
     width: auto;
     height: 100%;
-    font-size: 16px;
-    font-weight: bold;
-    margin-left: 20px;
-    margin-right: 20px;
-    color: #92765E;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-left: 1.3rem;
+    margin-right: 1.3rem;
+    /* color: #92765E; */
+    color: var(--primary);
     font-family: 'Montserrat';
+    transition: 0.3s;
 
     :hover {
         cursor: pointer;
-        color: var(--primary);
-    }
-
-    /* Media Queries */
-    p.menu-item-responsive-show {
-        display: none;
-    }
-
-    @media(max-width: 1000px) {
-        p.menu-item-responsive-hidden {
-            display: none;
-        }
-
-        p.menu-item-responsive-show {
-            display: flex;
-        }
+        color: var(--dark);
     }
 `;
 
-export const BotaoPerfil = styled.div`
+export const Profile = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
     width: auto;
     height: 100%;
+    margin-right: 1.5rem;
 
     > div {
         width: 40px;
         height: 40px;
-        background-color: brown;
+        background-color: white;
         border-radius: 50%;
+        border: solid 2.5px var(--primary);
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         > img {
-            width: 100%;
-            height: 100%;
+            width: 95%;
+            height: 95%;
             border-radius: 100%;
         } 
     }

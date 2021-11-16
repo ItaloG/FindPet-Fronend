@@ -5,20 +5,17 @@ import Favoritos from "./pages/Favoritos";
 import Feed from "./pages/Feed";
 import Login from "./pages/Login";
 import PerfilInstituicao from "./pages/PerfilInstituicao";
-import PerfilInstituicaoUsuario from "./pages/PerfilInstituicao/usuarioindex";
-import { isSignedIn } from "./services/security";
+import PerfilPet from "./pages/PerfilPet"
+// import PerfilInstituicaoUsuario from "./pages/PerfilInstituicao/usuarioindex";
+// import { isSignedIn } from "./services/security";
 
 function AppRoute({ children, ...rest }) {
-  if (isSignedIn()) {
     return (
       <Route {...rest}>
         <Header />
         {children}
       </Route>
     )
-  } else {
-    return <Redirect to="/" />;
-  }
 }
 
 function Router() {
@@ -30,6 +27,9 @@ function Router() {
         </Route>
         <AppRoute path="/home">
           <Feed />
+        </AppRoute>
+        <AppRoute path="/pets">
+          <PerfilPet />
         </AppRoute>
         <AppRoute path="/instituicao/:instituicaoId">
           <PerfilInstituicao />
