@@ -5,8 +5,8 @@ import EditButton from "../EditButton";
 function Employee({ id, nome, cargo, handler, img }) {
   return (
     <Container>
-        <aside>
-            <EditButton onClick={() => handler(id)}/>
+        <aside onClick={() => handler(id)}>
+            <EditButton/>
         </aside>
         <img src={img ? img : DefaultProfilePhoto} alt={"Colaborador " + {nome}}/>
         <h3>{nome}</h3>

@@ -9,8 +9,8 @@ color: white;
 `;
 
 export const IconNotSelected = styled(MdDoDisturbOn)`
-width: 27px;
-height: 27px;
+width: 25px;
+height: 25px;
 color: white;
 `;
 
@@ -32,6 +32,10 @@ export const ServiceOn = styled.div`
         font-weight: 600;
         color: white;
     }
+
+    :hover {
+        cursor: pointer;
+    }
 `;
 
 export const ServiceOff = styled.div`
@@ -51,5 +55,9 @@ export const ServiceOff = styled.div`
         font-size: 0.9rem;
         font-weight: 600;
         color: white;
+    }
+
+    :hover {
+        cursor: pointer;
     }
 `;

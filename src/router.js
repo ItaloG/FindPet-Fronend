@@ -1,4 +1,5 @@
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Encontrar from "./pages/Encontrar";
 import Favoritos from "./pages/Favoritos";
@@ -15,6 +16,7 @@ function AppRoute({ children, ...rest }) {
       <Route {...rest}>
         <Header />
         {children}
+        <Footer/>
       </Route>
     )
   } else {

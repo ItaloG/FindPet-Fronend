@@ -14,11 +14,11 @@ function Campaign({
   return (
     <Container>
       <div>
-        <aside>
-          <EditButton onClick={() => handlerEditar(id)} />
+        <aside onClick={() => handlerEditar(id)}>
+          <EditButton />
         </aside>
-        <aside>
-          <DeleteButton onClick={() => handlerExcluir(id)} />
+        <aside onClick={() => handlerExcluir(id)}>
+          <DeleteButton />
         </aside>
         <img src={img ? img : CampaignExample} alt="" />
       </div>

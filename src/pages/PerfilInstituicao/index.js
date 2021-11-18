@@ -64,6 +64,7 @@ import {
   Description,
   Pets,
   Services,
+  IconStar,
 } from "./styles";
 
 import DefaultPetPhoto from "../../assets/default-pet-photo.jpg";
@@ -87,8 +88,6 @@ import Service from "./Components/Service";
 import Donation from "./Components/Donation";
 
 function PerfilInstituicao() {
-  let editable = true;
-
   const { instituicaoId } = useParams();
   const [instituicao, setInstituicao] = useState([]);
   const [InstituicaoServicos, setInstituicaoServicos] = useState([]);
@@ -159,6 +158,8 @@ function PerfilInstituicao() {
   const [isOpenNewCampanha, setIsOpenNewCampanha] = useState(false);
   const [isEditandoCampanha, setIsEditandoCampanha] = useState(false);
   const [isOpenNewAnimal, setIsOpenNewAnimal] = useState(false);
+  const [isServiceSelected, setIsServiceSelected] = useState(false);
+  const [isAServiceSelected, setIsAServiceSelected] = useState(false);
 
   useEffect(() => {
     const loadInstituicao = async () => {
@@ -788,6 +789,31 @@ function PerfilInstituicao() {
     setCondicoesEspeciaisSel([]);
   };
 
+  let editable = true;
+
+  const [isOneServiceSelected, setIsOneServiceSelected] = useState(false);
+
+  const handleService = () => {
+    if (isServiceSelected)
+      return setIsServiceSelected(false)
+    else 
+      return setIsServiceSelected(true)
+  }
+
+  const handleOneService = (id) => {
+    this.setState(true)
+    // if (isAServiceSelected)
+    //   return setIsAServiceSelected(false)
+    // else 
+    //   return setIsAServiceSelected(true)
+  }
+
+  const handleDonation = (id) => {
+    this.setState({
+     EDIT: id = 2
+    })
+  }
+
   return (
     <>
       <Container>
@@ -853,8 +879,13 @@ function PerfilInstituicao() {
               {editable && (
                 <>
                   <PetFavoriteCount>
-                    <IconFavorite />
-                    <h4>Favoritada 226 vezes</h4>
+                    <IconStar />
+                    <IconStar />
+                    <IconStar />
+                    <IconStar />
+                    <IconStar />
+                    <h4>4.9</h4>
+                    <small>(126)</small>
                   </PetFavoriteCount>
                 </>
               )}
@@ -897,11 +928,13 @@ function PerfilInstituicao() {
                       <p>Selecione os serviços que você oferece:</p>
                     </div>
                     <div>
-                      <Service/>
-                      <Service/>
-                      <Service/>
-                      <Service/>
-                      <Service/>
+                      {/* {console.log(servicos.map((is) => console.log(is.servico)))} */}
+                      {/* {console.log(servicos.map((is) => console.log(is.servico)))} */}
+                      {servicos.map((is) => (
+                        <Service key={is.id} id={is.id} servico={is.servico} selected={isServiceSelected} handler={handleService}/>
+                      ))}
+                      {/* <Service key={servicos[0].id} id={servicos[0].id} servico={servicos[0].servico} selected={isServiceSelected} handler={handleService}/> */}
+                      {/* <Service key={servicos[1].id} id={servicos[1].id} servico={servicos[1].servico} selected={isAServiceSelected} handler={handleOneService}/> */}
                     </div>
                   </Services>
                 )}
@@ -913,11 +946,14 @@ function PerfilInstituicao() {
                     </div>
                     <div>
                       <Service/>
-                      <Service/>
-                      <Service/>
-                      <Service/>
-                      <Service/>
-                      <Donation type={2} title={'Castração'}/>
+                      <Service />
+                      <Service />
+                      <Service />
+                      <Service />
+                      {/* <div onClick={() => this.handleDonation()}>
+                        <Donation type={2} title={"Castração"} />
+                      </div> */}
+                      
                     </div>
                   </Services>
                 )}
@@ -1029,6 +1065,372 @@ function PerfilInstituicao() {
           </ProfileBody>
         </Profile>
       </Container>
+      {isOpenNewCampanha && (
+        <Modal
+          // style={{ height: document.body.scrollHeight }}
+          title={isEditandoCampanha ? "Editar" : "Nova Campanha"}
+          handleClose={handleCloseNewCampanha}
+        >
+          <CadastroCampanha
+            onSubmit={
+              isEditandoCampanha
+                ? handleSubmitCampanhaEditada
+                : handleSubmitCampanhas
+            }
+          >
+            <Input
+              id="titulo"
+              placeholder="Título da campanha"
+              value={campanha.titulo}
+              handler={handleInputCampanha}
+              required
+            />
+            <textarea
+              id="descricao"
+              placeholder="Descrição"
+              value={campanha.descricao}
+              onChange={handleInputCampanha}
+              maxLength={150}
+              required
+            />
+            <Input
+              type="text"
+              label="Local:"
+              id="cep"
+              placeholder="CEP"
+              pattern="(\d{5})-(\d{3})*"
+              value={campanha.cep}
+              handler={handleInputCepCampanha}
+              required
+            />
+            <Input
+              id="cidade"
+              placeholder="Cidade"
+              value={campanha.cidade}
+              handler={handleInputCampanha}
+              required
+            />
+            <Input
+              id="logradouro"
+              placeholder="Ruas/Avenida"
+              value={campanha.logradouro}
+              handler={handleInputCampanha}
+              required
+            />
+            <Input
+              id="numero"
+              placeholder="Número"
+              value={campanha.numero}
+              handler={handleInputCampanha}
+              required
+            />
+            <Input
+              id="complemento"
+              placeholder="Complemento"
+              value={campanha.complemento}
+              handler={handleInputCampanha}
+            />
+            <div className="flex-row">
+              <Input
+                label="Horário de início:"
+                id="hora_inicio"
+                value={campanha.hora_inicio}
+                handler={handleInputCampanha}
+                type="time"
+                required
+              />
+              <Input
+                label="Horário de fim:"
+                id="hora_fim"
+                value={campanha.hora_fim}
+                handler={handleInputCampanha}
+                type="time"
+                required
+              />
+            </div>
+            <div className="flex-row">
+              <Input
+                label="Data de início:"
+                id="data_inicio"
+                value={campanha.data_inicio}
+                handler={handleInputCampanha}
+                type="date"
+                required
+              />
+              <Input
+                label="Data de fim:"
+                id="data_fim"
+                value={campanha.data_fim}
+                handler={handleInputCampanha}
+                type="date"
+                required
+              />
+            </div>
+
+            <input
+              id="banner"
+              accept="image/*"
+              type="file"
+              onChange={handleImageCampanha}
+            />
+            <img alt="pre-vizualização" ref={imageRefCampanha} />
+            <button>Cadastrar</button>
+          </CadastroCampanha>
+        </Modal>
+      )}
+
+      {isOpenservicos && (
+        <Modal title="serviços" handleClose={handleCloseServicos}>
+          <ContainerTodosServicos>
+            {servicos.map((s) => (
+              <ServicoOption
+                key={s.id}
+                handler={handleServicoSel}
+                servicosSel={servicosSel}
+                id={s.id}
+                servico={s}
+              />
+            ))}
+            <button
+              className="limpar"
+              onClick={() => {
+                setServicosSel([]);
+              }}
+            >
+              Limpar
+            </button>
+            <button type="submit" onClick={handleSubmitServicos}>
+              Salvar
+            </button>
+          </ContainerTodosServicos>
+        </Modal>
+      )}
+
+      {isOpenNewColaboradores && (
+        <Modal
+          // style={{ height: "1460px" }}
+          title={isEditandoColaborador ? "Editar" : "Novo Colaborador"}
+          handleClose={handleCloseNewColaborador}
+        >
+          <CadsatroColaborador
+            onSubmit={
+              isEditandoColaborador
+                ? handleSubmitColaboradorEditado
+                : handleSubmitColaborador
+            }
+          >
+            <Input
+              id="nome"
+              placeholder="Nome do colaborador"
+              value={colaborador.nome}
+              handler={handleInputColaborador}
+            />
+            <Input
+              id="cpf"
+              placeholder="CPF do colaborador"
+              value={colaborador.cpf}
+              handler={handleInputColaborador}
+            />
+            <select
+              id="cargo"
+              value={colaborador.cargo}
+              onChange={handleInputColaborador}
+            >
+              <option value={0}>Selecione um cargo</option>
+              {cargos.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.cargo}
+                </option>
+              ))}
+            </select>
+            <Input
+              id="diaEntrada"
+              type="date"
+              label="dia de entrada"
+              value={colaborador.diaEntrada}
+              handler={handleInputColaborador}
+            />
+            <input
+              label="Foto"
+              accept="image/*"
+              type="file"
+              onChange={handleImageColaborador}
+            />
+            <img alt="pre-visualização" ref={imageRefColaborador} />
+            <button>{isEditandoColaborador ? "Editar" : "Cadastrar"}</button>
+            <button
+              onClick={() => setDeleteColaborador(true)}
+              style={
+                isEditandoColaborador
+                  ? { display: "block", backgroundColor: "var(--dark)" }
+                  : { display: "none" }
+              }
+            >
+              Excluir
+            </button>
+          </CadsatroColaborador>
+        </Modal>
+      )}
+
+      {isOpenNewAnimal && (
+        <Modal
+          // style={{ height: document.body.scrollHeight }}
+          title="Novo Animal"
+          handleClose={handleCloseNewAnimal}
+        >
+          <CadastroAnimal onSubmit={handleSubmitAnimal}>
+            <div className="container-foto-animais">
+              <img
+                alt="pre-visualização"
+                ref={imageRefAnimal}
+                src={DefaultPetProfile}
+              />
+            </div>
+            <label>
+              Foto do animal
+              <input
+                id="foto"
+                accept="image/*"
+                type="file"
+                onChange={handleImageAnimal}
+                required
+              />
+            </label>
+            <Input
+              id="nome"
+              placeholder="Nome do animal"
+              value={animal.nome}
+              handler={handleInputAnimal}
+              required
+            />
+
+            <select
+              id="tipoAnimal"
+              value={animal.tipoAnimal}
+              onChange={handleInputAnimal}
+              required
+            >
+              <option value="">Selecione um tipo de animal</option>
+              {tiposAnimal.map((tp) => (
+                <option key={tp.id} value={tp.id}>
+                  {tp.tipo}
+                </option>
+              ))}
+            </select>
+            <label>
+              Possui condição especial?
+              <RadioGroup>
+                <div>
+                  <input
+                    type="radio"
+                    name="condicaoEspecial"
+                    id="possui"
+                    onChange={() => setHasCondicaoEspecial(true)}
+                  />
+                  <label htmlFor="possui">Sim</label>
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    name="condicaoEspecial"
+                    id="naoPossui"
+                    onChange={handleHasNotCondicaoEspecial}
+                    defaultChecked
+                  />
+                  <label htmlFor="naoPossui">Não</label>
+                </div>
+              </RadioGroup>
+            </label>
+            {hasCondicaoEspecial && (
+              <>
+                <label>
+                  Condições especiais
+                  <select
+                    id="condicaoEspecial"
+                    onChange={handleCondicoesEspeciais}
+                    ref={condicoesEspeciaisRef}
+                  >
+                    <option value="">Selecione</option>
+                    {condicoesEspeciais.map((ce) => (
+                      <option key={ce.id} value={ce.id}>
+                        {ce.condicao}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <ContainerCondicoesEspeciais>
+                  {condicoesEspeciaisSel.map((ce) => (
+                    <CondicaoEspecial key={ce.id}>
+                      {ce.condicao}
+                      <span onClick={() => handleUnselCondicaoEspecial(ce.id)}>
+                        &times;
+                      </span>
+                    </CondicaoEspecial>
+                  ))}
+                </ContainerCondicoesEspeciais>
+              </>
+            )}
+            <label>
+              Castrado?
+              <RadioGroup>
+                <div>
+                  <input
+                    type="radio"
+                    value="1"
+                    name="castrado"
+                    id="simCastrado"
+                    onChange={handleRadioInputAnimal}
+                  />
+                  <label htmlFor="simCastrado">Sim</label>
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    value="0"
+                    name="castrado"
+                    id="naoCastrado"
+                    onChange={handleRadioInputAnimal}
+                    defaultChecked
+                  />
+                  <label htmlFor="naoCastrado">Não</label>
+                </div>
+              </RadioGroup>
+            </label>
+
+            <Input
+              id="idade"
+              label="Idade"
+              handler={handleInputAnimal}
+              value={animal.idade}
+              type="number"
+              min="1"
+              required
+            />
+
+            <label>
+              Personalidade
+              <textarea
+                id="personalidade"
+                value={animal.personalidade}
+                onChange={handleInputAnimal}
+                placeholder="Descreva a personalidade desse pet..."
+                required
+              />
+            </label>
+            <label>
+              História
+              <textarea
+                id="historia"
+                value={animal.historia}
+                onChange={handleInputAnimal}
+                placeholder="Conte um pouco sobre a história deste Pet..."
+                required
+              />
+            </label>
+            <button>Cadastrar</button>
+          </CadastroAnimal>
+        </Modal>
+      )}
     </>
 
     // <>
@@ -1101,368 +1503,6 @@ function PerfilInstituicao() {
     //         </section>
     //       </Section>
     //     </main>
-
-    //     {isOpenservicos && (
-    //       <Modal title="serviços" handleClose={handleCloseServicos}>
-    //         <ContainerTodosServicos>
-    //           {servicos.map((s) => (
-    //             <ServicoOption
-    //               key={s.id}
-    //               handler={handleServicoSel}
-    //               servicosSel={servicosSel}
-    //               id={s.id}
-    //               servico={s}
-    //             />
-    //           ))}
-    //           <button
-    //             className="limpar"
-    //             onClick={() => {
-    //               setServicosSel([]);
-    //             }}
-    //           >
-    //             Limpar
-    //           </button>
-    //           <button type="submit" onClick={handleSubmitServicos}>
-    //             Salvar
-    //           </button>
-    //         </ContainerTodosServicos>
-    //       </Modal>
-    //     )}
-
-    //     {isOpenNewCampanha && (
-    //       <Modal
-    //         style={{ height: document.body.scrollHeight }}
-    //         title={isOpenNewCampanha ? "Editar" : "Nova Campanha"}
-    //         handleClose={handleCloseNewCampanha}
-    //       >
-    //         <CadastroCampanha
-    //           onSubmit={
-    //             isEditandoCampanha
-    //               ? handleSubmitCampanhaEditada
-    //               : handleSubmitCampanhas
-    //           }
-    //         >
-    //           <Input
-    //             id="titulo"
-    //             placeholder="Título da campanha"
-    //             value={campanha.titulo}
-    //             handler={handleInputCampanha}
-    //             required
-    //           />
-    //           <textarea
-    //             id="descricao"
-    //             placeholder="Descrição"
-    //             value={campanha.descricao}
-    //             onChange={handleInputCampanha}
-    //             maxLength={150}
-    //             required
-    //           />
-    //           <Input
-    //             type="text"
-    //             label="Local:"
-    //             id="cep"
-    //             placeholder="CEP"
-    //             pattern="(\d{5})-(\d{3})*"
-    //             value={campanha.cep}
-    //             handler={handleInputCepCampanha}
-    //             required
-    //           />
-    //           <Input
-    //             id="cidade"
-    //             placeholder="Cidade"
-    //             value={campanha.cidade}
-    //             handler={handleInputCampanha}
-    //             required
-    //           />
-    //           <Input
-    //             id="logradouro"
-    //             placeholder="Ruas/Avenida"
-    //             value={campanha.logradouro}
-    //             handler={handleInputCampanha}
-    //             required
-    //           />
-    //           <Input
-    //             id="numero"
-    //             placeholder="Número"
-    //             value={campanha.numero}
-    //             handler={handleInputCampanha}
-    //             required
-    //           />
-    //           <Input
-    //             id="complemento"
-    //             placeholder="Complemento"
-    //             value={campanha.complemento}
-    //             handler={handleInputCampanha}
-    //           />
-    //           <div className="flex-row">
-    //             <Input
-    //               label="Horário de início:"
-    //               id="hora_inicio"
-    //               value={campanha.hora_inicio}
-    //               handler={handleInputCampanha}
-    //               type="time"
-    //               required
-    //             />
-    //             <Input
-    //               label="Horário de fim:"
-    //               id="hora_fim"
-    //               value={campanha.hora_fim}
-    //               handler={handleInputCampanha}
-    //               type="time"
-    //               required
-    //             />
-    //           </div>
-    //           <div className="flex-row">
-    //             <Input
-    //               label="Data de início:"
-    //               id="data_inicio"
-    //               value={campanha.data_inicio}
-    //               handler={handleInputCampanha}
-    //               type="date"
-    //               required
-    //             />
-    //             <Input
-    //               label="Data de fim:"
-    //               id="data_fim"
-    //               value={campanha.data_fim}
-    //               handler={handleInputCampanha}
-    //               type="date"
-    //               required
-    //             />
-    //           </div>
-
-    //           <input
-    //             id="banner"
-    //             accept="image/*"
-    //             type="file"
-    //             onChange={handleImageCampanha}
-    //           />
-    //           <img alt="pre-vizualização" ref={imageRefCampanha} />
-    //           <button>Cadastrar</button>
-    //         </CadastroCampanha>
-    //       </Modal>
-    //     )}
-
-    //     {isOpenNewColaboradores && (
-    //       <Modal
-    //         style={{ height: "1460px" }}
-    //         title={isEditandoColaborador ? "Editar" : "Novo Colaborador"}
-    //         handleClose={handleCloseNewColaborador}
-    //       >
-    //         <CadsatroColaborador
-    //           onSubmit={
-    //             isEditandoColaborador
-    //               ? handleSubmitColaboradorEditado
-    //               : handleSubmitColaborador
-    //           }
-    //         >
-    //           <Input
-    //             id="nome"
-    //             placeholder="Nome do colaborador"
-    //             value={colaborador.nome}
-    //             handler={handleInputColaborador}
-    //           />
-    //           <Input
-    //             id="cpf"
-    //             placeholder="CPF do colaborador"
-    //             value={colaborador.cpf}
-    //             handler={handleInputColaborador}
-    //           />
-    //           <select
-    //             id="cargo"
-    //             value={colaborador.cargo}
-    //             onChange={handleInputColaborador}
-    //           >
-    //             <option value={0}>Selecione um cargo</option>
-    //             {cargos.map((c) => (
-    //               <option key={c.id} value={c.id}>
-    //                 {c.cargo}
-    //               </option>
-    //             ))}
-    //           </select>
-    //           <Input
-    //             id="diaEntrada"
-    //             type="date"
-    //             label="dia de entrada"
-    //             value={colaborador.diaEntrada}
-    //             handler={handleInputColaborador}
-    //           />
-    //           <input
-    //             label="Foto"
-    //             accept="image/*"
-    //             type="file"
-    //             onChange={handleImageColaborador}
-    //           />
-    //           <img alt="pre-visualização" ref={imageRefColaborador} />
-    //           <button>{isEditandoColaborador ? "Editar" : "Cadastrar"}</button>
-    //           <button
-    //             onClick={() => setDeleteColaborador(true)}
-    //             style={
-    //               isEditandoColaborador
-    //                 ? { display: "block", backgroundColor: "var(--dark)" }
-    //                 : { display: "none" }
-    //             }
-    //           >
-    //             Excluir
-    //           </button>
-    //         </CadsatroColaborador>
-    //       </Modal>
-    //     )}
-
-    //     {isOpenNewAnimal && (
-    //       <Modal
-    //         style={{ height: document.body.scrollHeight }}
-    //         title="Novo Animal"
-    //         handleClose={handleCloseNewAnimal}
-    //       >
-    //         <CadastroAnimal onSubmit={handleSubmitAnimal}>
-    //           <div className="container-foto-animais">
-    //             <img
-    //               alt="pre-visualização"
-    //               ref={imageRefAnimal}
-    //               src={DefaultPetProfile}
-    //             />
-    //           </div>
-    //           <label>
-    //             Foto do animal
-    //             <input
-    //               id="foto"
-    //               accept="image/*"
-    //               type="file"
-    //               onChange={handleImageAnimal}
-    //               required
-    //             />
-    //           </label>
-    //           <Input
-    //             id="nome"
-    //             placeholder="Nome do animal"
-    //             value={animal.nome}
-    //             handler={handleInputAnimal}
-    //             required
-    //           />
-
-    //           <select
-    //             id="tipoAnimal"
-    //             value={animal.tipoAnimal}
-    //             onChange={handleInputAnimal}
-    //             required
-    //           >
-    //             <option value="">Selecione um tipo de animal</option>
-    //             {tiposAnimal.map((tp) => (
-    //               <option key={tp.id} value={tp.id}>{tp.tipo}</option>
-    //             ))}
-    //           </select>
-    //           <label>
-    //             Possui condição especial?
-    //             <RadioGroup>
-    //               <div>
-    //                 <input
-    //                   type="radio"
-    //                   name="condicaoEspecial"
-    //                   id="possui"
-    //                   onChange={() => setHasCondicaoEspecial(true)}
-    //                 />
-    //                 <label htmlFor="possui">Sim</label>
-    //               </div>
-    //               <div>
-    //                 <input
-    //                   type="radio"
-    //                   name="condicaoEspecial"
-    //                   id="naoPossui"
-    //                   onChange={handleHasNotCondicaoEspecial}
-    //                   defaultChecked
-    //                 />
-    //                 <label htmlFor="naoPossui">Não</label>
-    //               </div>
-    //             </RadioGroup>
-    //           </label>
-    //           {hasCondicaoEspecial &&
-    //             (<>
-    //               <label>
-    //                 Condições especiais
-    //                 <select
-    //                   id="condicaoEspecial"
-    //                   onChange={handleCondicoesEspeciais}
-    //                   ref={condicoesEspeciaisRef}
-    //                 >
-    //                   <option value="">Selecione</option>
-    //                   {condicoesEspeciais.map((ce) => (
-    //                     <option key={ce.id} value={ce.id}>{ce.condicao}</option>
-    //                   ))}
-    //                 </select>
-    //               </label>
-    //               <ContainerCondicoesEspeciais>
-    //                 {condicoesEspeciaisSel.map((ce) => (
-    //                   <CondicaoEspecial
-    //                     key={ce.id}
-    //                   >
-    //                     {ce.condicao}
-    //                     <span onClick={() => handleUnselCondicaoEspecial(ce.id)}>&times;</span>
-    //                   </CondicaoEspecial>
-    //                 ))}
-    //               </ContainerCondicoesEspeciais>
-    //             </>)}
-    //           <label>
-    //             Castrado?
-    //             <RadioGroup>
-    //               <div>
-    //                 <input
-    //                   type="radio"
-    //                   value="1"
-    //                   name="castrado"
-    //                   id="simCastrado"
-    //                   onChange={handleRadioInputAnimal}
-    //                 />
-    //                 <label htmlFor="simCastrado">Sim</label>
-    //               </div>
-    //               <div>
-    //                 <input
-    //                   type="radio"
-    //                   value="0"
-    //                   name="castrado"
-    //                   id="naoCastrado"
-    //                   onChange={handleRadioInputAnimal}
-    //                   defaultChecked
-    //                 />
-    //                 <label htmlFor="naoCastrado">Não</label>
-    //               </div>
-    //             </RadioGroup>
-    //           </label>
-
-    //           <Input
-    //             id="idade"
-    //             label="Idade"
-    //             handler={handleInputAnimal}
-    //             value={animal.idade}
-    //             type="number"
-    //             min="1"
-    //             required
-    //           />
-
-    //           <label>
-    //             Personalidade
-    //             <textarea
-    //               id="personalidade"
-    //               value={animal.personalidade}
-    //               onChange={handleInputAnimal}
-    //               placeholder="Descreva a personalidade desse pet..."
-    //               required
-    //             />
-    //           </label>
-    //           <label>
-    //             História
-    //             <textarea
-    //               id="historia"
-    //               value={animal.historia}
-    //               onChange={handleInputAnimal}
-    //               placeholder="Conte um pouco sobre a história deste Pet..."
-    //               required
-    //             />
-    //           </label>
-    //           <button>Cadastrar</button>
-    //         </CadastroAnimal>
-    //       </Modal>
-    //     )}
 
     //     <Footer />
     //   </Container>

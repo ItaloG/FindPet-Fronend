@@ -1,17 +1,20 @@
 import { IconNotSelected, IconSelected, ServiceOff, ServiceOn } from "./styles";
 
-function Service({ servico, handleDeleteServico, id }) {
+function Service({ id, servico, selected, handler }) {
   return (
-    <>
-      <ServiceOn>
-        <p>Castração</p>
-        <IconSelected />
-      </ServiceOn>
-      {/* <ServiceOff>
-        <p>Vacinação</p>
-        <IconNotSelected/>
-      </ServiceOff> */}
-    </>
+    <div id={id}  onClick={() => handler()}>
+      {selected ? (
+        <ServiceOn>
+          <p>{servico}</p>
+          <IconSelected />
+        </ServiceOn>
+      ) : (
+        <ServiceOff>
+          <p>{servico}</p>
+          <IconNotSelected />
+        </ServiceOff>
+      )}
+    </div>
   );
 }
 

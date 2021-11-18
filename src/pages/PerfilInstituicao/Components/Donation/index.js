@@ -12,10 +12,10 @@ function Donation({ type, title }) {
         <p>Castração</p>
         <IconSelected />
       </Option>
-      <OptionOff>
+      {/* <OptionOff>
         <p>Vacinação</p>
         <IconNotSelected/>
-      </OptionOff>
+      </OptionOff> */}
     </>
   );
 }

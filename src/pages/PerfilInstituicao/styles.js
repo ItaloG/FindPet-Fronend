@@ -221,14 +221,22 @@ export const PetFavoriteCount = styled.div`
         margin-top: 7px;
         margin-left: 5px;
         color: #bababa;
-        font-weight: 600;
+        font-weight: 800;
+        font-size: 1.1rem;
+    }
+
+    > small {
+        margin-top: 9px;
+        margin-left: 5px;
+        color: #bababa;
+        font-weight: 500;
     }
 `;
 
-export const IconFavorite = styled(MdOutlineFavorite)`
+export const IconStar = styled(FaStar)`
     width: 30px;
     height: 30px;
-    color: var(--pink);
+    color: var(--yellow);
 `;
 
 export const SaveChanges = styled.div`

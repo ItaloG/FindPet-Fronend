@@ -17,7 +17,7 @@ export const Container = styled.div`
         width: 90px;
         height: 90px;
         border-radius: 50%;
-        object-fit: cover;
+        object-fit: cover; 
     }
 
     > h3 {
