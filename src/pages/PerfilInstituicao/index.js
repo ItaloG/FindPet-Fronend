@@ -794,25 +794,26 @@ function PerfilInstituicao() {
   const [isOneServiceSelected, setIsOneServiceSelected] = useState(false);
 
   const handleService = () => {
-    if (isServiceSelected)
-      return setIsServiceSelected(false)
-    else 
-      return setIsServiceSelected(true)
-  }
+    if (isServiceSelected) return setIsServiceSelected(false);
+    else return setIsServiceSelected(true);
+  };
 
   const handleOneService = (id) => {
-    this.setState(true)
+    this.setState(true);
     // if (isAServiceSelected)
     //   return setIsAServiceSelected(false)
-    // else 
+    // else
     //   return setIsAServiceSelected(true)
-  }
+  };
 
   const handleDonation = (id) => {
     this.setState({
-     EDIT: id = 2
-    })
-  }
+      EDIT: (id = 2),
+    });
+  };
+
+ 
+
 
   return (
     <>
@@ -931,10 +932,37 @@ function PerfilInstituicao() {
                       {/* {console.log(servicos.map((is) => console.log(is.servico)))} */}
                       {/* {console.log(servicos.map((is) => console.log(is.servico)))} */}
                       {servicos.map((is) => (
-                        <Service key={is.id} id={is.id} servico={is.servico} selected={isServiceSelected} handler={handleService}/>
+                        <Service
+                          key={is.id}
+                          id={is.id}
+                          servico={is.servico}
+                          selected={false}
+                          handler={handleService}
+                        />
                       ))}
+                      {InstituicaoServicos.map((is) => (
+                        <Service
+                          key={is.id}
+                          id={is.id}
+                          servico={is.servico}
+                          selected={true}
+                          handler={handleService}
+                        />
+                      ))}
+                      {/* {DeletedServices(servicos.map((is) => is.id), InstituicaoServicos.map((is) => is.id)).map((is) => (
+                        <Service key={is.id} id={is.id} servico={is.servico} selected={true} handler={handleService}/>
+                      ))} */}
                       {/* <Service key={servicos[0].id} id={servicos[0].id} servico={servicos[0].servico} selected={isServiceSelected} handler={handleService}/> */}
                       {/* <Service key={servicos[1].id} id={servicos[1].id} servico={servicos[1].servico} selected={isAServiceSelected} handler={handleOneService}/> */}
+                      {/* {console.log(servicos[0].id)}
+                      {console.log(servicos.map((is) => is.id))} */}
+                      {DeletedServices(
+                        servicos.map((is) => is.id),
+                        InstituicaoServicos.map((is) => is.id)
+                      )}
+                      {console.log(InstituicaoServicos.map((is) => is))}
+                      {NewServices(servicos.map((is) => is),
+                        InstituicaoServicos.map((is) => is))}
                     </div>
                   </Services>
                 )}
@@ -945,7 +973,7 @@ function PerfilInstituicao() {
                       <p>O que você precisa?</p>
                     </div>
                     <div>
-                      <Service/>
+                      <Service />
                       <Service />
                       <Service />
                       <Service />
@@ -953,7 +981,6 @@ function PerfilInstituicao() {
                       {/* <div onClick={() => this.handleDonation()}>
                         <Donation type={2} title={"Castração"} />
                       </div> */}
-                      
                     </div>
                   </Services>
                 )}
@@ -1593,6 +1620,72 @@ function Servico({ servico, handleDeleteServico, id }) {
       <span onClick={handleDeleteServico}>&times;</span>
     </div>
   );
+}
+
+function DeletedServices(idServices, idInstitutionServices) {
+  const services = idServices; //[1,2,3,4,5,6,7,8,9]
+  const institutionServices = idInstitutionServices; //[1,3,5,6,8]
+
+  let deletedServices = services;
+
+  for (let i = 0; i < institutionServices.length; i++) {
+    deletedServices.splice(services.indexOf(institutionServices[i]), 1);
+  }
+
+  return services;
+}
+
+function NewServices(allServices, institutionServices) {
+  let arrAllServices = [0,1,2,3,4,5,6,7,8]
+  // console.log("vixe " + arrAllServices)
+  let arrInstServices = [];
+  let arrOffServices = [];
+
+  console.log(institutionServices.map(is => is.id)[2])
+
+  // console.log(institutionServices.map(is => is.servico)[0])
+
+  for (let i = 0; i <  institutionServices.length; i++) {
+    const instServices = new Object();
+
+    instServices.id = institutionServices.map(is => is.id)[i];
+    instServices.nome = institutionServices.map(is => is.servico)[i];
+    instServices.selected = true;
+
+    arrInstServices.push(instServices)
+  }
+
+  console.log(arrInstServices)
+
+  // for (let i = 0; i < allServices.length; i++) {
+  //   for (let j = 0; j < institutionServices.length; i++) {
+  //     if (allServices.map(is => is.id)[i] === institutionServices.map(is => is.id)[j]) {
+  //       arrAllServices.splice(j, 1, arrInstServices[j])
+  //     }
+  //   }
+  // }
+  arrAllServices.splice(0, 1, arrInstServices[0])
+  console.log(arrAllServices)
+
+  
+
+  // for (let i = 0; i <  offServices.length; i++) {
+  //   const notSelecServices = new Object();
+
+  //   notSelecServices.id = offServices[i].id;
+  //   notSelecServices.nome = offServices[i].servico;
+  //   notSelecServices.selected = false;
+
+  //   arrOffServices.push(notSelecServices)
+  // }
+
+  // for (let i = 0; i < allServices.length; i++) {
+  //   for (let j = 0; j < offServices.length; i++) {
+  //     if (allServices[i].id === offServices[j].id) {
+  //       arrAllServices.splice(j - 1, 1, arrOffServices[j])
+  //     }
+  //   }
+  // }
 }
 
 export default PerfilInstituicao;
