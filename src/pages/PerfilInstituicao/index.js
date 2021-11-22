@@ -1065,11 +1065,16 @@ function PerfilInstituicao() {
                       <p>O que você precisa?</p>
                     </div>
                     <div>
+                      {/* <Service />
                       <Service />
                       <Service />
                       <Service />
-                      <Service />
-                      <Service />
+                      <Service /> */}
+                      {servicos.map((s) => (
+                        <Donation key={s.id} serviceId={s.id} title={s.servico}/>
+                      ))}
+                      {/* <Donation title="Castração"/>
+                      <Donation title="Vacinação"/> */}
                       {/* <div onClick={() => this.handleDonation()}>
                         <Donation type={2} title={"Castração"} />
                       </div> */}
