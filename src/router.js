@@ -34,7 +34,7 @@ function Router() {
         <AppRoute path="/home">
           <Feed />
         </AppRoute>
-        <AppRoute path="/pets">
+        <AppRoute path="/animal/:animalId">
           <PerfilPet />
         </AppRoute>
         <AppRoute path="/instituicao/:instituicaoId">

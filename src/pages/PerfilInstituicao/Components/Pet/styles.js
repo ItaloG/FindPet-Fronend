@@ -13,6 +13,12 @@ export const Container = styled.div`
         margin-top: -6px;
     }
 
+    > :nth-child(2) {
+        position: absolute;
+        margin-left: 75px;
+        margin-top: 40px;
+    }
+
     > img {
         width: 90px;
         height: 90px;

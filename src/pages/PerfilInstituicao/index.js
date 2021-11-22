@@ -155,8 +155,10 @@ function PerfilInstituicao() {
   const [isEditandoColaborador, setIsEditandoColaborador] = useState(false);
   const [deleteColaborador, setDeleteColaborador] = useState(false);
   const [deleteCampanha, setDeleteCampanha] = useState(false);
+  const [deleteAnimal, setDeleteAnimal] = useState(false);
   const [isOpenNewCampanha, setIsOpenNewCampanha] = useState(false);
   const [isEditandoCampanha, setIsEditandoCampanha] = useState(false);
+  const [isEditandoAnimal, setIsEditandoAnimal] = useState(false);
   const [isOpenNewAnimal, setIsOpenNewAnimal] = useState(false);
   const [isServiceSelected, setIsServiceSelected] = useState(false);
   const [isAServiceSelected, setIsAServiceSelected] = useState(false);
@@ -521,6 +523,97 @@ function PerfilInstituicao() {
     }
   };
 
+  const handleDeleteAnimal = async (id) => {
+    try {
+      await api.delete(`/animais/${id}`);
+      alert("Animal excluído");
+      setDeleteAnimal(true);
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+  };
+
+  const handleEditarAnimal = async (id) => {
+    setIsOpenNewAnimal(true);
+    setIsEditandoAnimal(true);
+
+    try {
+      const response = await api.get(`/animais/${id}`);
+
+      console.log(response.data);
+
+      setAnimal({
+        nome: response.data.nome,
+        tipoAnimal: response.data.tipoAnimal,
+        personalidade: response.data.personalidade,
+        idade: response.data.idade,
+        castrado: response.data.castrado,
+        historia: response.data.historia,
+      });
+
+      console.log(animal);
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+  };
+
+  const handleSubmitAnimalEditado = async (e) => {
+    // if (deleteColaborador) {
+    //   try {
+    //     return await api.delete(`/funcionarios/${colaborador.id}`);
+    //   } catch (error) {
+    //     console.error(error);
+    //     alert(error.response.data.error);
+    //   }
+    // }
+
+    const { nome, tipoAnimal, personalidade, idade, castrado, historia } =
+      animal;
+
+    if (tipoAnimal === 0) {
+      return alert("Escolha um tipo de animal");
+    }
+
+    if (!nome || !historia || !animalImage) {
+      return alert("Faltam alguns dados");
+    }
+
+    let data = new FormData();
+
+    data.append("nome", nome);
+    data.append("personalidade", personalidade);
+    data.append("idade", idade);
+    data.append("castrado", castrado);
+    data.append("historia", historia);
+    data.append("tipoAnimal", tipoAnimal);
+    data.append("image", animalImage);
+
+    const condicoesEspeciais = condicoesEspeciaisSel.reduce(
+      (s, ce) => (s += ce.id + ","),
+      ""
+    );
+
+    console.log("AAAAAAA", condicoesEspeciais);
+
+    data.append(
+      "condicoesEpeciais",
+      condicoesEspeciais.substr(0, condicoesEspeciais.length - 1)
+    );
+
+    try {
+      await api.put(`/animais/${animal.id}`, data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      });
+    } catch (error) {
+      console.error(error);
+      alert(error.response.data.error);
+    }
+  };
+
   // edit (put)
   const handleSubmitColaboradorEditado = async (e) => {
     if (deleteColaborador) {
@@ -812,9 +905,6 @@ function PerfilInstituicao() {
     });
   };
 
- 
-
-
   return (
     <>
       <Container>
@@ -961,8 +1051,10 @@ function PerfilInstituicao() {
                         InstituicaoServicos.map((is) => is.id)
                       )}
                       {console.log(InstituicaoServicos.map((is) => is))}
-                      {NewServices(servicos.map((is) => is),
-                        InstituicaoServicos.map((is) => is))}
+                      {NewServices(
+                        servicos.map((is) => is),
+                        InstituicaoServicos.map((is) => is)
+                      )}
                     </div>
                   </Services>
                 )}
@@ -1082,6 +1174,8 @@ function PerfilInstituicao() {
                           nome={a.nome}
                           raca={a.TypeAnimal.tipo}
                           img={a.url_foto_perfil}
+                          handlerEditar={handleEditarAnimal}
+                          handlerExcluir={handleDeleteAnimal}
                         />
                       ))}
                     </div>
@@ -1305,7 +1399,7 @@ function PerfilInstituicao() {
           title="Novo Animal"
           handleClose={handleCloseNewAnimal}
         >
-          <CadastroAnimal onSubmit={handleSubmitAnimal}>
+          <CadastroAnimal onSubmit={isEditandoAnimal ? handleSubmitAnimalEditado : handleSubmitAnimal}>
             <div className="container-foto-animais">
               <img
                 alt="pre-visualização"
@@ -1454,7 +1548,7 @@ function PerfilInstituicao() {
                 required
               />
             </label>
-            <button>Cadastrar</button>
+            <button>{isEditandoAnimal ? "Editar" : "Cadastrar"}</button>
           </CadastroAnimal>
         </Modal>
       )}
@@ -1636,26 +1730,26 @@ function DeletedServices(idServices, idInstitutionServices) {
 }
 
 function NewServices(allServices, institutionServices) {
-  let arrAllServices = [0,1,2,3,4,5,6,7,8]
+  let arrAllServices = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   // console.log("vixe " + arrAllServices)
   let arrInstServices = [];
   let arrOffServices = [];
 
-  console.log(institutionServices.map(is => is.id)[2])
+  console.log(institutionServices.map((is) => is.id)[2]);
 
   // console.log(institutionServices.map(is => is.servico)[0])
 
-  for (let i = 0; i <  institutionServices.length; i++) {
+  for (let i = 0; i < institutionServices.length; i++) {
     const instServices = new Object();
 
-    instServices.id = institutionServices.map(is => is.id)[i];
-    instServices.nome = institutionServices.map(is => is.servico)[i];
+    instServices.id = institutionServices.map((is) => is.id)[i];
+    instServices.nome = institutionServices.map((is) => is.servico)[i];
     instServices.selected = true;
 
-    arrInstServices.push(instServices)
+    arrInstServices.push(instServices);
   }
 
-  console.log(arrInstServices)
+  console.log(arrInstServices);
 
   // for (let i = 0; i < allServices.length; i++) {
   //   for (let j = 0; j < institutionServices.length; i++) {
@@ -1664,10 +1758,8 @@ function NewServices(allServices, institutionServices) {
   //     }
   //   }
   // }
-  arrAllServices.splice(0, 1, arrInstServices[0])
-  console.log(arrAllServices)
-
-  
+  arrAllServices.splice(0, 1, arrInstServices[0]);
+  console.log(arrAllServices);
 
   // for (let i = 0; i <  offServices.length; i++) {
   //   const notSelecServices = new Object();
