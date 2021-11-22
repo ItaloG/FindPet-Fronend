@@ -141,6 +141,7 @@ function PerfilInstituicao() {
   const [hasCondicaoEspecial, setHasCondicaoEspecial] = useState(false);
 
   const [servicos, setServicos] = useState([]);
+  const [deleteServicos, setDeleteServicos] = useState(false);
   const [servicosSel, setServicosSel] = useState([]);
   const [cargos, setCargos] = useState([]);
 
@@ -412,6 +413,19 @@ function PerfilInstituicao() {
     }
   };
 
+  const handleSubmitServico = async () => {
+    try {
+      const response = await api.post("/servicos", { servicos: 6 });
+
+      setInstituicaoServicos([...InstituicaoServicos, response.data]);
+    } catch (error) {
+      console.error(error);
+      alert(error.response.data.error);
+    } finally {
+      setIsOpenServicos(false);
+    }
+  };
+
   const handleInputColaborador = (e) => {
     setColaborador({ ...colaborador, [e.target.id]: e.target.value });
   };
@@ -533,6 +547,17 @@ function PerfilInstituicao() {
       alert(error);
     }
   };
+
+  const handleDeleteServicos = async (id) => {
+    try {
+      await api.delete(`/servicos/6`);
+      console.log("Serviço excluído");
+      setDeleteServicos(true);
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+  }
 
   const handleEditarAnimal = async (id) => {
     setIsOpenNewAnimal(true);
@@ -957,7 +982,11 @@ function PerfilInstituicao() {
                 </div>
                 <div>
                   <h4>Castração | Vacinação</h4>
+                  <button onClick={handleDeleteServicos}>deletar serviço</button>
+                  <button onClick={handleSubmitServico}>add serviço</button>
                 </div>
+                {console.log('arr servicossssssss')}
+                {console.log(servicos.map(is => is.id)[0])}
               </PetInfo>
               {!editable && (
                 <>
@@ -1317,6 +1346,8 @@ function PerfilInstituicao() {
                 servico={s}
               />
             ))}
+            {console.log("embaixo::::::::")}
+            {console.log(servicosSel)}
             <button
               className="limpar"
               onClick={() => {
