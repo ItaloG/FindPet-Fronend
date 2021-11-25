@@ -428,6 +428,19 @@ function PerfilInstituicao() {
     }
   };
 
+  // const handleSubmitServico = async () => {
+  //   try {
+  //     const response = await api.post("/servicos", { servicos: 6 });
+
+  //     setInstituicaoServicos([...InstituicaoServicos, response.data]);
+  //   } catch (error) {
+  //     console.error(error);
+  //     alert(error.response.data.error);
+  //   } finally {
+  //     setIsOpenServicos(false);
+  //   }
+  // };
+
   const handleInputColaborador = (e) => {
     setColaborador({ ...colaborador, [e.target.id]: e.target.value });
   };
