@@ -6,7 +6,7 @@ import { api } from "../../../services/api";
 
 function SearchBox(letters) {
   const [instituicao, setInstituicao] = useState([]);
-  const typedLetters = letters.letters.toLowerCase();
+  const typedLetters = letters.letters;
 
   useEffect(() => {
     const loadInstituicao = async () => {
@@ -69,7 +69,7 @@ function SearchBox(letters) {
 
   return (
     <Box>
-      {LoadNames(
+      {/* {instituicao ? LoadNames(
         typedLetters,
         instituicao.institutions.length,
         instituicao.institutions.map((is) => is.nome.toLowerCase())
@@ -79,7 +79,7 @@ function SearchBox(letters) {
           nome={name}
           tipoInst="ONG"
         />
-      ))}
+      )) : ""} */}
 
       {console.log(Capitalize('ana maria braga nunes da silva'))}
 

@@ -86,6 +86,7 @@ import Campaign from "./Components/Campaign";
 import Pet from "./Components/Pet";
 import Service from "./Components/Service";
 import Donation from "./Components/Donation";
+import InstitutionServices from "./Components/InstitutionServices";
 
 function PerfilInstituicao() {
   const { instituicaoId } = useParams();
@@ -141,6 +142,7 @@ function PerfilInstituicao() {
   const [hasCondicaoEspecial, setHasCondicaoEspecial] = useState(false);
 
   const [servicos, setServicos] = useState([]);
+  const [deleteServicos, setDeleteServicos] = useState(false);
   const [servicosSel, setServicosSel] = useState([]);
   const [cargos, setCargos] = useState([]);
 
@@ -155,8 +157,10 @@ function PerfilInstituicao() {
   const [isEditandoColaborador, setIsEditandoColaborador] = useState(false);
   const [deleteColaborador, setDeleteColaborador] = useState(false);
   const [deleteCampanha, setDeleteCampanha] = useState(false);
+  const [deleteAnimal, setDeleteAnimal] = useState(false);
   const [isOpenNewCampanha, setIsOpenNewCampanha] = useState(false);
   const [isEditandoCampanha, setIsEditandoCampanha] = useState(false);
+  const [isEditandoAnimal, setIsEditandoAnimal] = useState(false);
   const [isOpenNewAnimal, setIsOpenNewAnimal] = useState(false);
   const [isServiceSelected, setIsServiceSelected] = useState(false);
   const [isAServiceSelected, setIsAServiceSelected] = useState(false);
@@ -167,7 +171,7 @@ function PerfilInstituicao() {
         const response = await api.get(`/instituicoes/${instituicaoId}`);
 
         setInstituicao(response.data);
-        setInstituicaoServicos(response.data.Services);
+        // setInstituicaoServicos(response.data.Services);
         setInstituicaoEndereco(response.data.AddressInstitutions);
         setInstituicaoTelefones(response.data.TelephoneInstitutions);
         setBanner(response.data.url_foto_banner);
@@ -400,6 +404,20 @@ function PerfilInstituicao() {
   const handleSubmitServicos = async () => {
     try {
       const response = await api.post("/servicos", { servicos: servicosSel });
+      console.log(servicosSel)
+
+      setInstituicaoServicos([...InstituicaoServicos, response.data]);
+    } catch (error) {
+      console.error(error);
+      alert(error.response.data.error);
+    } finally {
+      setIsOpenServicos(false);
+    }
+  };
+
+  const handleSubmitServico = async (idServico) => {
+    try {
+      const response = await api.post("/servicos", { servicos: idServico });
 
       setInstituicaoServicos([...InstituicaoServicos, response.data]);
     } catch (error) {
@@ -512,6 +530,108 @@ function PerfilInstituicao() {
 
     try {
       await api.post("/animais", data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      });
+    } catch (error) {
+      console.error(error);
+      alert(error.response.data.error);
+    }
+  };
+
+  const handleDeleteAnimal = async (id) => {
+    try {
+      await api.delete(`/animais/${id}`);
+      alert("Animal excluído");
+      setDeleteAnimal(true);
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+  };
+
+  const handleDeleteServicos = async (id) => {
+    try {
+      await api.delete(`/servicos/6`);
+      console.log("Serviço excluído");
+      setDeleteServicos(true);
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+  }
+
+  const handleEditarAnimal = async (id) => {
+    setIsOpenNewAnimal(true);
+    setIsEditandoAnimal(true);
+
+    try {
+      const response = await api.get(`/animais/${id}`);
+
+      console.log(response.data);
+
+      setAnimal({
+        nome: response.data.nome,
+        tipoAnimal: response.data.tipoAnimal,
+        personalidade: response.data.personalidade,
+        idade: response.data.idade,
+        castrado: response.data.castrado,
+        historia: response.data.historia,
+      });
+
+      console.log(animal);
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+  };
+
+  const handleSubmitAnimalEditado = async (e) => {
+    // if (deleteColaborador) {
+    //   try {
+    //     return await api.delete(`/funcionarios/${colaborador.id}`);
+    //   } catch (error) {
+    //     console.error(error);
+    //     alert(error.response.data.error);
+    //   }
+    // }
+
+    const { nome, tipoAnimal, personalidade, idade, castrado, historia } =
+      animal;
+
+    if (tipoAnimal === 0) {
+      return alert("Escolha um tipo de animal");
+    }
+
+    if (!nome || !historia || !animalImage) {
+      return alert("Faltam alguns dados");
+    }
+
+    let data = new FormData();
+
+    data.append("nome", nome);
+    data.append("personalidade", personalidade);
+    data.append("idade", idade);
+    data.append("castrado", castrado);
+    data.append("historia", historia);
+    data.append("tipoAnimal", tipoAnimal);
+    data.append("image", animalImage);
+
+    const condicoesEspeciais = condicoesEspeciaisSel.reduce(
+      (s, ce) => (s += ce.id + ","),
+      ""
+    );
+
+    console.log("AAAAAAA", condicoesEspeciais);
+
+    data.append(
+      "condicoesEpeciais",
+      condicoesEspeciais.substr(0, condicoesEspeciais.length - 1)
+    );
+
+    try {
+      await api.put(`/animais/${animal.id}`, data, {
         headers: {
           "content-type": "multipart/form-data",
         },
@@ -813,9 +933,6 @@ function PerfilInstituicao() {
     });
   };
 
- 
-
-
   return (
     <>
       <Container>
@@ -868,7 +985,11 @@ function PerfilInstituicao() {
                 </div>
                 <div>
                   <h4>Castração | Vacinação</h4>
+                  <button onClick={handleDeleteServicos}>deletar serviço</button>
+                  <button onClick={() => handleSubmitServico(2)}>add serviço</button>
                 </div>
+                {console.log('arr servicossssssss')}
+                {console.log(servicos.map(is => is.id)[0])}
               </PetInfo>
               {!editable && (
                 <>
@@ -930,9 +1051,12 @@ function PerfilInstituicao() {
                       <p>Selecione os serviços que você oferece:</p>
                     </div>
                     <div>
+                      {servicos.map((s) => (
+                        <InstitutionServices key={s.id} serviceId={s.id} title={s.servico}/>
+                      ))}
                       {/* {console.log(servicos.map((is) => console.log(is.servico)))} */}
                       {/* {console.log(servicos.map((is) => console.log(is.servico)))} */}
-                      {servicos.map((is) => (
+                      {/* {servicos.map((is) => (
                         <Service
                           key={is.id}
                           id={is.id}
@@ -949,7 +1073,7 @@ function PerfilInstituicao() {
                           selected={true}
                           handler={handleService}
                         />
-                      ))}
+                      ))} */}
                       {/* {DeletedServices(servicos.map((is) => is.id), InstituicaoServicos.map((is) => is.id)).map((is) => (
                         <Service key={is.id} id={is.id} servico={is.servico} selected={true} handler={handleService}/>
                       ))} */}
@@ -957,13 +1081,15 @@ function PerfilInstituicao() {
                       {/* <Service key={servicos[1].id} id={servicos[1].id} servico={servicos[1].servico} selected={isAServiceSelected} handler={handleOneService}/> */}
                       {/* {console.log(servicos[0].id)}
                       {console.log(servicos.map((is) => is.id))} */}
-                      {DeletedServices(
+                      {/* {DeletedServices(
                         servicos.map((is) => is.id),
                         InstituicaoServicos.map((is) => is.id)
                       )}
                       {console.log(InstituicaoServicos.map((is) => is))}
-                      {NewServices(servicos.map((is) => is),
-                        InstituicaoServicos.map((is) => is))}
+                      {NewServices(
+                        servicos.map((is) => is),
+                        InstituicaoServicos.map((is) => is)
+                      )} */}
                     </div>
                   </Services>
                 )}
@@ -974,11 +1100,16 @@ function PerfilInstituicao() {
                       <p>O que você precisa?</p>
                     </div>
                     <div>
+                      {/* <Service />
                       <Service />
                       <Service />
                       <Service />
-                      <Service />
-                      <Service />
+                      <Service /> */}
+                      {servicos.map((s) => (
+                        <Donation key={s.id} serviceId={s.id} title={s.servico}/>
+                      ))}
+                      {/* <Donation title="Castração"/>
+                      <Donation title="Vacinação"/> */}
                       {/* <div onClick={() => this.handleDonation()}>
                         <Donation type={2} title={"Castração"} />
                       </div> */}
@@ -1083,6 +1214,8 @@ function PerfilInstituicao() {
                           nome={a.nome}
                           raca={a.TypeAnimal.tipo}
                           img={a.url_foto_perfil}
+                          handlerEditar={handleEditarAnimal}
+                          handlerExcluir={handleDeleteAnimal}
                         />
                       ))}
                     </div>
@@ -1219,6 +1352,8 @@ function PerfilInstituicao() {
                 servico={s}
               />
             ))}
+            {console.log("embaixo::::::::")}
+            {console.log(servicosSel)}
             <button
               className="limpar"
               onClick={() => {
@@ -1306,7 +1441,7 @@ function PerfilInstituicao() {
           title="Novo Animal"
           handleClose={handleCloseNewAnimal}
         >
-          <CadastroAnimal onSubmit={handleSubmitAnimal}>
+          <CadastroAnimal onSubmit={isEditandoAnimal ? handleSubmitAnimalEditado : handleSubmitAnimal}>
             <div className="container-foto-animais">
               <img
                 alt="pre-visualização"
@@ -1455,7 +1590,7 @@ function PerfilInstituicao() {
                 required
               />
             </label>
-            <button>Cadastrar</button>
+            <button>{isEditandoAnimal ? "Editar" : "Cadastrar"}</button>
           </CadastroAnimal>
         </Modal>
       )}
@@ -1637,26 +1772,26 @@ function DeletedServices(idServices, idInstitutionServices) {
 }
 
 function NewServices(allServices, institutionServices) {
-  let arrAllServices = [0,1,2,3,4,5,6,7,8]
+  let arrAllServices = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   // console.log("vixe " + arrAllServices)
   let arrInstServices = [];
   let arrOffServices = [];
 
-  console.log(institutionServices.map(is => is.id)[2])
+  console.log(institutionServices.map((is) => is.id)[2]);
 
   // console.log(institutionServices.map(is => is.servico)[0])
 
-  for (let i = 0; i <  institutionServices.length; i++) {
+  for (let i = 0; i < institutionServices.length; i++) {
     const instServices = new Object();
 
-    instServices.id = institutionServices.map(is => is.id)[i];
-    instServices.nome = institutionServices.map(is => is.servico)[i];
+    instServices.id = institutionServices.map((is) => is.id)[i];
+    instServices.nome = institutionServices.map((is) => is.servico)[i];
     instServices.selected = true;
 
-    arrInstServices.push(instServices)
+    arrInstServices.push(instServices);
   }
 
-  console.log(arrInstServices)
+  console.log(arrInstServices);
 
   // for (let i = 0; i < allServices.length; i++) {
   //   for (let j = 0; j < institutionServices.length; i++) {
@@ -1665,10 +1800,8 @@ function NewServices(allServices, institutionServices) {
   //     }
   //   }
   // }
-  arrAllServices.splice(0, 1, arrInstServices[0])
-  console.log(arrAllServices)
-
-  
+  arrAllServices.splice(0, 1, arrInstServices[0]);
+  console.log(arrAllServices);
 
   // for (let i = 0; i <  offServices.length; i++) {
   //   const notSelecServices = new Object();

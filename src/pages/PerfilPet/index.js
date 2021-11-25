@@ -25,10 +25,32 @@ import {
 } from "./styles";
 import DefaultBanner from "../../assets/default_banner_pets.png";
 import DefaultPetPhoto from "../../assets/default-pet-photo.jpg";
-import Banner from "../../assets/banner3.png"
+import Banner from "../../assets/banner3.png";
+import { useEffect, useState } from "react";
+import { api } from "../../services/api";
+import { useParams } from "react-router";
 
 function PerfilPet(props) {
   let editable = false;
+
+  const { animalId } = useParams();
+  const [animal, setAnimal] = useState([]);
+
+  useEffect(() => {
+    const loadAnimal = async () => {
+      try {
+        const response = await api.get(`/animais/${animalId}`);
+
+        setAnimal(response.data);
+      } catch (error) {
+        console.error(error);
+        alert(error.response.data.error);
+      }
+    };
+
+    loadAnimal();
+  }, []);
+
 
   return (
     <>
@@ -41,7 +63,7 @@ function PerfilPet(props) {
             <div>
               <ProfilePhoto>
                 <div>
-                  <img src={DefaultPetPhoto} alt="" />
+                  <img src={animal.url_foto_perfil} alt="" />
                 </div>
               </ProfilePhoto>
               {editable && (
@@ -51,13 +73,15 @@ function PerfilPet(props) {
               )}
               <PetInfo>
                 <div>
-                  <h1>Bobby</h1>
+                  <h1>{animal.nome}</h1>
                   {!editable && <IconFavoriteOutline />}
-                  {editable && <IconEdit/>}
+                  {editable && <IconEdit />}
                 </div>
                 <div>
                   <IconHome />
-                  <h4>Instituto Luísa Mell</h4>
+                  <h4>
+                    {animal.Institution ? animal.Institution.nome : ""}
+                  </h4>
                 </div>
               </PetInfo>
               {!editable && (
@@ -101,16 +125,7 @@ function PerfilPet(props) {
                       </textarea>
                     </>
                   )}
-                  {!editable && (
-                    <p>
-                      “Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                      Duis aute irure dolor in reprehenderit in voluptate velit
-                      esse cillum dolore eu fugiat nulla pariatur.”
-                    </p>
-                  )}
+                  {!editable && <p>“{animal.historia}”</p>}
                 </PetAbstract>
                 <PetDatasheet>
                   <h2>Informações Importantes</h2>
@@ -118,7 +133,7 @@ function PerfilPet(props) {
                     <tr>
                       <td>Responsável</td>
                       <td>
-                        Instituto Luísa Mell
+                        {animal.Institution ? animal.Institution.nome : ""}
                         {editable && (
                           <button>
                             <IconLock />
@@ -145,9 +160,16 @@ function PerfilPet(props) {
                       </td>
                     </tr>
                     <tr>
+                      <td>Tipo</td>
+                      <td>
+                        {animal.TypeAnimal ? animal.TypeAnimal.nome : ""}
+                        {editable && <input type="text" value="4 anos" />}
+                      </td>
+                    </tr>
+                    <tr>
                       <td>Idade</td>
                       <td>
-                        {!editable && "4 anos"}
+                        {!editable && animal.idade + " anos"}
                         {editable && <input type="text" value="4 anos" />}
                       </td>
                     </tr>
@@ -220,7 +242,7 @@ function PerfilPet(props) {
                     <tr>
                       <td>Energia</td>
                       <td>
-                        {!editable && "Moderada"}
+                        {!editable && animal.personalidade}
                         {editable && (
                           <select>
                             <option>Selecione uma opção</option>

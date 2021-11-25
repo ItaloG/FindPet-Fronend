@@ -57,7 +57,7 @@ function Header() {
         {console.log(search)}
         {/* <button>Buscar</button> */}
         <IconSearch/>
-        <SearchBox letters={search}/>
+        {/* <SearchBox letters={search}/> */}
       </Search>
 
       <Profile>
