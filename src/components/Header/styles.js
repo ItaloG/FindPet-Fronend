@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import { HiSearch } from 'react-icons/hi';
 import { ImHome } from 'react-icons/im';
 import { MdPets, MdOutlineFavorite, MdStars } from 'react-icons/md';
-import { FaMap } from 'react-icons/fa'
+import { FaMap } from 'react-icons/fa';
+import { SearchBox } from "./SearchBox/styles"
 
 export const Container = styled.header`
     font-family: 'Montserrat';
@@ -31,13 +32,15 @@ export const Logo = styled.div`
     }
 `;
 
-export const SearchBox = styled.div`
+export const Search = styled.div`
     width: 20rem;
     height: 100%;
     /* background-color: aquamarine; */
     margin-left: 2rem;
     display: flex;
+    flex-direction: column;
     align-items: center;
+    margin-top: 0.75rem;
 
     > input {
         width: 100%;
@@ -54,6 +57,10 @@ export const SearchBox = styled.div`
         ::placeholder {
             color: #c9c9c9;
         }
+
+        :focus ~ div {
+            display: block;
+        }
     }
 `;
 
@@ -62,7 +69,8 @@ export const IconSearch = styled(HiSearch)`
     height: 1.5rem;
     color: #c9c9c9;
     position: absolute;
-    margin-left: 18rem;
+    margin-left: 17.2rem;
+    margin-top: 0.3rem;
 `;
 
 export const IconHome = styled(ImHome)`

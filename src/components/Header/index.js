@@ -1,10 +1,18 @@
-import { Body, BotaoPerfil, Box, Container, IconFavorite, IconHome, IconMap, IconMember, IconPet, IconSearch, Logo, Menu, MenuItem, Profile, SearchBox } from "./styles"
+import { Body, BotaoPerfil, Box, Container, IconFavorite, IconHome, IconMap, IconMember, IconPet, IconSearch, Logo, Menu, MenuItem, Profile, Search } from "./styles"
 import LogoImg from "../../assets/logo-findpet.svg";
 import DefaultProfilePhoto from "../../assets/default_profile_photo.jpg";
 import { useHistory } from "react-router";
+import SearchBox from "./SearchBox"
+import { useState } from "react";
 
 function Header() {
   let history = useHistory();
+
+  const [search, setSearch] = useState([]);
+
+  const handleInputSearch = (e) => {
+    setSearch(e.target.value);
+  };
 
   return (
     <Container>
@@ -44,11 +52,13 @@ function Header() {
         </MenuItem>
       </Menu>
 
-      <SearchBox>
-        <input type="text" placeholder="Encontre pessoas e instituições..."/>
+      <Search>
+        <input type="text" onChange={handleInputSearch} placeholder="Encontre pessoas e instituições..."/>
+        {console.log(search)}
         {/* <button>Buscar</button> */}
         <IconSearch/>
-      </SearchBox>
+        <SearchBox letters={search}/>
+      </Search>
 
       <Profile>
           <div>

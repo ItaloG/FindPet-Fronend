@@ -418,6 +418,7 @@ function PerfilInstituicao() {
     setAnimal({ ...animal, [e.target.id]: e.target.value });
   };
 
+
   const handleRadioInputAnimal = (e) => {
     setAnimal({ ...animal, castrado: e.target.value });
   };
