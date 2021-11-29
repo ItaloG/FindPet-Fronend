@@ -14,6 +14,7 @@ export const GlobalStyles = createGlobalStyle`
         --yellow: #EEBB5B;
         --green: #33B878; 
         --light: #CCA583;
+        --bg: #f8f8f8;
     }
 
     *{
@@ -60,14 +61,12 @@ export const Body = styled.div`
 `;
 
 export const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    main {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 3; 
-    }
+    width: 100%;
+    min-height: calc(100vh - 40px);
+    height: auto;
+    background-color: var(--bg);
+    padding: 60px 20px 10px 20px;
+    margin: 0 auto;
 `;
 
 export const ContainerCenter = styled.div`

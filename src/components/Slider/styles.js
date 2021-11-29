@@ -3,25 +3,23 @@ import styled from "styled-components";
 export const Container = styled.div`
   position: relative;
   overflow: hidden;
-  /* display: flex; */
-  /* justify-content: space-between; */
-  width: 940px;
-  height: 450px;
+  width: 700px;
+  height: 325px;
   background-color: #fff;
-  border-radius: 13px;
-
+  border-radius: 7px;
+  margin: 0 auto;
+  margin-bottom: 20px;
 `;
 
 export const ImagesContainer = styled.div`
     position: absolute;
     display: flex;
     align-items: center;
-    width: 850px;
-    height: 360px;
-    margin-top: 20px;
-    margin-left: 45px;
+    width: 680px;
+    height: 280px;
     overflow-x: hidden;
-
+    margin-left: 10px;
+    margin-top: 10px;
 `;
 
 export const Image = styled.div`
@@ -34,29 +32,29 @@ export const Image = styled.div`
   > img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    border-radius: 3px;
   }
 `;
-
 
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1;
-  width: 940px;
+  width: 700px;
   height: 20px;
   position: absolute;
-  margin-top: 405px;
+  margin-top: 295px;
 `;
 
 export const SliderButton = styled.button`
   margin: 0 5px;
-  width: 20px;
-  height: 20px;
+  width: 13px;
+  height: 13px;
   border-radius: 100%;
-  border: 1px solid black;
+  border: 1px solid #C4C4C4;
   cursor: pointer;
-  background: ${(props) => (props.marcado ? "#C9882280" : "#fff")};
+  background: ${(props) => (props.marcado ? "#C4C4C4" : "#fff")};
 
 `;

@@ -16,7 +16,7 @@ function AppRoute({ children, ...rest }) {
       <Route {...rest}>
         <Header />
         {children}
-        <Footer/>
+        {/* <Footer/> */}
       </Route>
     )
   } else {
