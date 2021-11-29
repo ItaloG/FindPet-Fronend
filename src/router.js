@@ -6,7 +6,8 @@ import Favoritos from "./pages/Favoritos";
 import Feed from "./pages/Feed";
 import Login from "./pages/Login";
 import PerfilInstituicao from "./pages/PerfilInstituicao";
-import PerfilPet from "./pages/PerfilPet"
+import PerfilPet from "./pages/PerfilPet";
+import PerfilUsuario from "./pages/PerfilUsuario";
 // import PerfilInstituicaoUsuario from "./pages/PerfilInstituicao/usuarioindex";
 import { isSignedIn } from "./services/security";
 
@@ -16,9 +17,9 @@ function AppRoute({ children, ...rest }) {
       <Route {...rest}>
         <Header />
         {children}
-        <Footer/>
+        <Footer />
       </Route>
-    )
+    );
   } else {
     return <Redirect to="/" />;
   }
@@ -36,6 +37,9 @@ function Router() {
         </AppRoute>
         <AppRoute path="/animal/:animalId">
           <PerfilPet />
+        </AppRoute>
+        <AppRoute path="/usuario/:usuarioId">
+          <PerfilUsuario />
         </AppRoute>
         <AppRoute path="/instituicao/:instituicaoId">
           <PerfilInstituicao />
