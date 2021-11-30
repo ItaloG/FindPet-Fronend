@@ -7,7 +7,6 @@ import Feed from "./pages/Feed";
 import Login from "./pages/Login";
 import PerfilInstituicao from "./pages/PerfilInstituicao";
 import PerfilPet from "./pages/PerfilPet";
-
 import PerfilUsuario from "./pages/PerfilUsuario";
 
 import { isSignedIn } from "./services/security";
@@ -47,6 +46,7 @@ function Router() {
         <AppRoute path="/instituicao/:instituicaoId">
           <PerfilInstituicao />
         </AppRoute>
+        
         {/* <AppRoute path="/instituicao">
           <PerfilInstituicaoUsuario />
         </AppRoute> */}
