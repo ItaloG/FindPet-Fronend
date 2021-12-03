@@ -1,9 +1,18 @@
-import { Body, BotaoPerfil, Box, Container, IconFavorite, IconHome, IconMap, IconMember, IconPet, IconSearch, Logo, Menu, MenuItem, Profile, Search } from "./styles"
+import {
+  Container,
+  IconSearch,
+  Logo,
+  Menu,
+  MenuItem,
+  Profile,
+  Search,
+  IconExit,
+} from "./styles";
 import LogoImg from "../../assets/logo-findpet.svg";
 import DefaultProfilePhoto from "../../assets/default_profile_photo.jpg";
 import { useHistory } from "react-router";
-import SearchBox from "./SearchBox"
 import { useState } from "react";
+import { signOut } from "../../services/security";
 
 function Header() {
   let history = useHistory();
@@ -14,64 +23,81 @@ function Header() {
     setSearch(e.target.value);
   };
 
+  const handleSair = () => {
+    signOut();
+
+    return history.push("/")
+  };
+
   return (
     <Container>
-      <Logo>
+      <Logo onClick={() => history.push("/home")}>
         <img src={LogoImg} alt="FindPet" />
       </Logo>
 
       <Menu>
-        <MenuItem onClick={() => {
-            history.push("/home")
-          }}>
-        {/* <IconHome/> */}
+        <MenuItem
+          onClick={() => {
+            history.push("/home");
+          }}
+        >
+          {/* <IconHome/> */}
           <p>Feed</p>
         </MenuItem>
         <MenuItem>
-        {/* <IconPet/> */}
+          {/* <IconPet/> */}
           <p>Pets</p>
         </MenuItem>
         {/* <MenuItem>
           <p>Instituições</p>
         </MenuItem> */}
-        <MenuItem onClick={() => {
-            history.push("/favoritos")
-          }}>
-        {/* <IconFavorite/> */}
+        <MenuItem
+          onClick={() => {
+            history.push("/favoritos");
+          }}
+        >
+          {/* <IconFavorite/> */}
           <p>Favoritos</p>
         </MenuItem>
-        <MenuItem onClick={() => {
-            history.push("/mapa")
-          }}>
-        {/* <IconMap/> */}
+        <MenuItem
+          onClick={() => {
+            history.push("/mapa");
+          }}
+        >
+          {/* <IconMap/> */}
           <p>Mapa</p>
         </MenuItem>
         <MenuItem>
-        {/* <IconMember/> */}
+          {/* <IconMember/> */}
           <p>Seja Membro</p>
         </MenuItem>
       </Menu>
 
       <Search>
-        <input type="text" onChange={handleInputSearch} placeholder="Encontre pessoas e instituições..."/>
-        {console.log(search)}
+        <input
+          type="text"
+          onChange={handleInputSearch}
+          placeholder="Encontre pessoas e instituições..."
+        />
         {/* <button>Buscar</button> */}
-        <IconSearch/>
+        <IconSearch />
         {/* <SearchBox letters={search}/> */}
       </Search>
 
       <Profile>
-          <div>
-            <img src={DefaultProfilePhoto} alt="perfil"/>
-          </div>
-        </Profile>
+        <div>
+          <img src={DefaultProfilePhoto} alt="perfil" />
+        </div>
+        <IconExit onClick={handleSair} />
+      </Profile>
     </Container>
   );
 }
 
 export default Header;
 
-{/* <HeaderContainer>
+{
+  /* <HeaderContainer>
         <Logo>
           <img src={AppLogo} alt="logo"/>
         </Logo>
@@ -113,4 +139,5 @@ export default Header;
             <img src={DefaultProfilePhoto} alt="perfil"/>
           </div>
         </BotaoPerfil>
-      </HeaderContainer> */}
+      </HeaderContainer> */
+}

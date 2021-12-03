@@ -11,13 +11,8 @@ import {
   StyledMdPhoneIphone,
   StyledFaMapMarkerAlt,
   Colaboradores,
-  TextArea,
-  Campanhas,
   CampanhasContainer,
   ContainerPerfilAnimal,
-  ContainerServiços,
-  StyledAiOutlinePlusCircle,
-  ApoioContainer,
   DescricaoContainer,
   AnimaisContainer,
   ContainerPerfilColaborador,
@@ -27,7 +22,6 @@ import ApoiarIcon from "../../assets/apoiar.svg";
 import DefaultBanner from "../../assets/default_banner.png";
 import DefaultProfile from "../../assets/default_profile_photo.jpg";
 import Footer from "../../components/Footer";
-import BotaoEditar from "../../components/BotaoEditar";
 
 function PerfilInstituicaoUsuario() {
   return (

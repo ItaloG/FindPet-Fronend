@@ -1,8 +1,8 @@
 import { CardContainer, CardHeader, FotoPerfil, Nome, Icone, Distancia, CardBody } from "./styles";
 
-function Card({foto, nome_instituicao, icone, distancia, banner}) {
+function Card({foto, nome_instituicao, icone, distancia, banner, handlerVer}) {
     return (
-        <CardContainer>
+        <CardContainer onClick={handlerVer}>
             <CardHeader>
                 <div className="dados-container">
                     <FotoPerfil>

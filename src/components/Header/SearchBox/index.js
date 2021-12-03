@@ -25,9 +25,6 @@ function SearchBox(letters) {
 
   const LoadNames = (letters, apiLength, apiRef) => {
     let suggestions = [];
-    console.log(letters);
-    console.log(apiLength);
-    console.log(apiRef);
 
     for (let i = 0; i < apiLength; i++) {
       let apiRefLetters = apiRef[i].substr(0, letters.length);
