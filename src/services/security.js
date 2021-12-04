@@ -20,13 +20,20 @@ export const getUserId = () => {
   const user = JSON.parse(localStorage.getItem(USER_KEY));
 
   if (user && user.token) {
-    const jwtDecoded = jwtDecode(user.token);
-    
-    const id = jwtDecoded.institutionId;
+    const id = user.id;
 
     return id;
   }
+};
 
+export const getTypeUser = () => {
+  const user = JSON.parse(localStorage.getItem(USER_KEY));
+
+  if (user && user.token) {
+    const tipoUsuario = user.tipo_usuario;
+
+    return tipoUsuario;
+  }
 };
 
 export const setUser = (student) => {

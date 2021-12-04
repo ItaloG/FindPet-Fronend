@@ -11,13 +11,15 @@ import {
 import LogoImg from "../../assets/logo-findpet.svg";
 import DefaultProfilePhoto from "../../assets/default_profile_photo.jpg";
 import { useHistory } from "react-router";
-import { useState } from "react";
-import { signOut } from "../../services/security";
+import { useRef, useState } from "react";
+import { getTypeUser, getUserId, signOut } from "../../services/security";
 
 function Header() {
   let history = useHistory();
 
   const [search, setSearch] = useState([]);
+
+  const user = useRef(JSON.parse(localStorage.getItem("@user")));
 
   const handleInputSearch = (e) => {
     setSearch(e.target.value);
@@ -26,7 +28,20 @@ function Header() {
   const handleSair = () => {
     signOut();
 
-    return history.push("/")
+    return history.push("/");
+  };
+
+  const handlePerfil = () => {
+    const tipoUsuario = getTypeUser();
+    const id = getUserId();
+
+    if (tipoUsuario === "comum" && id) {
+      return history.push("/perfil/usuario/" + id);
+    } else if (tipoUsuario === "instituicao") {
+      return history.push("/perfil/instituicao/" + id);
+    } else {
+      return history.push("/home");
+    }
   };
 
   return (
@@ -85,8 +100,15 @@ function Header() {
       </Search>
 
       <Profile>
-        <div>
-          <img src={DefaultProfilePhoto} alt="perfil" />
+        <div onClick={handlePerfil}>
+          <img
+            src={
+              user.current.url_foto_perfil
+                ? user.current.url_foto_perfil
+                : DefaultProfilePhoto
+            }
+            alt="perfil"
+          />
         </div>
         <IconExit onClick={handleSair} />
       </Profile>
@@ -95,49 +117,3 @@ function Header() {
 }
 
 export default Header;
-
-{
-  /* <HeaderContainer>
-        <Logo>
-          <img src={AppLogo} alt="logo"/>
-        </Logo>
-        <Pesquisar>
-          <input placeholder="Pesquisar" />
-          <button>Buscar</button>
-        </Pesquisar>
-        <Menu>
-          <MenuItem onClick={() => {
-            history.push("/home")
-          }}>
-
-            <p>feed</p>
-          </MenuItem>
-          <MenuItem >
-            
-            <p>pets</p>
-          </MenuItem>
-          <MenuItem onClick={() => {
-            history.push("/favoritos")
-          }}>
-            
-            <p>favoritos</p>
-          </MenuItem>
-          <MenuItem onClick={() => {
-            history.push("/mapa")
-          }}>
-            
-            <p>encontrar</p>
-          </MenuItem>
-          <MenuItem>
-            
-            <p className="menu-item-responsive-hidden">seja membro</p>
-            <p className="menu-item-responsive-show">membros</p>
-          </MenuItem>
-        </Menu>
-        <BotaoPerfil>
-          <div>
-            <img src={DefaultProfilePhoto} alt="perfil"/>
-          </div>
-        </BotaoPerfil>
-      </HeaderContainer> */
-}
