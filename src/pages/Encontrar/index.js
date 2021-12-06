@@ -1,55 +1,183 @@
-import CardInstituicao from "../../components/CardInstituicao";
-import { Body, ContainerCenter, FlexRow } from "../../GlobalStyles";
-import { ContainerMapa, ContainerFiltros, Instituicoes } from "./styles";
-import IconeFiltro from "../../assets/filtro_icon.svg";
-import IconeOrdenacao from "../../assets/ordenacao_icon.svg";
-import FotoPadrao from "../../assets/default_profile_photo.jpg";
-import IconeOng from "../../assets/ong_icon.png";
-import IconePetShop from "../../assets/petshop_icon.png";
+import {
+  GoogleMap,
+  InfoWindow,
+  Marker,
+  useLoadScript,
+} from "@react-google-maps/api";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Container } from "../../GlobalStyles";
+import { ContainerSearch, Section } from "./styles";
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxPopover,
+  ComboboxList,
+  ComboboxOption,
+} from "@reach/combobox";
+import { api } from "../../services/api";
+
+const libraries = ["places"];
+const options = {
+  disableDefaultUI: true,
+  zoomControl: true,
+};
+const mapContainerStyle = {
+  with: "100vw",
+  height: "70vh",
+};
+const center = {
+  lat: -23.5592114,
+  lng: -46.9075753,
+};
 
 function Encontrar() {
-    return (
-        <Body>
-            <ContainerCenter>
-                <FlexRow>
-                    <Instituicoes>
-                        <ContainerFiltros>
-                            <div className="custom-select">
-                                <select>
-                                    <option value="Instituições próximas de você" selected>Instituições próximas de você</option>
-                                    <option value="Escolher localização">Escolher localização</option>
-                                </select>
-                            </div>
-                            <div className="endereco">
-                                <form>
-                                    <input type="text" placeholder="Insira o CEP"></input>
-                                    <button>OK</button>
-                                </form>
-                            </div>
-                            <div className="filtro">
-                                <img src={IconeFiltro} alt="todos"/>
-                                <p>Todas as Instituições</p>
-                            </div>
-                            <div className="filtro">
-                                <img src={IconeOrdenacao} alt="mais proximos"/>
-                                <p>Mais próximas primeiro</p>
-                            </div>
-                        </ContainerFiltros>
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: "AIzaSyCZ5xn5Mbs2OrZOsbsBlZ-KAhOQSw_xKRY", // AQUI VOCÊ COLOCA SUA CHAVE DE API
+    libraries,
+  });
 
-                        <CardInstituicao foto={FotoPadrao} nome_instituicao={"ONG A"} icone={IconeOng} rua={"Rua Fulano de Souza"} numero={"1896"} bairro={"Centro"} cidade={"Jandira"} uf={"SP"}/>
-                        <CardInstituicao foto={FotoPadrao} nome_instituicao={"Petshop A"} icone={IconePetShop} rua={"Rua Fulano de Souza"} numero={"1896"} bairro={"Centro"} cidade={"Jandira"} uf={"SP"}/>
-                        <CardInstituicao foto={FotoPadrao} nome_instituicao={"Petshop B"} icone={IconePetShop} rua={"Rua Fulano de Souza"} numero={"1896"} bairro={"Centro"} cidade={"Jandira"} uf={"SP"}/>
-                        <CardInstituicao foto={FotoPadrao} nome_instituicao={"ONG B"} icone={IconeOng} rua={"Rua Fulano de Souza"} numero={"1896"} bairro={"Centro"} cidade={"Jandira"} uf={"SP"}/>
-                        <CardInstituicao foto={FotoPadrao} nome_instituicao={"ONG C"} icone={IconeOng} rua={"Rua Fulano de Souza"} numero={"1896"} bairro={"Centro"} cidade={"Jandira"} uf={"SP"}/>
-                    </Instituicoes>
-                    
-                    <ContainerMapa>
-                        <iframe title="mapa" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3658.0069770610803!2d-46.90513898554384!3d-23.532251466401853!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cf06acc19183b5%3A0x8744e43adbe4f16c!2sClinica%20Veterin%C3%A1ria%20Nakiri%20Vet!5e0!3m2!1spt-BR!2sbr!4v1632375300906!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy"></iframe>
-                    </ContainerMapa>
-                </FlexRow>
-            </ContainerCenter>
-        </Body>
-    );
+  const [makers, setMarkers] = useState([]);
+  const [selected, setSelected] = useState(null);
+
+  useEffect(() => {
+    const loadMarkers = async () => {
+      try {
+        const response = await api.get("/cordenadas");
+
+        setMarkers(response.data);
+      } catch (error) {
+        console.log(error.response.data);
+      }
+    };
+
+    loadMarkers();
+  }, []);
+
+  const mapRef = useRef();
+  const onMapLoad = useCallback((map) => {
+    mapRef.current = map;
+  }, []);
+
+  const panTo = useCallback(({ lat, lng }) => {
+    mapRef.current.panTo({ lat, lng });
+    mapRef.current.setZoom(14);
+  }, []);
+
+  if (loadError) return "Erro ao fazer loading";
+  if (!isLoaded) return "Carregando mapa";
+
+  return (
+    <Container>
+      <Section>
+        <Search panTo={panTo} />
+
+        <GoogleMap
+          mapContainerStyle={mapContainerStyle}
+          zoom={15}
+          options={options}
+          center={center}
+          onLoad={onMapLoad}
+        >
+          {makers.map((m, index) => (
+            <Marker
+              key={index}
+              position={{ lat: parseFloat(m.lat), lng: parseFloat(m.lng) }}
+              onClick={() => {
+                setSelected(m);
+              }}
+            />
+          ))}
+
+          {selected ? (
+            <InfoWindow
+              onCloseClick={() => {
+                setSelected(null);
+              }}
+              position={{ lat: parseFloat(selected.lat), lng: parseFloat(selected.lng) }}
+            >
+              <div>
+                <h2>{selected.nome}</h2>
+              </div>
+            </InfoWindow>
+          ) : null}
+        </GoogleMap>
+      </Section>
+    </Container>
+  );
+}
+
+function Search({ panTo }) {
+  const {
+    ready,
+    value,
+    suggestions: { status, data },
+    setValue,
+    clearSuggestions,
+  } = usePlacesAutocomplete({
+    requestOptions: {
+      location: {
+        lat: () => -23.5592114,
+        lng: () => -46.9075753,
+      },
+      radius: 100 * 1000,
+    },
+  });
+
+  return (
+    <ContainerSearch>
+      <label>Pesquisar</label>
+      <Combobox
+        onSelect={async (address) => {
+          setValue(address, false);
+          clearSuggestions();
+
+          try {
+            const resultado = await getGeocode({ address });
+            const { lat, lng } = await getLatLng(resultado[0]);
+            panTo({ lat, lng });
+          } catch (error) {
+            console.log("erro");
+          }
+        }}
+      >
+        <ComboboxInput
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+          }}
+          disabled={!ready}
+          placeholder="Endereço"
+        />
+        <ComboboxPopover>
+          <ComboboxList
+            style={{
+              border: "solid 1px #000",
+              backgroundColor: "#FFF",
+              padding: "8px",
+              listStyle: "none",
+            }}
+          >
+            {status === "OK" &&
+              data.map(({ id, description }) => (
+                <ComboboxOption
+                  value={description}
+                  style={{
+                    marginTop: "5px",
+                    borderTop: "solid 1px #00000080",
+                    paddingTop: "3px",
+                    cursor: "pointer",
+                  }}
+                />
+              ))}
+          </ComboboxList>
+        </ComboboxPopover>
+      </Combobox>
+    </ContainerSearch>
+  );
 }
 
 export default Encontrar;
