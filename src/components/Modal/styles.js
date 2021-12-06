@@ -18,11 +18,10 @@ export const ModalContainer = styled.div `
     min-width: 250px;
     min-height: 250px;
     padding: 20px;
-    height: max-content;
-
+    height:auto;
+    max-height: 80vh;
+    overflow-y: auto;
     z-index: 19;
-
-
     background-color: #FFFFFF;
     box-shadow: 0px 0px 10px black;
     border-radius: 10px;

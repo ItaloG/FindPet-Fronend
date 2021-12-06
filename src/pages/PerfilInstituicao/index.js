@@ -997,9 +997,7 @@ function PerfilInstituicao() {
                   {!editable && <IconFavoriteOutline />}
                 </div>
                 <div>
-                  <h4>Castração | Vacinação</h4>
-                  <button onClick={handleDeleteServicos}>deletar serviço</button>
-                  <button onClick={() => handleSubmitServico(2)}>add serviço</button>
+                  
                 </div>
                 {console.log('arr servicossssssss')}
                 {console.log(servicos.map(is => is.id)[0])}
