@@ -226,7 +226,7 @@ function Login() {
 
       const id = getUserId();
 
-      return history.push("/instituicao/" + id);
+      return history.push("/perfil/instituicao/" + id);
     } catch (error) {
       console.error(error);
       alert(error.response.data.error);
