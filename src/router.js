@@ -1,23 +1,29 @@
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Encontrar from "./pages/Encontrar";
 import Favoritos from "./pages/Favoritos";
 import Feed from "./pages/Feed";
 import Login from "./pages/Login";
 import PerfilInstituicao from "./pages/PerfilInstituicao";
+import PerfilPet from "./pages/PerfilPet";
+import PerfilUsuario from "./pages/PerfilUsuario";
+import Instituicao from "./pages/PerfilInstituicao/usuarioindex";
+
 import { isSignedIn } from "./services/security";
 
 function AppRoute({ children, ...rest }) {
-  // if (isSignedIn()) {
+  if (isSignedIn()) {
     return (
       <Route {...rest}>
         <Header />
         {children}
+        <Footer />
       </Route>
-    )
-  // } else {
-  //   return <Redirect to="/" />;
-  // }
+    );
+  } else {
+    return <Redirect to="/" />;
+  }
 }
 
 function Router() {
@@ -30,12 +36,23 @@ function Router() {
         <AppRoute path="/home">
           <Feed />
         </AppRoute>
-        {/* <AppRoute path="/instituicao/:instituicaoId">
-          <PerfilInstituicao />
-        </AppRoute> */}
-        <AppRoute path="/instituicao">
+        
+        <AppRoute path="/animal/:animalId">
+          <PerfilPet />
+        </AppRoute>
+
+        <AppRoute path="/perfil/instituicao/:instituicaoId">
           <PerfilInstituicao />
         </AppRoute>
+
+        <AppRoute path="/perfil/usuario/:usuarioId">
+          <PerfilUsuario />
+        </AppRoute>
+
+        <AppRoute path="/instituicao/:instituicaoId">
+          <Instituicao />
+        </AppRoute>
+        
         <AppRoute path="/favoritos">
           <Favoritos />
         </AppRoute>

@@ -7,7 +7,7 @@ export const signIn = (user) => {
   localStorage.setItem(USER_KEY, JSON.stringify(user));
 
   //setando o token como padrão em todas as requisições
-  api.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
+  api.defaults.headers.common["Authorization"] = `Bearer${user.token}`;
 };
 
 export const signOut = () => {
@@ -16,10 +16,24 @@ export const signOut = () => {
   api.defaults.headers.common["Authorization"] = undefined;
 };
 
-export const getUser = () => {
+export const getUserId = () => {
   const user = JSON.parse(localStorage.getItem(USER_KEY));
 
-  return user;
+  if (user && user.token) {
+    const id = user.id;
+
+    return id;
+  }
+};
+
+export const getTypeUser = () => {
+  const user = JSON.parse(localStorage.getItem(USER_KEY));
+
+  if (user && user.token) {
+    const tipoUsuario = user.tipo_usuario;
+
+    return tipoUsuario;
+  }
 };
 
 export const setUser = (student) => {

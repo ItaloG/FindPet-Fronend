@@ -1,149 +1,168 @@
-import styled from 'styled-components';
+import styled from "styled-components";
+import { HiSearch } from "react-icons/hi";
+import { ImHome } from "react-icons/im";
+import { MdPets, MdOutlineFavorite, MdStars } from "react-icons/md";
+import { FaMap } from "react-icons/fa";
+import { ImExit } from "react-icons/im";
 
-export const HeaderBody = styled.div `
-    display: flex;
-    justify-content: center;
-    width: 100vw;
-    height: 75px;
-    position: fixed;
-    top: 0;
-    z-index: 99;
-    background-color: var(--headerColor);
-    box-shadow: -1px 2px 3px #cfcdca;
-`;
-
-export const HeaderContainer = styled.div`
-    display: flex;
-    width: 1200px;
-    height: 100%;
+export const Container = styled.header`
+  font-family: "Montserrat";
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 3.7rem;
+  background-color: white;
+  box-shadow: -1px 1px 3px #dbdbdb;
+  display: flex;
+  position: fixed;
+  z-index: 99999;
 `;
 
 export const Logo = styled.div`
-    display: flex;
-    justify-content: center;
-    width: 10%;
-    height: 100%;
+  width: 10.5rem;
+  height: 100%;
+  /* background-color: aqua; */
+  display: flex;
+  align-items: center;
+  margin-left: 1.5rem;
+  cursor: pointer;
 
-    > img {
-        width: 65px;
-        height: 65px;
-        margin-top: 5px;
-    }
+  > img {
+    width: 100%;
+    height: auto;
+  }
 `;
 
-export const Pesquisar = styled.div`
-    width: 30%;
-    height: 100%;
+export const Search = styled.div`
+  width: 20rem;
+  height: 100%;
+  /* background-color: aquamarine; */
+  margin-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.75rem;
 
-    > input {
-        width: 250px;
-        font-size: 16px;
-        padding: 10px;
-        background-color: #fff3e3;
-        border: 0px;
-        box-shadow: -1px 1px 2px #c7c4c1;
-        border-radius: 5px;
-        color: var(--logoColor);
-        font-weight: bold;
-        margin-top: 18px;
-        padding-left: 20px;
+  > input {
+    width: 100%;
+    height: 2.2rem;
+    border: 0;
+    background-color: #f0f0f0;
+    border-radius: 12px;
+    padding-left: 1rem;
+    font-size: 0.8rem;
+    color: #c9c9c9;
+    font-family: "Montserrat";
+    font-weight: 500;
 
-        ::placeholder {
-            color: var(--logoColor);
-            font-style: italic;
-        }
+    ::placeholder {
+      color: #c9c9c9;
     }
+
+    :focus ~ div {
+      display: block;
+    }
+  }
+`;
+
+export const IconSearch = styled(HiSearch)`
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #c9c9c9;
+  position: absolute;
+  margin-left: 17.2rem;
+  margin-top: 0.3rem;
+`;
+
+export const IconExit = styled(ImExit)`
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+`;
+
+export const IconHome = styled(ImHome)`
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--primary);
+`;
+
+export const IconPet = styled(MdPets)`
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--primary);
+`;
+
+export const IconFavorite = styled(MdOutlineFavorite)`
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--primary);
+`;
+
+export const IconMap = styled(FaMap)`
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--primary);
+`;
+
+export const IconMember = styled(MdStars)`
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--primary);
 `;
 
 export const Menu = styled.div`
-    display: flex;
-    width: 50%;
-    height: 100%;
+  font-weight: bold;
+  display: flex;
+  width: auto;
+  height: 100%;
 `;
 
 export const MenuItem = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 20%;
-    height: 100%;
-    font-size: 16px;
-    font-weight: bold;
-    color: var(--logoColor);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: 100%;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-left: 1.3rem;
+  margin-right: 1.3rem;
+  /* color: #92765E; */
+  color: var(--primary);
+  font-family: "Montserrat";
+  transition: 0.3s;
 
-    > img {
-        width: 40px;
-        height: 40px;
-        margin-top: 2px;
-        filter: invert(28%) sepia(63%) saturate(3490%) hue-rotate(39deg) brightness(92%) contrast(101%);
-    }
-
-    > img.img-padding {
-        padding: 3px;
-    }
-
-    > p {
-        margin-top: 4px;
-    }
-
-    > span.menu-item-selected {
-        visibility: hidden;
-        opacity: 0;
-        transition: visibility 0s, opacity 0.3s linear;
-        width: 100%;
-        height: 5px;
-        margin-top: 5px;
-        border-radius: 10px;
-        background-color: var(--primary);
-    }
-
-    :hover {
-        cursor: pointer;
-        color: var(--primary);
-    }
-
-    :hover > img {
-        filter: invert(53%) sepia(67%) saturate(503%) hue-rotate(358deg) brightness(93%) contrast(94%);
-    }
-
-    :hover > span.menu-item-selected {
-        visibility: visible;
-        opacity: 1;
-    }
-
-    /* Media Queries */
-    p.menu-item-responsive-show {
-        display: none;
-    }
-
-    @media(max-width: 1000px) {
-        p.menu-item-responsive-hidden {
-            display: none;
-        }
-
-        p.menu-item-responsive-show {
-            display: flex;
-        }
-    }
+  :hover {
+    cursor: pointer;
+    color: var(--dark);
+  }
 `;
 
-export const BotaoPerfil = styled.div`
+export const Profile = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: 100%;
+  gap: 10px;
+  margin-right: 1.5rem;
+
+  > div {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    border: solid 2.5px var(--primary);
     display: flex;
     justify-content: center;
-    width: 10%;
-    height: 100%;
+    align-items: center;
+    cursor: pointer;
 
-    > div {
-        width: 50px;
-        height: 50px;
-        background-color: brown;
-        border-radius: 50%;
-        margin-top: 12px;
-
-        > img {
-            width: 100%;
-            height: 100%;
-            border-radius: 100%;
-        } 
+    > img {
+      width: 95%;
+      height: 95%;
+      border-radius: 100%;
     }
+  }
 `;

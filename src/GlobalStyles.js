@@ -1,5 +1,4 @@
 import styled, { createGlobalStyle } from "styled-components";
-import { MenuItem } from "./components/Header/styles";
 
 export const GlobalStyles = createGlobalStyle`
     :root {
@@ -7,8 +6,14 @@ export const GlobalStyles = createGlobalStyle`
         --secondary: #FFB853;
         --logoColor: #935B00;
         --headerColor: #F6E4CB;
-        --text: #000000;
         --backgroundColor: #F3F3F3;
+        --gray: #5c5a5a;
+        --dark: #654D41;
+        --acent: #C98822;
+        --pink: #D37171;
+        --yellow: #EEBB5B;
+        --green: #33B878; 
+        --light: #CCA583;
     }
 
     *{
@@ -16,19 +21,31 @@ export const GlobalStyles = createGlobalStyle`
         padding: 0;
         outline: 0;
         box-sizing: border-box;
-        font-family: 'Roboto', 'sans-serif';
+        
+    }
+
+    ::-webkit-scrollbar-track {
+        background-color: #FFF;
+    }
+    ::-webkit-scrollbar {
+        width: 4px;
+        background: var(--primary);
+    }
+    ::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background:  var(--primary);
     }
 
     body {
-        overflow-x: hidden;
-        background-color: #ECECEC;
+        background-color: #FFFFFF;
+        /* background-color: #ECECEC; */
+        font-family: Montserrat,'sans-serif';
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
     }
-
-    /* @media(max-width: 1000px) {
-        ${MenuItem} {
-            background-color: aquamarine;
-        }
-    } */
+    html, body, #root{
+        height: 100%;
+    }
 `;
 
 export const Body = styled.div`
@@ -36,21 +53,21 @@ export const Body = styled.div`
     padding: 20px;
     display: flex;
     justify-content: center;
-    background-color: pink;
-
+    background-color: #ECECEC;
     :-webkit-scrollbar{
         
     }
 `;
 
 export const Container = styled.div`
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0px 0px 15px #cfcfcf;
-    margin-top: 75px;
-    width: auto;
-    height: auto;
-    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    main {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 3; 
+    }
 `;
 
 export const ContainerCenter = styled.div`
@@ -58,7 +75,6 @@ export const ContainerCenter = styled.div`
     margin-top: 75px;
     width: 940px;
     height: auto;
-    background-color: peru;
 `;
 
 export const FlexColumn = styled.div`

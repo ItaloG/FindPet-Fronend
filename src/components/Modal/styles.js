@@ -1,13 +1,14 @@
 import styled from "styled-components";
 
 export const Container = styled.div `
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  z-index: 9;
-
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 99999;
   background-color: #33333380;
+  top: 0;
   
+
   display: flex;
   justify-content: center;
   align-items: center;    
@@ -16,15 +17,16 @@ export const Container = styled.div `
 export const ModalContainer = styled.div `
     min-width: 250px;
     min-height: 250px;
-    max-height: calc(100vh - 20px);
     padding: 20px;
+    height: max-content;
 
     z-index: 19;
-    overflow-y: auto;
+
 
     background-color: #FFFFFF;
     box-shadow: 0px 0px 10px black;
     border-radius: 10px;
+
     position: relative;
 
     > span {
