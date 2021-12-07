@@ -8,7 +8,8 @@ import Login from "./pages/Login";
 import PerfilInstituicao from "./pages/PerfilInstituicao";
 import PerfilPet from "./pages/PerfilPet";
 import PerfilUsuario from "./pages/PerfilUsuario";
-import Instituicao from "./pages/Instituicao";
+import Instituicao from "./pages/Instituicao"
+import Desaparecidos from "./pages/Desaparecidos";
 
 import { isSignedIn } from "./services/security";
 
@@ -56,9 +57,15 @@ function Router() {
         <AppRoute path="/favoritos">
           <Favoritos />
         </AppRoute>
+
+        <AppRoute path="/desaparecidos">
+          <Desaparecidos />
+        </AppRoute>
+
         <AppRoute path="/mapa">
           <Encontrar />
         </AppRoute>
+
       </Switch>
     </BrowserRouter>
   );
