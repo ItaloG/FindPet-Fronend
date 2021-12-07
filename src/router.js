@@ -8,7 +8,7 @@ import Login from "./pages/Login";
 import PerfilInstituicao from "./pages/PerfilInstituicao";
 import PerfilPet from "./pages/PerfilPet";
 import PerfilUsuario from "./pages/PerfilUsuario";
-import Instituicao from "./pages/PerfilInstituicao/usuarioindex";
+import Instituicao from "./pages/Instituicao";
 
 import { isSignedIn } from "./services/security";
 

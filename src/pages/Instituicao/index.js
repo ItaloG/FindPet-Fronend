@@ -16,7 +16,7 @@ import {
   DescricaoContainer,
   AnimaisContainer,
   ContainerPerfilColaborador,
-} from "./styles";
+} from "../PerfilInstituicao/styles";
 
 import ApoiarIcon from "../../assets/apoiar.svg";
 import DefaultBanner from "../../assets/default_banner.png";
