@@ -1,32 +1,9 @@
 // import { Container } from "../../GlobalStyles";
 import {
-  Banner,
   Profile,
-  Section,
-  StyledStart,
-  StyledHeart,
-  StyledRiArrowDownSLine,
-  StyledMdEmail,
-  StyledFaPhoneAlt,
-  StyledMdPhoneIphone,
-  StyledFaMapMarkerAlt,
-  Colaboradores,
-  CampanhasContainer,
-  ContainerPerfilAnimal,
-  ContainerServicos,
-  StyledAiOutlinePlusCircle,
-  ApoioContainer,
-  DescricaoContainer,
-  AnimaisContainer,
-  ContainerPerfilColaborador,
-  StyledMdAddAPhoto,
-  FotoPerfil,
   ContainerTodosServicos,
-  ContainerInfo,
   CadsatroColaborador,
   CadastroCampanha,
-  Campanhas,
-  Aniamis,
   CadastroAnimal,
   RadioGroup,
   CondicaoEspecial,
@@ -37,22 +14,11 @@ import {
   Cover,
   EditProfilePhoto,
   IconeCamera,
-  IconEdit,
   IconFavoriteOutline,
-  IconHome,
-  IconLock,
-  IconNext,
-  IconPrevious,
-  PetAbstract,
-  PetDatasheet,
-  PetGallery,
-  PetHistory,
   PetInfo,
   ProfileBody,
   ProfilePhoto,
   PetFavoriteCount,
-  IconFavorite,
-  SaveChanges,
   Contact,
   IconEmail,
   IconPlace,
@@ -67,14 +33,10 @@ import {
   IconStar,
 } from "./styles";
 
-import DefaultPetPhoto from "../../assets/default-pet-photo.jpg";
-import ApoiarIcon from "../../assets/apoiar.svg";
 import DefaultBanner from "../../assets/default_banner.png";
 import DefaultProfile from "../../assets/default_profile_photo.jpg";
 import DefaultPetProfile from "../../assets/default-pet-photo.jpg";
-import Footer from "../../components/Footer";
-import BotaoEditar from "../../components/BotaoEditar";
-import BotaoExcluir from "../../components/BotaoExcluir";
+
 import { useEffect, useRef, useState } from "react";
 import { api } from "../../services/api";
 import Modal from "../../components/Modal";
@@ -84,7 +46,6 @@ import { mascaraCep } from "../../utils";
 import Employee from "./Components/Employee";
 import Campaign from "./Components/Campaign";
 import Pet from "./Components/Pet";
-import Service from "./Components/Service";
 import Donation from "./Components/Donation";
 import InstitutionServices from "./Components/InstitutionServices";
 
@@ -404,7 +365,7 @@ function PerfilInstituicao() {
   const handleSubmitServicos = async () => {
     try {
       const response = await api.post("/servicos", { servicos: servicosSel });
-      console.log(servicosSel)
+      console.log(servicosSel);
 
       setInstituicaoServicos([...InstituicaoServicos, response.data]);
     } catch (error) {
@@ -428,19 +389,6 @@ function PerfilInstituicao() {
     }
   };
 
-  // const handleSubmitServico = async () => {
-  //   try {
-  //     const response = await api.post("/servicos", { servicos: 6 });
-
-  //     setInstituicaoServicos([...InstituicaoServicos, response.data]);
-  //   } catch (error) {
-  //     console.error(error);
-  //     alert(error.response.data.error);
-  //   } finally {
-  //     setIsOpenServicos(false);
-  //   }
-  // };
-
   const handleInputColaborador = (e) => {
     setColaborador({ ...colaborador, [e.target.id]: e.target.value });
   };
@@ -448,7 +396,6 @@ function PerfilInstituicao() {
   const handleInputAnimal = (e) => {
     setAnimal({ ...animal, [e.target.id]: e.target.value });
   };
-
 
   const handleRadioInputAnimal = (e) => {
     setAnimal({ ...animal, castrado: e.target.value });
@@ -573,7 +520,7 @@ function PerfilInstituicao() {
       console.error(error);
       alert(error);
     }
-  }
+  };
 
   const handleEditarAnimal = async (id) => {
     setIsOpenNewAnimal(true);
@@ -601,14 +548,6 @@ function PerfilInstituicao() {
   };
 
   const handleSubmitAnimalEditado = async (e) => {
-    // if (deleteColaborador) {
-    //   try {
-    //     return await api.delete(`/funcionarios/${colaborador.id}`);
-    //   } catch (error) {
-    //     console.error(error);
-    //     alert(error.response.data.error);
-    //   }
-    // }
 
     const { nome, tipoAnimal, personalidade, idade, castrado, historia } =
       animal;
@@ -925,27 +864,6 @@ function PerfilInstituicao() {
 
   let editable = true;
 
-  const [isOneServiceSelected, setIsOneServiceSelected] = useState(false);
-
-  const handleService = () => {
-    if (isServiceSelected) return setIsServiceSelected(false);
-    else return setIsServiceSelected(true);
-  };
-
-  const handleOneService = (id) => {
-    this.setState(true);
-    // if (isAServiceSelected)
-    //   return setIsAServiceSelected(false)
-    // else
-    //   return setIsAServiceSelected(true)
-  };
-
-  const handleDonation = (id) => {
-    this.setState({
-      EDIT: (id = 2),
-    });
-  };
-
   return (
     <>
       <Container>
@@ -996,11 +914,9 @@ function PerfilInstituicao() {
                   <h1>{instituicao.nome}</h1>
                   {!editable && <IconFavoriteOutline />}
                 </div>
-                <div>
-                  
-                </div>
-                {console.log('arr servicossssssss')}
-                {console.log(servicos.map(is => is.id)[0])}
+                <div></div>
+                {console.log("arr servicossssssss")}
+                {console.log(servicos.map((is) => is.id)[0])}
               </PetInfo>
               {!editable && (
                 <>
@@ -1063,44 +979,12 @@ function PerfilInstituicao() {
                     </div>
                     <div>
                       {servicos.map((s) => (
-                        <InstitutionServices key={s.id} serviceId={s.id} title={s.servico}/>
-                      ))}
-                      {/* {console.log(servicos.map((is) => console.log(is.servico)))} */}
-                      {/* {console.log(servicos.map((is) => console.log(is.servico)))} */}
-                      {/* {servicos.map((is) => (
-                        <Service
-                          key={is.id}
-                          id={is.id}
-                          servico={is.servico}
-                          selected={false}
-                          handler={handleService}
+                        <InstitutionServices
+                          key={s.id}
+                          serviceId={s.id}
+                          title={s.servico}
                         />
                       ))}
-                      {InstituicaoServicos.map((is) => (
-                        <Service
-                          key={is.id}
-                          id={is.id}
-                          servico={is.servico}
-                          selected={true}
-                          handler={handleService}
-                        />
-                      ))} */}
-                      {/* {DeletedServices(servicos.map((is) => is.id), InstituicaoServicos.map((is) => is.id)).map((is) => (
-                        <Service key={is.id} id={is.id} servico={is.servico} selected={true} handler={handleService}/>
-                      ))} */}
-                      {/* <Service key={servicos[0].id} id={servicos[0].id} servico={servicos[0].servico} selected={isServiceSelected} handler={handleService}/> */}
-                      {/* <Service key={servicos[1].id} id={servicos[1].id} servico={servicos[1].servico} selected={isAServiceSelected} handler={handleOneService}/> */}
-                      {/* {console.log(servicos[0].id)}
-                      {console.log(servicos.map((is) => is.id))} */}
-                      {/* {DeletedServices(
-                        servicos.map((is) => is.id),
-                        InstituicaoServicos.map((is) => is.id)
-                      )}
-                      {console.log(InstituicaoServicos.map((is) => is))}
-                      {NewServices(
-                        servicos.map((is) => is),
-                        InstituicaoServicos.map((is) => is)
-                      )} */}
                     </div>
                   </Services>
                 )}
@@ -1111,19 +995,13 @@ function PerfilInstituicao() {
                       <p>O que você precisa?</p>
                     </div>
                     <div>
-                      {/* <Service />
-                      <Service />
-                      <Service />
-                      <Service />
-                      <Service /> */}
                       {servicos.map((s) => (
-                        <Donation key={s.id} serviceId={s.id} title={s.servico}/>
+                        <Donation
+                          key={s.id}
+                          serviceId={s.id}
+                          title={s.servico}
+                        />
                       ))}
-                      {/* <Donation title="Castração"/>
-                      <Donation title="Vacinação"/> */}
-                      {/* <div onClick={() => this.handleDonation()}>
-                        <Donation type={2} title={"Castração"} />
-                      </div> */}
                     </div>
                   </Services>
                 )}
@@ -1452,7 +1330,11 @@ function PerfilInstituicao() {
           title="Novo Animal"
           handleClose={handleCloseNewAnimal}
         >
-          <CadastroAnimal onSubmit={isEditandoAnimal ? handleSubmitAnimalEditado : handleSubmitAnimal}>
+          <CadastroAnimal
+            onSubmit={
+              isEditandoAnimal ? handleSubmitAnimalEditado : handleSubmitAnimal
+            }
+          >
             <div className="container-foto-animais">
               <img
                 alt="pre-visualização"
@@ -1606,132 +1488,6 @@ function PerfilInstituicao() {
         </Modal>
       )}
     </>
-
-    // <>
-    //   <Container>
-    //     <main>
-    //       <Profile>
-    //
-    //         <aside>
-    //           <ContainerInfo>
-    //             <div>
-    //
-    //               <StyledHeart style={{ display: "none" }} />
-    //             </div>
-    //             <div>
-    //               <div className="avaliacoes">
-    //                 <div>
-    //                   <StyledStart />
-    //                   <StyledStart />
-    //                   <StyledStart />
-    //                   <StyledStart />
-    //                   <StyledStart />
-    //                   <span>4.8</span>
-    //                 </div>
-    //                 <div>
-    //                   <p>Suas avaliações (1.448)</p>
-    //                 </div>
-    //               </div>
-    //               <div style={{ display: "none" }}>
-    //                 <img src={ApoiarIcon} alt="apoio" />
-    //                 <div>
-    //                   Apoiar <StyledRiArrowDownSLine />
-    //                 </div>
-    //               </div>
-    //             </div>
-    //           </ContainerInfo>
-    //           <ContainerServicos>
-    //             {InstituicaoServicos.length === 0 ? (
-    //               <p>Adicione serviços para as pessoas saberem o que vc faz</p>
-    //             ) : (
-    //               <div>
-    //                 {InstituicaoServicos.map((is) => (
-    //                   <Servico id={is.id} servico={is} />
-    //                 ))}
-    //               </div>
-    //             )}
-
-    //             <StyledAiOutlinePlusCircle
-    //               onClick={() => {
-    //                 setIsOpenServicos(true);
-    //               }}
-    //             />
-    //           </ContainerServicos>
-    //         </aside>
-    //       </Profile>
-    //       <Section>
-    //         <aside>
-    //
-    //
-    //         </aside>
-    //         <section>
-    //           <ApoioContainer>
-    //             <h1>Doações</h1>
-    //             <h2>O que você precisa?</h2>
-    //             <div>
-    //               <div>Voluntários</div>
-    //               <div>Materiais</div>
-    //             </div>
-    //           </ApoioContainer>
-
-    //         </section>
-    //       </Section>
-    //     </main>
-
-    //     <Footer />
-    //   </Container>
-    // </>
-  );
-}
-
-function PerfilAnimal({ id, nome, raca, handler, img }) {
-  return (
-    <ContainerPerfilAnimal>
-      <aside onClick={() => handler(id)}>
-        <BotaoEditar />
-      </aside>
-      <div>
-        <img src={img ? img : DefaultProfile} alt={"pet"} />
-      </div>
-      <h3>{nome}</h3>
-      <p>{raca}</p>
-    </ContainerPerfilAnimal>
-  );
-}
-
-function PerfilColaborador({ id, nome, cargo, handler, img }) {
-  return (
-    <ContainerPerfilColaborador>
-      <aside onClick={() => handler(id)}>
-        <BotaoEditar />
-      </aside>
-      <img src={img ? img : DefaultProfile} alt={"colaborador"} />
-      <h3>{nome}</h3>
-      <p>{cargo}</p>
-    </ContainerPerfilColaborador>
-  );
-}
-
-function Campanha({
-  id,
-  titulo,
-  descricao,
-  handlerEditar,
-  handlerExcluir,
-  img,
-}) {
-  return (
-    <div>
-      <aside onClick={() => handlerEditar(id)}>
-        <BotaoEditar />
-      </aside>
-      <aside onClick={() => handlerExcluir(id)}>
-        <BotaoExcluir />
-      </aside>
-      <img src={img ? img : DefaultBanner} alt="campanhas" />
-      <h1>{titulo}</h1>
-      <p>{descricao}</p>
-    </div>
   );
 }
 
@@ -1758,79 +1514,6 @@ function ServicoOption({ servico, id, servicosSel, handler }) {
       {servico.servico}
     </div>
   );
-}
-
-function Servico({ servico, handleDeleteServico, id }) {
-  return (
-    <div id={id}>
-      {servico.servico}
-      <span onClick={handleDeleteServico}>&times;</span>
-    </div>
-  );
-}
-
-function DeletedServices(idServices, idInstitutionServices) {
-  const services = idServices; //[1,2,3,4,5,6,7,8,9]
-  const institutionServices = idInstitutionServices; //[1,3,5,6,8]
-
-  let deletedServices = services;
-
-  for (let i = 0; i < institutionServices.length; i++) {
-    deletedServices.splice(services.indexOf(institutionServices[i]), 1);
-  }
-
-  return services;
-}
-
-function NewServices(allServices, institutionServices) {
-  let arrAllServices = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-  // console.log("vixe " + arrAllServices)
-  let arrInstServices = [];
-  let arrOffServices = [];
-
-  console.log(institutionServices.map((is) => is.id)[2]);
-
-  // console.log(institutionServices.map(is => is.servico)[0])
-
-  for (let i = 0; i < institutionServices.length; i++) {
-    const instServices = new Object();
-
-    instServices.id = institutionServices.map((is) => is.id)[i];
-    instServices.nome = institutionServices.map((is) => is.servico)[i];
-    instServices.selected = true;
-
-    arrInstServices.push(instServices);
-  }
-
-  console.log(arrInstServices);
-
-  // for (let i = 0; i < allServices.length; i++) {
-  //   for (let j = 0; j < institutionServices.length; i++) {
-  //     if (allServices.map(is => is.id)[i] === institutionServices.map(is => is.id)[j]) {
-  //       arrAllServices.splice(j, 1, arrInstServices[j])
-  //     }
-  //   }
-  // }
-  arrAllServices.splice(0, 1, arrInstServices[0]);
-  console.log(arrAllServices);
-
-  // for (let i = 0; i <  offServices.length; i++) {
-  //   const notSelecServices = new Object();
-
-  //   notSelecServices.id = offServices[i].id;
-  //   notSelecServices.nome = offServices[i].servico;
-  //   notSelecServices.selected = false;
-
-  //   arrOffServices.push(notSelecServices)
-  // }
-
-  // for (let i = 0; i < allServices.length; i++) {
-  //   for (let j = 0; j < offServices.length; i++) {
-  //     if (allServices[i].id === offServices[j].id) {
-  //       arrAllServices.splice(j - 1, 1, arrOffServices[j])
-  //     }
-  //   }
-  // }
 }
 
 export default PerfilInstituicao;

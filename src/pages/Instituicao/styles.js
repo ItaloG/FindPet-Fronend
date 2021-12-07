@@ -4,359 +4,350 @@ import { AiFillHeart, AiOutlinePlusCircle } from "react-icons/ai";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { MdEmail, MdPhoneIphone, MdEdit, MdAddAPhoto } from "react-icons/md";
 import { FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
-import { MdOutlineFavoriteBorder, MdOutlineFavorite, MdHome, MdNavigateNext, MdNavigateBefore, MdPhotoCamera, MdModeEditOutline } from 'react-icons/md';
-import { FaLock } from 'react-icons/fa';
+import {
+  MdOutlineFavoriteBorder,
+  MdOutlineFavorite,
+  MdHome,
+  MdNavigateNext,
+  MdNavigateBefore,
+  MdPhotoCamera,
+  MdModeEditOutline,
+} from "react-icons/md";
+import { FaLock } from "react-icons/fa";
 
 export const Container = styled.div`
-    width: 1200px;
-    height: auto;
-    margin: 0 auto;
-    background-color: white;
-    padding-top: 8rem;
+  width: 1200px;
+  height: auto;
+  margin: 0 auto;
+  background-color: white;
+  padding-top: 8rem;
 `;
 
-export const Profile = styled.main`
-    width: 100%;
-    height: auto;
+export const Main = styled.main`
+  width: 100%;
+  height: auto;
+  padding: 6rem;
 `;
 
-export const Cover = styled.div`
+export const Header = styled.header`
+  width: 60%;
+  height: auto;
+  margin: 0 auto;
+
+  > img {
     width: 100%;
-    height: 250px;
+    height: 100%;
+    object-fit: cover;
     border-radius: 40px 40px 0px 0px;
-    background-color: pink;
+  }
+
+  > aside {
+    width: 100%;
+    height: 300px;
+    background-color: green;
+    display: flex;
+    justify-content: space-around;
+  }
+`;
+
+export const ProfilePhoto = styled.div`
+  width: 150px;
+  height: 150px;
+  background-color: white;
+  border: solid 3px var(--dark);
+  border-radius: 50%;
+  position: absolute;
+  margin-left: -150px;
+  margin-top: -70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  > div {
+    width: 142px;
+    height: 142px;
+    background-color: white;
+    border: solid 5px var(--secondary);
+    border-radius: 100%;
     overflow: hidden;
 
     > img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 40px 40px 0px 0px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 100%;
     }
+  }
 `;
 
-export const EditCoverPhoto = styled.div`
-  width: auto;
-  height: auto;
-  padding: 5px 15px;
-  border: 0;
-  border-radius: 7px;
-  font-family: 'Montserrat';
-  font-weight: 600;
-  font-size: 0.9rem;
-  margin-left: 5px;
-  color: white;
+export const NameInstitution = styled.div`
+    margin-left: 35px;
+    position: inherit;
+`;
+
+export const Avaliacoes = styled.div`
+    position: absolute;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+`;
+
+export const Apoio = styled.div`
+    position: absolute;
+    margin-top: 10px;
+    display: flex;
+    justify-items: right;
+    align-items: flex-end;
+    
+`;
+
+
+export const EditProfilePhoto = styled.button`
+  width: 40px;
+  height: 40px;
   background-color: var(--dark);
+  border-radius: 50%;
+  border: 0;
   position: absolute;
   display: flex;
   align-items: center;
+  justify-content: center;
+  margin-left: -5px;
+  margin-top: 20px;
   overflow: hidden;
-  margin-left: 983px;
-  margin-top: 205px;
-
-  > label {
-    padding-left: 3px;
-  }
 
   > input {
-    width: 100;
+    width: 100%;
     height: 100%;
     position: absolute;
-    margin-top: 13px;
+    margin-top: 17px;
     opacity: 0;
   }
 `;
 
-export const About = styled.div`
-    width: 100%;
-    height: 80px;
-    display: flex;
-    justify-content: center;
-
-    > div {
-        height: 100%;
-        width: 90%;
-        display: flex;
-        justify-content: space-between;
-    }
-`;
-
-export const ProfilePhoto = styled.div`
-    width: 150px;
-    height: 150px;
-    background-color: white;
-    border: solid 3px var(--dark);
-    border-radius: 50%;
-    position: absolute;
-    margin-top: -70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    > div {
-        width: 142px;
-        height: 142px;
-        background-color: white;
-        border: solid 5px var(--secondary);
-        border-radius: 100%;
-        overflow: hidden;
-
-        > img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 100%;
-
-        }
-    }
-`;
-
-export const EditProfilePhoto = styled.button`
-    width: 40px;
-    height: 40px;
-    background-color: var(--dark);
-    border-radius: 50%;
-    border: 0;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: -5px;
-    margin-top: 20px;
-    overflow: hidden;
-
-    > input {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      margin-top: 17px;
-      opacity: 0;
-    }
-`;
-
 export const IconeCamera = styled(MdPhotoCamera)`
-    width: 30px;
-    height: 25px;
-    color: white;
+  width: 30px;
+  height: 25px;
+  color: white;
 `;
 
 export const PetInfo = styled.div`
+  width: auto;
+  height: 100%;
+  margin-left: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 20px;
+
+  > div {
     width: auto;
-    height: 100%;
-    margin-left: 150px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-left: 20px;
-
-    > div {
-        width: auto;
-        height: auto;
-        background-color: white;
-        display: flex;
-        align-items: center;
-
-        > h1 {
-            color: #92765E;
-            font-family: 'Montserrat';
-            margin-right: 6px;
-        }
-
-        > h4 {
-            color: #bababa;
-            font-family: 'Montserrat';
-            margin-top: 3px;
-            margin-left: 3px;
-            font-weight: 600;
-        }
-    }
-`;
-
-export const IconFavoriteOutline = styled(MdOutlineFavoriteBorder)`
-    width: 30px;
-    height: 30px;
-    color: var(--pink);
-`;
-
-export const IconHome = styled(MdHome)`
-    width: 25px;
-    height: 25px;
-    color: #bababa;
-`;
-
-export const ActionButtons = styled.div`
-    width: auto;
-    height: 100%;
+    height: auto;
+    background-color: white;
     display: flex;
     align-items: center;
 
-    > button {
-        width: auto;
-        height: auto;
-        padding: 10px 20px;
-        border: 0;
-        border-radius: 7px;
-        font-family: 'Montserrat';
-        font-weight: bold;
-        margin-left: 5px;
-        color: white;
+    > h1 {
+      color: #92765e;
+      font-family: "Montserrat";
+      margin-right: 6px;
     }
 
-    > button:first-child {
-        background-color: var(--green);
+    > h4 {
+      color: #bababa;
+      font-family: "Montserrat";
+      margin-top: 3px;
+      margin-left: 3px;
+      font-weight: 600;
     }
+  }
+`;
 
-    > button:last-child {
-        background-color: var(--primary);
-    }
+export const IconFavoriteOutline = styled(MdOutlineFavoriteBorder)`
+  width: 30px;
+  height: 30px;
+  color: var(--pink);
+`;
+
+export const IconHome = styled(MdHome)`
+  width: 25px;
+  height: 25px;
+  color: #bababa;
+`;
+
+export const ActionButtons = styled.div`
+  width: auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+  > button {
+    width: auto;
+    height: auto;
+    padding: 10px 20px;
+    border: 0;
+    border-radius: 7px;
+    font-family: "Montserrat";
+    font-weight: bold;
+    margin-left: 5px;
+    color: white;
+  }
+
+  > button:first-child {
+    background-color: var(--green);
+  }
+
+  > button:last-child {
+    background-color: var(--primary);
+  }
 `;
 
 export const PetFavoriteCount = styled.div`
-    width: auto;
-    height: 100%;
-    display: flex;
-    padding-top: 10px;
+  width: auto;
+  height: 100%;
+  display: flex;
+  padding-top: 10px;
 
-    > h4 {
-        margin-top: 7px;
-        margin-left: 5px;
-        color: #bababa;
-        font-weight: 800;
-        font-size: 1.1rem;
-    }
+  > h4 {
+    margin-top: 7px;
+    margin-left: 5px;
+    color: #bababa;
+    font-weight: 800;
+    font-size: 1.1rem;
+  }
 
-    > small {
-        margin-top: 9px;
-        margin-left: 5px;
-        color: #bababa;
-        font-weight: 500;
-    }
+  > small {
+    margin-top: 9px;
+    margin-left: 5px;
+    color: #bababa;
+    font-weight: 500;
+  }
 `;
 
 export const IconStar = styled(FaStar)`
-    width: 30px;
-    height: 30px;
-    color: var(--yellow);
+  width: 30px;
+  height: 30px;
+  color: var(--yellow);
 `;
 
 export const SaveChanges = styled.div`
-    width: 90%;
-    height: auto;
-    margin: 0 auto;
-    display: flex;
-    justify-content: end;
+  width: 90%;
+  height: auto;
+  margin: 0 auto;
+  display: flex;
+  justify-content: end;
 
-    > button {
-        width: auto;
-        height: auto;
-        padding: 10px 20px;
-        border: 0;
-        border-radius: 7px;
-        font-family: 'Montserrat';
-        font-weight: bold;
-        margin-left: 5px;
-        color: white;
-        background-color: var(--dark);
-    }
+  > button {
+    width: auto;
+    height: auto;
+    padding: 10px 20px;
+    border: 0;
+    border-radius: 7px;
+    font-family: "Montserrat";
+    font-weight: bold;
+    margin-left: 5px;
+    color: white;
+    background-color: var(--dark);
+  }
 `;
 
 export const ProfileBody = styled.div`
-    width: 100%;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    padding-top: 50px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
 
-    > div {
-        height: 100%;
-        width: 90%;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        margin-bottom: 100px;
+  > div {
+    height: 100%;
+    width: 90%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 100px;
 
-        > div:first-child {
-            grid-column-start: 1;
-            padding-right: 100px;
-        }
-
-        > div:last-child {
-            grid-column-start: 2;
-        }
+    > div:first-child {
+      grid-column-start: 1;
+      padding-right: 100px;
     }
+
+    > div:last-child {
+      grid-column-start: 2;
+    }
+  }
 `;
 
 export const Contact = styled.div`
+  width: 100%;
+  height: auto;
+  background-color: white;
+  font-weight: 500;
+  margin-bottom: 50px;
+
+  > h2 {
+    font-style: normal;
+    color: #92765e;
+    margin-bottom: 10px;
+  }
+
+  > div {
     width: 100%;
     height: auto;
-    background-color: white;
+    font-size: 0.9rem;
+    color: #bababa;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+
+    > p {
+      margin-left: 5px;
+    }
+  }
+
+  > textarea {
+    width: 100%;
+    height: 200px;
+    resize: none;
+    border: solid 1px #c9c9c9;
+    padding: 10px;
+    font-family: "Montserrat";
+    line-height: 1.7;
+    color: var(--gray);
     font-weight: 500;
-    margin-bottom: 50px;
-
-    > h2 {
-        font-style: normal;
-        color: #92765E;
-        margin-bottom: 10px;
-    }
-
-    > div {
-      width: 100%;
-      height: auto;
-      font-size: 0.9rem;
-      color: #bababa;
-      padding-bottom: 10px;
-      display: flex;
-      align-items: center;
-
-      > p {
-        margin-left: 5px;
-      }
-    }
-
-    > textarea {
-        width: 100%;
-        height: 200px;
-        resize: none;
-        border: solid 1px #c9c9c9;
-        padding: 10px;
-        font-family: 'Montserrat';
-        line-height: 1.7;
-        color: var(--gray);
-        font-weight: 500;
-        border-radius: 1px;
-        font-size: 0.9rem;
-    }
+    border-radius: 1px;
+    font-size: 0.9rem;
+  }
 `;
 
 export const Services = styled.div`
+  width: 100%;
+  height: auto;
+  background-color: white;
+  font-weight: 500;
+  margin-bottom: 50px;
+
+  > h2 {
+    font-style: normal;
+    color: #92765e;
+    margin-bottom: 10px;
+  }
+
+  > :nth-child(2) {
     width: 100%;
     height: auto;
-    background-color: white;
-    font-weight: 500;
-    margin-bottom: 50px;
+    font-size: 0.9rem;
+    color: #bababa;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
 
-    > h2 {
-        font-style: normal;
-        color: #92765E;
-        margin-bottom: 10px;
-    }
-
-    > :nth-child(2) {
-      width: 100%;
-      height: auto;
-      font-size: 0.9rem;
-      color: #bababa;
-      padding-bottom: 10px;
-      display: flex;
-      align-items: center;
-    }
-
-    > :last-child {
-      width: 100%;
-      height: auto;
-      /* background-color: lightblue; */
-      display: flex;
-      flex-wrap: wrap;
-    }
+  > :last-child {
+    width: 100%;
+    height: auto;
+    /* background-color: lightblue; */
+    display: flex;
+    flex-wrap: wrap;
+  }
 `;
 
 export const IconEmail = styled(MdEmail)`
@@ -385,315 +376,283 @@ export const IconPhone = styled(MdPhoneIphone)`
 `;
 
 export const Employees = styled.div`
+  width: 100%;
+  height: auto;
+  background-color: white;
+
+  > div:first-child {
+    display: flex;
+
+    > h2 {
+      color: #92765e;
+      margin-bottom: 20px;
+    }
+
+    > button {
+      width: fit-content;
+      height: fit-content;
+      padding: 5px 15px;
+      margin-left: 10px;
+      border: 0;
+      border-radius: 7px;
+      font-family: "Montserrat";
+      font-weight: 600;
+      font-size: 1rem;
+      color: white;
+      background-color: var(--dark);
+      text-transform: uppercase;
+
+      :hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  > p {
+    font-family: "Montserrat";
+    font-size: 0.9rem;
+    color: #bababa;
+    font-weight: 500;
+  }
+
+  > div:last-child {
     width: 100%;
     height: auto;
-    background-color: white;
-
-    > div:first-child {
-      display: flex;
-
-      > h2 {
-        color: #92765E;
-        margin-bottom: 20px;
-      }
-
-      > button {
-        width: fit-content;
-        height: fit-content;
-        padding: 5px 15px;
-        margin-left: 10px;
-        border: 0;
-        border-radius: 7px;
-        font-family: 'Montserrat';
-        font-weight: 600;
-        font-size: 1rem;
-        color: white;
-        background-color: var(--dark);
-        text-transform: uppercase;
-
-        :hover {
-          cursor: pointer;
-        }
-      }
-    }
-
-    > p {
-      font-family: 'Montserrat';
-      font-size: 0.9rem;
-      color: #bababa;
-      font-weight: 500;
-    }
-
-    > div:last-child {
-      width: 100%;
-      height: auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 15px;
-    }
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+  }
 `;
 
 export const IconLock = styled(FaLock)`
-    width: 16px;
-    height: 16px;
-    color: #bababa; 
+  width: 16px;
+  height: 16px;
+  color: #bababa;
 `;
 
 export const IconEdit = styled(MdModeEditOutline)`
-    width: 28px;
-    height: 28px;
-    color: var(--primary); 
+  width: 28px;
+  height: 28px;
+  color: var(--primary);
 `;
 
 export const Campaigns = styled.div`
+  width: 100%;
+  min-height: 300px;
+  height: auto;
+  margin-bottom: 50px;
+
+  > div:first-child {
+    display: flex;
+
+    > h2 {
+      color: #92765e;
+      margin-bottom: 20px;
+    }
+
+    > button {
+      width: fit-content;
+      height: fit-content;
+      padding: 5px 15px;
+      margin-left: 10px;
+      border: 0;
+      border-radius: 7px;
+      font-family: "Montserrat";
+      font-weight: 600;
+      font-size: 1rem;
+      color: white;
+      background-color: var(--dark);
+      text-transform: uppercase;
+
+      :hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  > div:last-child {
     width: 100%;
-    min-height: 300px;
+    min-height: 260px;
     height: auto;
-    margin-bottom: 50px;
-
-    > div:first-child {
-      display: flex;
-
-      > h2 {
-        color: #92765E;
-        margin-bottom: 20px;
-      }
-
-      > button {
-        width: fit-content;
-        height: fit-content;
-        padding: 5px 15px;
-        margin-left: 10px;
-        border: 0;
-        border-radius: 7px;
-        font-family: 'Montserrat';
-        font-weight: 600;
-        font-size: 1rem;
-        color: white;
-        background-color: var(--dark);
-        text-transform: uppercase;
-
-        :hover {
-          cursor: pointer;
-        }
-      }
-    }
-
-    > div:last-child {
-        width: 100%;
-        min-height: 260px;
-        height: auto;
-        background-color: white;
-    }
+    background-color: white;
+  }
 `;
 
 export const IconPrevious = styled(MdNavigateBefore)`
-    width: 50px;
-    height: 50px;
-    color: white;
+  width: 50px;
+  height: 50px;
+  color: white;
 `;
 
 export const IconNext = styled(MdNavigateNext)`
-    width: 50px;
-    height: 50px;
-    color: white;
+  width: 50px;
+  height: 50px;
+  color: white;
 `;
 
 export const Description = styled.div`
+  width: 100%;
+  height: auto;
+  margin-bottom: 50px;
+
+  > h2 {
+    color: #92765e;
+    margin-bottom: 10px;
+  }
+
+  > p {
+    font-weight: 500;
+    color: #bababa;
+  }
+
+  > textarea {
     width: 100%;
-    height: auto;
-    margin-bottom: 50px;
-
-    > h2 {
-        color: #92765E;
-        margin-bottom: 10px;
-    }
-
-    > p {
-        font-weight: 500;
-        color: #bababa;
-    }
-
-    > textarea {
-        width: 100%;
-        height: 200px;
-        resize: none;
-        border: solid 1px #c9c9c9;
-        padding: 10px;
-        font-family: 'Montserrat';
-        line-height: 1.7;
-        color: var(--gray);
-        font-weight: 500;
-        border-radius: 1px;
-        font-size: 0.9rem;
-    }
+    height: 200px;
+    resize: none;
+    border: solid 1px #c9c9c9;
+    padding: 10px;
+    font-family: "Montserrat";
+    line-height: 1.7;
+    color: var(--gray);
+    font-weight: 500;
+    border-radius: 1px;
+    font-size: 0.9rem;
+  }
 `;
 
 export const Pets = styled.div`
-    width: 100%;
-    height: auto;
-    background-color: white;
+  width: 100%;
+  height: auto;
+  background-color: white;
 
-    > div:first-child {
-      display: flex;
+  > div:first-child {
+    display: flex;
 
-      > h2 {
-        color: #92765E;
-        margin-bottom: 20px;
-      }
-
-      > button {
-        width: fit-content;
-        height: fit-content;
-        padding: 5px 15px;
-        margin-left: 10px;
-        border: 0;
-        border-radius: 7px;
-        font-family: 'Montserrat';
-        font-weight: 600;
-        font-size: 1rem;
-        color: white;
-        background-color: var(--dark);
-        text-transform: uppercase;
-
-        :hover {
-          cursor: pointer;
-        }
-      }
+    > h2 {
+      color: #92765e;
+      margin-bottom: 20px;
     }
 
-    > p {
-      font-family: 'Montserrat';
-      font-size: 0.9rem;
-      color: #bababa;
-      font-weight: 500;
+    > button {
+      width: fit-content;
+      height: fit-content;
+      padding: 5px 15px;
+      margin-left: 10px;
+      border: 0;
+      border-radius: 7px;
+      font-family: "Montserrat";
+      font-weight: 600;
+      font-size: 1rem;
+      color: white;
+      background-color: var(--dark);
+      text-transform: uppercase;
+
+      :hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  > p {
+    font-family: "Montserrat";
+    font-size: 0.9rem;
+    color: #bababa;
+    font-weight: 500;
+  }
+
+  > div:last-child {
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 15px;
+  }
+`;
+
+export const ContainerInfo = styled.div`
+  display: flex;
+  > div {
+    width: 70%;
+    display: flex;
+    gap: 7px;
+
+    h1 {
+      margin-top: 7px;
+      color: var(--dark);
+      font-weight: bold;
+      font-size: 1.8em;
+      font-family: "Montserrat";
+      margin-left: 10px;
+    }
+
+    @media (max-width: 1080px) {
+      h1 {
+        font-size: 1.4em;
+      }
+    }
+  }
+
+  > div:last-child {
+    width: 30%;
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+
+    > .avaliacoes {
+      margin-top: 7px;
+
+      div {
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+      }
+
+      span {
+        margin-left: 5px;
+        font-size: 1.2em;
+        font-weight: bold;
+        color: var(--dark);
+      }
+
+      p {
+        color: var(--gray);
+        font-size: 1em;
+      }
+
+      @media (max-width: 1080px) {
+        p {
+          font-size: 0.8em;
+        }
+      }
     }
 
     > div:last-child {
-      width: 100%;
-      height: auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-      gap: 15px;
-    }
-`;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// export const Profile = styled.div`
-//   width: 80%;
-//   display: flex;
-//   flex-direction: column;
-//   margin: 0 auto;
-//   margin-top: 90px;
-
-//   > aside {
-//     width: 100%;
-//     gap: 5px;    
-//   }
-// `;
-
-export const ContainerInfo = styled.div`
-
+      margin-top: 7px;
+      margin-right: 20px;
       display: flex;
+      align-items: center;
+      gap: 10px;
+
+      > img {
+        width: 30px;
+        height: 30px;
+      }
+
       > div {
-        width: 70%;
         display: flex;
-        gap: 7px;
-
-        h1 {
-          margin-top: 7px;
-          color: var(--dark);
-          font-weight: bold;
-          font-size: 1.8em;
-          font-family: "Montserrat";
-          margin-left: 10px;
-        }
-
-        @media(max-width: 1080px) {
-          h1 {
-            font-size: 1.4em;
-          }
-        }
+        justify-content: center;
+        gap: 5px;
+        /* width: 90px; */
+        /* height: 30px; */
+        padding: 8px;
+        text-align: center;
+        color: #fff;
+        background-color: var(--green);
+        border-radius: 5px;
       }
-
-      > div:last-child {
-        width: 30%;
-        display: flex;
-        gap: 20px;
-        justify-content: flex-end;
-        flex-wrap: wrap;
-
-        > .avaliacoes {
-          margin-top: 7px;
-
-          div {
-            display: flex;
-            align-items: flex-end;
-            justify-content: flex-end;
-          }
-
-          span {
-            margin-left: 5px;
-            font-size: 1.2em;
-            font-weight: bold;
-            color: var(--dark);
-          }
-
-          p {
-            color: var(--gray);
-            font-size: 1em;
-          }
-
-          @media(max-width: 1080px) {
-            p {
-              font-size: .8em;
-            }
-          }
-        }
-
-        > div:last-child {
-          margin-top: 7px;
-          margin-right: 20px;
-          display: flex;
-          align-items: center;
-          gap: 10px;
-
-          > img {
-            width: 30px;
-            height: 30px;
-          }
-
-          > div {
-            display: flex;
-            justify-content: center;
-            gap: 5px;
-            /* width: 90px; */
-            /* height: 30px; */
-            padding: 8px;
-            text-align: center;
-            color: #fff;
-            background-color: var(--green);
-            border-radius: 5px;
-          }
-        }
-      }
-  
+    }
+  }
 `;
 
 export const FotoPerfil = styled.div`
@@ -702,7 +661,7 @@ export const FotoPerfil = styled.div`
   margin-left: 20px;
   display: flex;
   justify-content: flex-end;
-  
+
   > label {
     position: absolute;
     margin-top: 90px;
@@ -734,32 +693,30 @@ export const ContainerServicos = styled.div`
   margin-top: 10px;
   gap: 5px;
 
-  > div { 
+  > div {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
 
-    
-    
     > div {
-    width: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    
-    border: solid var(--light) 2px;
-    border-radius: 20px;
-    
-    padding: 5px;
-    font-size: .7em;
-    text-align: center;
-    user-select: none;
-    
-    > span {
-      cursor: pointer;
-      font-size: 20px;
+      width: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+
+      border: solid var(--light) 2px;
+      border-radius: 20px;
+
+      padding: 5px;
+      font-size: 0.7em;
+      text-align: center;
+      user-select: none;
+
+      > span {
+        cursor: pointer;
+        font-size: 20px;
+      }
     }
-  }
   }
 `;
 
@@ -771,7 +728,7 @@ export const ContainerTodosServicos = styled.div`
   flex-wrap: wrap;
   justify-content: flex-end;
   margin-top: 10px;
-  
+
   div {
     width: 100%;
     display: flex;
@@ -784,10 +741,10 @@ export const ContainerTodosServicos = styled.div`
     border-radius: 20px;
     font-size: 13px;
     cursor: pointer;
-    
+
     :hover {
       background-color: var(--light);
-      color: #FFF;
+      color: #fff;
     }
 
     > span {
@@ -796,25 +753,25 @@ export const ContainerTodosServicos = styled.div`
   }
 
   .limpar {
-    color: #FFF;
+    color: #fff;
     padding: 10px;
     border: none;
     border-radius: 5px;
     align-self: center;
-    color: #FFF;
+    color: #fff;
     cursor: pointer;
     background-color: var(--dark);
 
     :hover {
-      border:solid var(--dark) 1px;
-      background-color: #fff; 
+      border: solid var(--dark) 1px;
+      background-color: #fff;
       color: var(--dark);
       padding: 9px;
     }
   }
 
   > button:last-child {
-    color: #FFF;
+    color: #fff;
     padding: 10px;
     border: none;
     border-radius: 5px;
@@ -822,47 +779,11 @@ export const ContainerTodosServicos = styled.div`
     background-color: var(--secondary);
     cursor: pointer;
     :hover {
-      border:solid var(--secondary) 1px;
-      background-color: #fff; 
+      border: solid var(--secondary) 1px;
+      background-color: #fff;
       color: var(--secondary);
       padding: 9px;
     }
-  }
-`;
-
-
-export const Banner = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: flex-end;
-
-  img {
-    width: 100%;
-    height: 180px;
-    border-radius: 20px 20px 0px 0px;
-  }
-
-  input {
-    display: none;
-  }
-
-  label {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    background-color: #fff;
-    padding: 5px;
-    border-radius: 3px;
-    position: absolute;
-    margin-bottom: 3px;
-    margin-right: 3px;
-    font-size: .8em;
-    cursor: pointer;
-    box-shadow: #000 0px 0px 3px 0px;
   }
 `;
 
@@ -896,7 +817,7 @@ export const Section = styled.section`
         text-align: start;
         gap: 5px;
         p {
-          font-family: 'Montserrat';
+          font-family: "Montserrat";
           font-size: 0.9rem;
           color: var(--gray);
           margin-left: 10px;
@@ -929,9 +850,7 @@ export const Section = styled.section`
           > span {
             font-size: 20px;
           }
-
         }
-
       }
     }
   }
@@ -982,7 +901,7 @@ export const AnimaisContainer = styled.div`
       padding: 5px;
       border-radius: 4px;
       border: solid 1px var(--primary);
-       cursor: pointer;
+      cursor: pointer;
 
       > span {
         font-size: 20px;
@@ -1037,7 +956,7 @@ export const DescricaoContainer = styled.div`
   }
 
   > p {
-    font-family: 'Montserrat';
+    font-family: "Montserrat";
     font-style: italic;
     color: var(--dark);
     font-size: 16px;
@@ -1087,13 +1006,12 @@ export const CampanhasContainer = styled.div`
       }
     }
   }
-    
 `;
 
 export const Campanhas = styled.div`
   display: flex;
   flex-direction: column;
-  
+
   > div {
     display: flex;
     flex-direction: column;
@@ -1115,13 +1033,13 @@ export const Campanhas = styled.div`
   }
 
   p {
-  width: 330px;
-  font-size: 13px;
+    width: 330px;
+    font-size: 13px;
   }
 
   img {
-  width: 100%;
-  height: 200px;
+    width: 100%;
+    height: 200px;
   }
 `;
 
@@ -1146,7 +1064,7 @@ export const StyledStart = styled(FaStar)`
   height: 30px;
   color: var(--yellow);
 
-  @media(max-width: 1080px) {
+  @media (max-width: 1080px) {
     width: 20px;
     height: 20px;
   }
@@ -1235,7 +1153,7 @@ export const ContainerPerfilAnimal = styled.div`
     align-items: center;
     overflow: hidden;
 
-    >img {
+    > img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -1272,11 +1190,10 @@ export const ContainerPerfilColaborador = styled.div`
   > aside {
     position: absolute;
     margin-left: 4%;
-   :hover {
+    :hover {
       cursor: pointer;
     }
   }
-
 `;
 
 export const CadsatroColaborador = styled.form`
@@ -1285,32 +1202,33 @@ export const CadsatroColaborador = styled.form`
   align-items: center;
   margin-top: 10px;
   gap: 10px;
-  input, select {
-      padding: 10px;
-      width: 100%;
-      border-radius: 5px;
-      border:solid #C4C4C4  1px;
-      font-size: .9em;
-    }
+  input,
+  select {
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: solid #c4c4c4 1px;
+    font-size: 0.9em;
+  }
 
-    label {
-      font-size: .8em;
-    }
+  label {
+    font-size: 0.8em;
+  }
 
-    > img {
-      align-self: center;
-      max-width: 40%;
-      display: none;
-    }
+  > img {
+    align-self: center;
+    max-width: 40%;
+    display: none;
+  }
 
   button {
     width: 75%;
     height: 15%;
     margin-top: 15px;
-    background-color: #FFB853;
+    background-color: #ffb853;
     padding: 10px;
-	  border: none;
-	  border-radius: 10px;
+    border: none;
+    border-radius: 10px;
 
     color: #fff;
     font-weight: bold;
@@ -1328,12 +1246,13 @@ export const CadastroCampanha = styled.form`
   gap: 10px;
   max-width: 500px;
 
-  input, textarea {
+  input,
+  textarea {
     padding: 10px;
     width: 100%;
     border-radius: 5px;
-    border:solid #C4C4C4  1px;
-    font-size: .9em;
+    border: solid #c4c4c4 1px;
+    font-size: 0.9em;
   }
 
   > img {
@@ -1350,17 +1269,17 @@ export const CadastroCampanha = styled.form`
   }
 
   label {
-    font-size: .9em;
+    font-size: 0.9em;
   }
 
   button {
     width: 75%;
     height: 15%;
     margin-top: 15px;
-    background-color: #FFB853;
+    background-color: #ffb853;
     padding: 10px;
-	  border: none;
-	  border-radius: 10px;
+    border: none;
+    border-radius: 10px;
 
     color: #fff;
     font-weight: bold;
@@ -1388,23 +1307,26 @@ export const CadastroAnimal = styled.form`
   margin-top: 10px;
   gap: 10px;
   max-width: 500px;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
 
-  input, textarea, select {
+  input,
+  textarea,
+  select {
     padding: 10px;
     width: 100%;
     border-radius: 5px;
-    border:solid #C4C4C4  1px;
-    font-size: .9em;
-    font-family: 'Montserrat';
+    border: solid #c4c4c4 1px;
+    font-size: 0.9em;
+    font-family: "Montserrat";
     resize: none;
   }
 
-  select, select option  {
+  select,
+  select option {
     text-transform: uppercase;
   }
 
- .container-foto-animais {
+  .container-foto-animais {
     width: 150px;
     height: 150px;
     background-color: white;
@@ -1415,9 +1337,9 @@ export const CadastroAnimal = styled.form`
     align-items: center;
 
     > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
   }
 
@@ -1430,25 +1352,24 @@ export const CadastroAnimal = styled.form`
 
   label {
     width: 100%;
-    font-size: .9em;
+    font-size: 0.9em;
   }
 
   button {
     width: 75%;
     height: 15%;
     margin-top: 15px;
-    background-color: #FFB853;
+    background-color: #ffb853;
     padding: 10px;
-	  border: none;
-	  border-radius: 10px;
+    border: none;
+    border-radius: 10px;
 
     color: #fff;
     font-weight: bold;
     font-size: 1.2em;
     cursor: pointer;
-    font-family: 'Montserrat';
+    font-family: "Montserrat";
   }
-
 `;
 
 export const RadioGroup = styled.div`
@@ -1461,12 +1382,11 @@ export const RadioGroup = styled.div`
     align-items: center;
     gap: 5px;
     font-size: 16px;
-      > input {
-        width: 20px;
-        height: 20px;
-      }
+    > input {
+      width: 20px;
+      height: 20px;
+    }
   }
-  
 `;
 
 export const ContainerCondicoesEspeciais = styled.div`
