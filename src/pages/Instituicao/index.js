@@ -1,48 +1,43 @@
 import { Container } from "../../GlobalStyles";
 import {
-  Banner,
-  Profile,
-  Section,
   StyledStart,
   StyledHeart,
   StyledRiArrowDownSLine,
-  StyledMdEmail,
-  StyledFaPhoneAlt,
-  StyledMdPhoneIphone,
-  StyledFaMapMarkerAlt,
-  Colaboradores,
-  CampanhasContainer,
   ContainerPerfilAnimal,
-  DescricaoContainer,
-  AnimaisContainer,
   ContainerPerfilColaborador,
-} from "../PerfilInstituicao/styles";
+  Main,
+  Header,
+  ProfilePhoto,
+  NameInstitution,
+  Avaliacoes,
+  Apoio,
+} from "./styles";
 
 import ApoiarIcon from "../../assets/apoiar.svg";
 import DefaultBanner from "../../assets/default_banner.png";
 import DefaultProfile from "../../assets/default_profile_photo.jpg";
-import Footer from "../../components/Footer";
 
 function PerfilInstituicaoUsuario() {
   return (
     <Container>
-      <main>
-        <Profile>
-          <Banner>
-            <img src={DefaultBanner} alt="banner" />
-          </Banner>
+      <Main>
+        <Header>
+          <img src={DefaultBanner} alt="banner" />
           <aside>
-            <div>
-              <img src={DefaultProfile} alt="profile" />
+            <NameInstitution>
+              <ProfilePhoto>
+                <div>
+                  <img src={DefaultProfile} alt="profile" />
+                </div>
+              </ProfilePhoto>
               <div>
                 <h1>Instituto Luísa Mell</h1>
               </div>
-              <StyledHeart/>
-            </div>
-            <div style={{display: "flex", justifyContent: "space-between", width: "500px"}}>
-              <div className="avaliacoes" >
+              <StyledHeart />
+            </NameInstitution>
+            <div>
+              <Avaliacoes>
                 <div>
-                  <StyledStart />
                   <StyledStart />
                   <StyledStart />
                   <StyledStart />
@@ -52,17 +47,17 @@ function PerfilInstituicaoUsuario() {
                 <div>
                   <p>Suas avaliações (1.448)</p>
                 </div>
-              </div>
-              <div >
+              </Avaliacoes>
+              <Apoio>
                 <img src={ApoiarIcon} alt="apoio" />
                 <div>
                   Apoiar <StyledRiArrowDownSLine />
                 </div>
-              </div>
+              </Apoio>
             </div>
           </aside>
-        </Profile>
-        <Section>
+        </Header>
+        {/* <Section>
           <aside>
             <div className="contatos">
               <h1>Contato</h1>
@@ -92,13 +87,6 @@ function PerfilInstituicaoUsuario() {
                 <PerfilColaborador />
                 <PerfilColaborador />
                 <PerfilColaborador />
-                <PerfilColaborador />
-                <PerfilColaborador />
-                <PerfilColaborador />
-                <PerfilColaborador />
-                <PerfilColaborador />
-                <PerfilColaborador />
-               
               </Colaboradores>
             </div>
           </aside>
@@ -136,20 +124,11 @@ function PerfilInstituicaoUsuario() {
               <div>
                 <PerfilAnimal />
                 <PerfilAnimal />
-                <PerfilAnimal />
-                <PerfilAnimal />
-                <PerfilAnimal />
-                <PerfilAnimal />
-                <PerfilAnimal />
-                <PerfilAnimal />
-                <PerfilAnimal />
-                <PerfilAnimal />
               </div>
             </AnimaisContainer>
           </section>
-        </Section>
-      </main>
-      <Footer />
+        </Section> */}
+      </Main>
     </Container>
   );
 }
