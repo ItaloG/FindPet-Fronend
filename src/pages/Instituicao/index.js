@@ -1,6 +1,5 @@
 import { Container } from "../../GlobalStyles";
 import {
-  Banner,
   StyledStart,
   StyledHeart,
   StyledRiArrowDownSLine,
@@ -41,6 +40,8 @@ function PerfilInstituicaoUsuario() {
                 <div>
                   <StyledStart />
                   <StyledStart />
+                  <StyledStart />
+                  <StyledStart />
                   <span>4.8</span>
                 </div>
                 <div>
@@ -56,7 +57,6 @@ function PerfilInstituicaoUsuario() {
             </div>
           </aside>
         </Header>
-
         {/* <Section>
           <aside>
             <div className="contatos">
