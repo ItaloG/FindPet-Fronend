@@ -19,9 +19,10 @@ function Desaparecidos() {
           <CardDesaparecidos
             img={Profile}
             banner={Banner}
-            nome_animal="Nome da instituição"
-            titulo="Nome do animal"
-            IconPets={ImgPata}
+            nome_animal="Nome do animal"
+            tipo_animal="Tipo do animal"
+            data_visto="Data que foi visto"
+            descricao="Descrição"
           />
         </ContainerDesaparecidos>
       </main>

@@ -1,32 +1,43 @@
 import styled from "styled-components";
 
 export const Container = styled.footer`
-    width: 900px;
-    height: 235px;
+    width: 50%;
+    height: auto;
     background-color: #ccc4;
     margin-top: 20px;
     border: solid 2px #cfcdca;
     border-radius: 13px;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
-    
+    padding: 10px;
+`;
+
+export const Informacoes = styled.div`
+    width: 40%;
+    display: flex;
+    justify-content: right;
+    position: absolute;
+    flex-direction: column;
+    align-items: left;
+    float: right;
+    padding: 30px;
 `;
 
 export const ImagemDesaparecido = styled.div`
     display: flex;
     justify-content: left;
     align-items: left;
-    padding: 5px;
+    float: left;
+    background-color: lightcoral;
 
     > div {
-        width: 35%;
-        height: 40%;
+        width: 100%;
+        height: 20%;
         border-radius: 50%;
   
         > img {
-            width: 100%;
-            height: 100%;
+            width: 30%;
+            height: 40%;
         }
     }
 `;
@@ -35,50 +46,84 @@ export const Tipo = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 20px;
+    margin-left: -105px;
     width: auto;
-    margin-top: -220px;
     height: 100%;
     
     > p {
-        font-size: 20px;
+        font-size: 12px;
         color: #000;
         padding-right: 20px;
     }
 
     > h5 {
         color: #00000055;
-        margin-top: 5px;
-        margin-left: -12px;
         /* margin: 5px -17px; */
     }
 `;
 
 export const Nome = styled.div`
-    display: flex;
     align-items: center;
     justify-content: center;
+    display: flex;
     width: auto;
-    margin-top: -220px;
+    margin-left:-50px;
+    margin-top: -20px;
     height: 100%;
     
     > p {
         font-size: 20px;
+        color: #000;
+        
+        align-items: center;
+        justify-content: center;
+    }
+
+    > h5 {
+        color: #00000055;
+        /* margin: 5px -17px; */
+    }
+`;
+
+export const Data = styled.div`
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+    justify-content: center;
+    margin-left:-90px;
+    width: auto;
+    height: 100%;
+    
+    > p {
+        font-size: 13px;
         color: #000;
         padding-right: 20px;
     }
 
     > h5 {
         color: #00000055;
-        margin-top: 5px;
-        margin-left: -12px;
         /* margin: 5px -17px; */
     }
 `;
 
-export const Data = styled.div`
-
-`;
-
 export const Descricao = styled.div`
+    display:flex;
+    align-items: left;
+    justify-content: left;
+    margin-bottom: 50px;
+    background-color: magenta;
+    width: auto;
+    height: 100%;
+    
+    > p {
+        font-size: 13px;
+        color: #000;
+        padding-right: 20px;
+    }
 
+    > h5 {
+        color: #00000055;
+        /* margin: 5px -17px; */
+    }
 `;

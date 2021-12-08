@@ -1,4 +1,4 @@
-import { Container, ImagemDesaparecido, Tipo, Nome, Data, Descricao} from "./styles";
+import { Container, ImagemDesaparecido, Tipo, Nome, Data, Descricao, Informacoes} from "./styles";
 import pet from "../../assets/pet.png";
 
 function CardDesaparecidos({nome_animal, tipo_animal, data_visto, descricao}) {
@@ -10,7 +10,7 @@ function CardDesaparecidos({nome_animal, tipo_animal, data_visto, descricao}) {
                             <img src={pet} alt="imagem"/>
                         </div>
                     </ImagemDesaparecido>
-            <div className="informacoes">        
+            <Informacoes>        
                     <Nome>
                         <p>{nome_animal}</p>
                     </Nome>
@@ -23,7 +23,7 @@ function CardDesaparecidos({nome_animal, tipo_animal, data_visto, descricao}) {
                     <Descricao>
                         <p>{descricao}</p>
                     </Descricao>
-             </div>
+             </Informacoes>
             </div>
         </Container>
     );
