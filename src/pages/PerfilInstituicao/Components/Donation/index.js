@@ -9,11 +9,7 @@ const servicesMockup = [
 ];
 
 function Donation({ serviceId, title }) {
-  console.log('sid: ' + serviceId)
-  // let castracao = false;
-  // let abrigo=false;
-  // let adestracao=false;
-  // let vacinacao=false;
+
     const [myColor, setMyColor] = useState("#A55EEA");
     const [serviceToggle, setServiceToggle] = useState(false);
     const [servicesToggle, setServicesToggle] = useState({
@@ -30,25 +26,15 @@ function Donation({ serviceId, title }) {
     });
 
 
-    // const handleServiceToggle = (serviceName, serviceId) => {
-    //   if (!servicesToggle[serviceId]) {
-    //     setServicesToggle({serviceName: true})
-    //     console.log('toggle off: ' + servicesToggle[serviceId])
-    //   }
-    //   else if (servicesToggle[serviceId] === false) {
-    //     setServicesToggle[serviceId](true)
-    //     console.log('toggle on: ' + servicesToggle[serviceId])
-    //   }
-    // }
 
     const handleToggleCastracao = () => {
       if (!servicesToggle.castracao) {
         setServicesToggle({castracao: true})
-        console.log('toggle on: ' + servicesToggle.castracao)
+    
       }
       else if (servicesToggle.castracao) {
         setServicesToggle({castracao: false})
-        console.log('toggle off: ' + servicesToggle.castracao)
+     
       }
     }
 
@@ -67,8 +53,7 @@ function Donation({ serviceId, title }) {
 
   return (
     <div onClick={handleToggleCastracao}>
-      {console.log('stoggle: ')}
-      {console.log(servicesToggle)}
+   
       <Option color={color}>
         {/* <button onClick={handleClick}>Clique</button> */}
         <p>{title}</p>

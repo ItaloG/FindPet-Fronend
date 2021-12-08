@@ -21,16 +21,9 @@ function InstitutionServices({ serviceId, title }) {
     loadInstituicao();
   }, []);
 
-  //   console.log('instss: ')
-  //   console.log(InstituicaoServicos)
-
   const handleDeleteService = async (idServico) => {
     try {
       await api.delete(`/servicos/${idServico}`);
-      //   setInstituicaoServicos()
-      console.log("Serviço excluído");
-
-      //   setDeleteServicos(true);
     } catch (error) {
       console.error(error);
       alert(error);
@@ -42,7 +35,6 @@ function InstitutionServices({ serviceId, title }) {
       const response = await api.post("/servicos", { servicos: idServico });
 
       setInstituicaoServicos([...InstituicaoServicos, response.data]);
-      console.log(response.data);
     } catch (error) {
       console.error(error);
       alert(error.response.data.error);
@@ -58,16 +50,12 @@ function InstitutionServices({ serviceId, title }) {
     ? (instList = InstituicaoServicos.map((s) => s.id))
     : (instList = "");
 
-  console.log(instList);
-
   const handleToggle = (idServico) => {
-    console.log("idss: " + idServico);
 
     let list = [];
     InstituicaoServicos
       ? (list = InstituicaoServicos.map((s) => s.id))
       : (list = "");
-    console.log("list: " + list);
 
     if (!servicesToggle) {
       if (list.includes(idServico)) {
@@ -97,7 +85,6 @@ function InstitutionServices({ serviceId, title }) {
   for (let i = 0; i < array1.length; i++) {
     found = array2.includes(array1[i]);
     if (found) {
-      console.log("found" + found);
       break;
     }
   }
