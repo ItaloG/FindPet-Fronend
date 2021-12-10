@@ -19,7 +19,7 @@ function Card({foto, nome_instituicao, icone, distancia, banner, handlerVer}) {
                 </div>
                 <div className="distancia-container">
                     <Distancia>
-                        <p>{distancia}</p>
+                        <p>{distancia + " km"}</p>
                     </Distancia>
                 </div>
             </CardHeader>

@@ -38,18 +38,51 @@ function Feed() {
     }
   };
 
+  const calcularDistancia = (lat1, lng1, lat2, lng2) => {
+    parseFloat(lat1);
+    parseFloat(lng1);
+    parseFloat(lat2);
+    parseFloat(lng2);
+
+    const pi = Math.PI;
+    const lat1radianos = lat1 * pi / 180;
+    const lng1radianos = lng1 * pi / 180;
+    const lat2radianos = lat2 * pi / 180;
+    const lng2radianos = lng2 * pi / 180;
+
+    const distancia = (Math.acos(Math.cos(lat1radianos) * Math.cos(lng1radianos) * Math.cos(lat2radianos) * Math.cos(lng2radianos) + Math.cos(lat1radianos) * Math.sin(lng1radianos) * Math.cos(lat2radianos) * Math.sin(lng2radianos) + Math.sin(lat1radianos) * Math.sin(lat2radianos)) * 6371) * 1.15
+
+    return (distancia.toFixed(2))
+  }
+
+  const ordenarInstituicoes = (a, b) => {
+    return (a.distancia - b.distancia)
+  }
+
+  const instituicoesMaisProximas = () => {
+    const inst = instituicoes.map(i => i);
+
+    for (let i = 0; i < inst.length; i++) {
+      inst[i].distancia = calcularDistancia(-23.550535, -46.906069, inst[i].lat, inst[i].lng)
+    }
+
+    inst.sort(ordenarInstituicoes)
+    
+    return inst
+  }
+
   return (
     <Body>
       <ContainerCenter>
         <FlexColumn>
           <Slider />
-          {instituicoes.map((i, index) => (
+          {instituicoesMaisProximas().map((i, index) => (
             <Card
               key={index}
               foto={i.url_foto_perfil ? i.url_foto_perfil : FotoPadrao}
               nome_instituicao={i.nome}
               icone={handleIcon(i.TypeInstitution.type_institution)}
-              distancia={0}
+              distancia={i.distancia}
               banner={i.url_foto_banner ? i.url_foto_banner : BannerDefault}
               handlerVer={() => history.push(`instituicao/${i.id}`)}
             //   handlerVer={() => console.log(i)}
