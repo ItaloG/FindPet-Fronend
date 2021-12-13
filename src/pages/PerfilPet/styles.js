@@ -154,6 +154,7 @@ export const ActionButtons = styled.div`
         font-weight: bold;
         margin-left: 5px;
         color: white;
+        cursor: pointer;
     }
 
     > button:first-child {

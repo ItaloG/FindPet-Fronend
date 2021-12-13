@@ -3,9 +3,6 @@ import {
   ActionButtons,
   Container,
   Cover,
-  EditProfilePhoto,
-  IconeCamera,
-  IconEdit,
   IconFavoriteOutline,
   IconHome,
   IconLock,
@@ -19,20 +16,16 @@ import {
   Profile,
   ProfileBody,
   ProfilePhoto,
-  PetFavoriteCount,
-  IconFavorite,
-  SaveChanges,
 } from "./styles";
 import DefaultBanner from "../../assets/default_banner_pets.png";
 import DefaultPetPhoto from "../../assets/default-pet-photo.jpg";
 import Banner from "../../assets/banner3.png";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
-import { useParams } from "react-router";
+import { useParams, useHistory } from "react-router";
 
 function PerfilPet(props) {
-  let editable = false;
-
+  let history = useHistory();
   const { animalId } = useParams();
   const [animal, setAnimal] = useState([]);
 
@@ -51,7 +44,6 @@ function PerfilPet(props) {
     loadAnimal();
   }, []);
 
-
   return (
     <>
       <Container>
@@ -66,66 +58,27 @@ function PerfilPet(props) {
                   <img src={animal.url_foto_perfil} alt="" />
                 </div>
               </ProfilePhoto>
-              {editable && (
-                <EditProfilePhoto>
-                  <IconeCamera />
-                </EditProfilePhoto>
-              )}
               <PetInfo>
                 <div>
                   <h1>{animal.nome}</h1>
-                  {!editable && <IconFavoriteOutline />}
-                  {editable && <IconEdit />}
+                  <IconFavoriteOutline />
                 </div>
                 <div>
                   <IconHome />
-                  <h4>
-                    {animal.Institution ? animal.Institution.nome : ""}
-                  </h4>
+                  <h4>{animal.Institution ? animal.Institution.nome : ""}</h4>
                 </div>
               </PetInfo>
-              {!editable && (
-                <>
-                  <ActionButtons>
-                    <button>Adotar</button>
-                    <button>Ver ONG</button>
-                  </ActionButtons>
-                </>
-              )}
-              {editable && (
-                <>
-                  <PetFavoriteCount>
-                    <IconFavorite />
-                    <h4>Favoritada 226 vezes</h4>
-                  </PetFavoriteCount>
-                </>
-              )}
+              <ActionButtons>
+                <button>Adotar</button>
+                <button onClick={() => history.push(`/instituicao/${animal.Institution.id}`)}>Ver ONG</button>
+              </ActionButtons>
             </div>
           </About>
-          {editable && (
-            <SaveChanges>
-              <button>Salvar Alterações</button>
-            </SaveChanges>
-          )}
           <ProfileBody>
             <div>
               <div>
                 <PetAbstract>
-                  {editable && (
-                    <>
-                      <h2>Apresentação do Pet</h2>
-                      <textarea>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco laboris nisi ut aliquip ex ea
-                        commodo consequat. Duis aute irure dolor in
-                        reprehenderit in voluptate velit esse cillum dolore eu
-                        fugiat nulla pariatur.
-                      </textarea>
-                    </>
-                  )}
-                  {!editable && <p>“{animal.historia}”</p>}
+                  <p>“{animal.personalidade}”</p>
                 </PetAbstract>
                 <PetDatasheet>
                   <h2>Informações Importantes</h2>
@@ -134,162 +87,30 @@ function PerfilPet(props) {
                       <td>Responsável</td>
                       <td>
                         {animal.Institution ? animal.Institution.nome : ""}
-                        {editable && (
-                          <button>
-                            <IconLock />
-                          </button>
-                        )}
                       </td>
                     </tr>
                     <tr>
                       <td>No abrigo há</td>
-                      <td>
-                        {!editable && "2 anos"}
-                        {editable && <input type="text" value="2 anos" />}
-                      </td>
+                      <td>2 anos</td>
                     </tr>
                     <tr>
                       <td>No FindPet há</td>
                       <td>
                         3 meses (12/02/2019)
-                        {editable && (
-                          <button>
-                            <IconLock />
-                          </button>
-                        )}
                       </td>
                     </tr>
                     <tr>
                       <td>Tipo</td>
-                      <td>
-                        {animal.TypeAnimal ? animal.TypeAnimal.nome : ""}
-                        {editable && <input type="text" value="4 anos" />}
-                      </td>
+                      <td>{animal.TypeAnimal ? animal.TypeAnimal.nome : ""}</td>
                     </tr>
                     <tr>
                       <td>Idade</td>
-                      <td>
-                        {!editable && animal.idade + " anos"}
-                        {editable && <input type="text" value="4 anos" />}
-                      </td>
+                      <td>{animal.idade + " anos"}</td>
                     </tr>
-                    <tr>
-                      <td>Sexo</td>
-                      <td>
-                        {!editable && "Fêmea"}
-                        {editable && (
-                          <select>
-                            <option>Selecione uma opção</option>
-                            <option selected>Fêmea</option>
-                            <option>Macho</option>
-                          </select>
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Raça</td>
-                      <td>
-                        {!editable && "Persa"}
-                        {editable && <input type="text" value="Persa" />}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Porte</td>
-                      <td>
-                        {!editable && "Pequeno"}
-                        {editable && (
-                          <select>
-                            <option>Selecione uma opção</option>
-                            <option selected>Pequeno</option>
-                            <option>Médio</option>
-                            <option>Grande</option>
-                          </select>
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Pêlo</td>
-                      <td>
-                        {!editable && "Curto"}
-                        {editable && (
-                          <select>
-                            <option>Selecione uma opção</option>
-                            <option>Curto</option>
-                            <option>Médio</option>
-                            <option selected>Longo</option>
-                          </select>
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Cor</td>
-                      <td>
-                        {!editable && "Preto"}
-                        {editable && (
-                          <select>
-                            <option>Selecione uma opção</option>
-                            <option selected>Preto</option>
-                            <option>Branco</option>
-                            <option>Amarelo</option>
-                            <option>Cinza</option>
-                            <option>Bicolor</option>
-                            <option>Tricolor</option>
-                            <option>Marrom</option>
-                          </select>
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Energia</td>
-                      <td>
-                        {!editable && animal.personalidade}
-                        {editable && (
-                          <select>
-                            <option>Selecione uma opção</option>
-                            <option>Baixa</option>
-                            <option selected>Moderada</option>
-                            <option>Alta</option>
-                          </select>
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Boa com</td>
-                      <td>
-                        {!editable && "Crianças"}
-                        {editable && (
-                          <select>
-                            <option>Selecione uma opção</option>
-                            <option selected>Crianças</option>
-                            <option>Outros pets</option>
-                            <option>Crianças e outros pets</option>
-                          </select>
-                        )}
-                      </td>
-                    </tr>
+
                     <tr>
                       <td>Necessidade especial</td>
-                      <td>
-                        {!editable && "Nenhuma"}
-                        {editable && (
-                          <select>
-                            <option>Selecione uma opção</option>
-                            <option selected>Nenhuma</option>
-                            <option>Deficiência visual</option>
-                            <option>Deficiência auditiva</option>
-                            <option>Deficiência física</option>
-                            <option>Síndrome de Down</option>
-                            <option>Outro</option>
-                          </select>
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Gastos mensais</td>
-                      <td>
-                        {!editable && "R$197.86"}
-                        {editable && <input type="text" value="R$197.86" />}
-                      </td>
+                      <td>"Nenhuma"</td>
                     </tr>
                   </table>
                 </PetDatasheet>
@@ -313,26 +134,8 @@ function PerfilPet(props) {
                 </PetGallery>
                 <PetHistory>
                   <h2>Histórico</h2>
-                  {editable && (
-                    <textarea>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                      Duis aute irure dolor in reprehenderit in voluptate velit
-                      esse cillum dolore eu fugiat nulla pariatur.
-                    </textarea>
-                  )}
-                  {!editable && (
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                      Duis aute irure dolor in reprehenderit in voluptate velit
-                      esse cillum dolore eu fugiat nulla pariatur.
-                    </p>
-                  )}
+
+                  <p>{animal.historia}</p>
                 </PetHistory>
               </div>
             </div>
