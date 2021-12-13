@@ -7,12 +7,6 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
 
-    > aside {
-        position: absolute;
-        margin-left: 75px;
-        margin-top: -6px;
-    }
-
     > img {
         width: 90px;
         height: 90px;

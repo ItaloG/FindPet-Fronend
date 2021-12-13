@@ -9,20 +9,6 @@ export const Container = styled.div`
     width: 100%;
     height: 260px;
     display: flex;
-    background-color: pink;
-
-    > aside {
-      position: absolute;
-      margin-left: 495px;
-    }
-
-    > :first-child {
-      margin-top: 5px;
-    }
-
-    > :nth-child(2) {
-      margin-top: 50px;
-    }
 
     > img {
       width: 100%;

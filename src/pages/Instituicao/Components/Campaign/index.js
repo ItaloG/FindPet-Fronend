@@ -16,12 +16,6 @@ function Campaign({
   return (
     <Container>
       <div>
-        <aside onClick={() => handlerEditar(id)}>
-          <EditButton />
-        </aside>
-        <aside onClick={() => handlerExcluir(id)}>
-          <DeleteButton />
-        </aside>
         <img src={img ? img : CampaignExample} alt="" />
       </div>
       <div>

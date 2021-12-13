@@ -9,12 +9,6 @@ function Pet({ id, nome, raca, handlerEditar, handlerExcluir, img }) {
   
   return (
     <Container>
-        <aside onClick={() => handlerEditar(id)}>
-            <EditButton />
-        </aside>
-        <aside onClick={() => handlerExcluir(id)}>
-            <DeleteButton />
-        </aside>
         <img src={img ? img : DefaultPetPhoto} alt={"Pet: " + {nome}} onClick={() => history.push(`/animal/${id}`)}/>
         <h3>{nome}</h3>
         <p>{raca}</p>

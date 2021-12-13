@@ -90,27 +90,19 @@ function PerfilPet(props) {
                       </td>
                     </tr>
                     <tr>
-                      <td>No abrigo há</td>
-                      <td>2 anos</td>
-                    </tr>
-                    <tr>
-                      <td>No FindPet há</td>
+                      <td>No FindPet desde:</td>
                       <td>
-                        3 meses (12/02/2019)
+                        {animal.created_at ? animal.created_at.substr(8, 2) + "/" + animal.created_at.substr(5, 2) + "/" + animal.created_at.substr(0, 4) : ""}
+                        {/* 12/02/2019 */}
                       </td>
                     </tr>
                     <tr>
                       <td>Tipo</td>
-                      <td>{animal.TypeAnimal ? animal.TypeAnimal.nome : ""}</td>
+                      <td style={{textTransform: "lowercase"}}>{animal.TypeAnimal ? animal.TypeAnimal.tipo : ""}</td>
                     </tr>
                     <tr>
                       <td>Idade</td>
                       <td>{animal.idade + " anos"}</td>
-                    </tr>
-
-                    <tr>
-                      <td>Necessidade especial</td>
-                      <td>"Nenhuma"</td>
                     </tr>
                   </table>
                 </PetDatasheet>

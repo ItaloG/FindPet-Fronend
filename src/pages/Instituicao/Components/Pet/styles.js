@@ -7,17 +7,6 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
 
-    > aside {
-        position: absolute;
-        margin-left: 75px;
-        margin-top: -6px;
-    }
-
-    > :nth-child(2) {
-        position: absolute;
-        margin-left: 75px;
-        margin-top: 40px;
-    }
 
     > img {
         width: 90px;
