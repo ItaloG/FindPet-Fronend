@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Body, ContainerCenter, FlexColumn } from "../../GlobalStyles";
 import Card from "../../components/Card";
 import Slider from "../../components/Slider";
@@ -9,6 +9,7 @@ import IconeVeterinario from "../../assets/veterinario_icon.png";
 import BannerDefault from "../../assets/default_banner.png";
 import { api } from "../../services/api";
 import { useHistory } from "react-router";
+import { getTypeUser, getUserId } from "../../services/security";
 
 function Feed() {
   let history = useHistory();
@@ -38,6 +39,10 @@ function Feed() {
     }
   };
 
+  const user = useRef(JSON.parse(localStorage.getItem("@user")));
+  const tipoUsuario = getTypeUser();
+  const id = getUserId();
+
   const calcularDistancia = (lat1, lng1, lat2, lng2) => {
     parseFloat(lat1);
     parseFloat(lng1);
@@ -59,11 +64,43 @@ function Feed() {
     return (a.distancia - b.distancia)
   }
 
+  // const options = {
+  //   enableHighAccuracy: true,
+  //   timeout: 5000,
+  //   maximumAge: 0
+  // };
+  
+  // function getLatitude(pos) {
+  //   var crd = pos.coords;
+  //   const latitude = [];
+  //   latitude.push(crd.latitude);
+  // };
+
+  // function getLongitude(pos) {
+  //   var crd = pos.coords;
+  //   return crd.longitude
+  // };
+  
+  // function error(err) {
+  //   console.warn('ERROR(' + err.code + '): ' + err.message);
+  // };
+
+  // console.log(navigator.geolocation.getCurrentPosition(getLatitude, error, options));
+
   const instituicoesMaisProximas = () => {
     const inst = instituicoes.map(i => i);
 
     for (let i = 0; i < inst.length; i++) {
-      inst[i].distancia = calcularDistancia(-23.550535, -46.906069, inst[i].lat, inst[i].lng)
+      inst[i].distancia = calcularDistancia(instituicoes.map(i => i).filter((i) => i.id == id)[0].lat, instituicoes.map(i => i).filter((i) => i.id == id)[0].lng, inst[i].lat, inst[i].lng)
+
+      // inst[i].distancia = 
+      // navigator.geolocation.getCurrentPosition(position => {
+      //   const { latitude, longitude } = position.coords;
+      //   console.log(position.coords)
+      //   calcularDistancia(position.coords.latitude, position.coords.longitude, inst[i].lat, inst[i].lng)
+      // });
+
+      // calcularDistancia(navigator.geolocation.getCurrentPosition(position => position.coords.latitude), -46.906069, inst[i].lat, inst[i].lng)
     }
 
     inst.sort(ordenarInstituicoes)
