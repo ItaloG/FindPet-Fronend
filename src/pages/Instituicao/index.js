@@ -101,6 +101,7 @@ function PerfilInstituicao() {
         const response = await api.get("/animais");
 
         setAnimais(response.data);
+        console.log(animais)
       } catch (error) {
         console.error(error);
         alert(error.response.data.error);
@@ -274,6 +275,8 @@ function PerfilInstituicao() {
                           titulo={c.titulo}
                           img={c.url_foto}
                           descricao={c.descricao}
+                          horaInicio={c.hora_inicio}
+                          dataInicio={c.data_inicio}
                         />
                       ))}
                     </div>

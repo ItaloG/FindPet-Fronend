@@ -1043,6 +1043,8 @@ function PerfilInstituicao() {
                           titulo={c.titulo}
                           img={c.url_foto}
                           descricao={c.descricao}
+                          horaInicio={c.hora_inicio}
+                          dataInicio={c.data_inicio}
                         />
                       ))}
                     </div>

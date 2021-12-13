@@ -32,12 +32,14 @@ function Feed() {
   const handleIcon = (tipoInstituicao) => {
     if (tipoInstituicao === "ONG") {
       return IconeOng;
-    } else if (tipoInstituicao === "PETSHOP") {
+    } else if (tipoInstituicao === "PETSHOP" || tipoInstituicao === "CANIL") {
       return IconePetShop;
     } else if (tipoInstituicao === "VETERINARIO") {
       return IconeVeterinario;
     }
   };
+
+  {console.log(instituicoes)}
 
   const user = useRef(JSON.parse(localStorage.getItem("@user")));
   const tipoUsuario = getTypeUser();

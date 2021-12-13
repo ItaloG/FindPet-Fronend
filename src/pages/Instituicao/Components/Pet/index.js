@@ -15,7 +15,7 @@ function Pet({ id, nome, raca, handlerEditar, handlerExcluir, img }) {
         <aside onClick={() => handlerExcluir(id)}>
             <DeleteButton />
         </aside>
-        <img src={img ? img : DefaultPetPhoto} alt={"Pet: " + {nome}} onClick={history.push(`/animal/${id}`)}/>
+        <img src={img ? img : DefaultPetPhoto} alt={"Pet: " + {nome}} onClick={() => history.push(`/animal/${id}`)}/>
         <h3>{nome}</h3>
         <p>{raca}</p>
     </Container>

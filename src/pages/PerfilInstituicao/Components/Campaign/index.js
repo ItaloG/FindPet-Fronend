@@ -10,6 +10,8 @@ function Campaign({
   handlerEditar,
   handlerExcluir,
   img,
+  horaInicio,
+  dataInicio
 }) {
   return (
     <Container>
@@ -24,7 +26,7 @@ function Campaign({
       </div>
       <div>
         <h3>{titulo}</h3>
-        <p>27/12 às 13:00</p>
+        <p>{dataInicio.substr(8, 2) + "/" + dataInicio.substr(5, 2)} às {horaInicio.substr(0, 5)}</p>
       </div>
       <div>
         <p>{descricao}</p>
