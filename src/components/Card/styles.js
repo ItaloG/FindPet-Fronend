@@ -42,6 +42,7 @@ export const FotoPerfil = styled.div`
         width: 50px;
         height: 50px;
         border-radius: 50%;
+        cursor: pointer;
 
         > img {
             width: 100%;
@@ -67,6 +68,7 @@ export const Nome = styled.div`
         font-size: 20px;
         color: #000;
         padding-right: 20px;
+        cursor: pointer;
     }
 
     > h5 {

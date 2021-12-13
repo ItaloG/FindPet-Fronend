@@ -1,4 +1,3 @@
-// import { Container } from "../../GlobalStyles";
 import {
   Profile,
   ContainerTodosServicos,
@@ -45,7 +44,6 @@ import { mascaraCep } from "../../utils";
 import Employee from "./Components/Employee";
 import Campaign from "./Components/Campaign";
 import Pet from "./Components/Pet";
-import Donation from "./Components/Donation";
 import InstitutionServices from "./Components/InstitutionServices";
 
 function PerfilInstituicao() {
@@ -137,7 +135,7 @@ function PerfilInstituicao() {
         setInstituicaoTelefones(response.data.TelephoneInstitutions);
         setBanner(response.data.url_foto_banner);
         setPerfil(response.data.url_foto_perfil);
-        console.log(response.data)
+        console.log(response.data);
         setDescricaoInstituicao(response.data.descricao);
       } catch (error) {
         console.error(error);
@@ -238,7 +236,6 @@ function PerfilInstituicao() {
     loadCondicoesEspeciais();
   }, []);
 
-  //carrega os dados
   useEffect(() => {
     const loadColaboradores = async () => {
       try {
@@ -390,19 +387,6 @@ function PerfilInstituicao() {
     }
   };
 
-  // const handleSubmitServico = async () => {
-  //   try {
-  //     const response = await api.post("/servicos", { servicos: 6 });
-
-  //     setInstituicaoServicos([...InstituicaoServicos, response.data]);
-  //   } catch (error) {
-  //     console.error(error);
-  //     alert(error.response.data.error);
-  //   } finally {
-  //     setIsOpenServicos(false);
-  //   }
-  // };
-
   const handleInputColaborador = (e) => {
     setColaborador({ ...colaborador, [e.target.id]: e.target.value });
   };
@@ -440,7 +424,6 @@ function PerfilInstituicao() {
     setAnimalImage(e.target.files[0]);
   };
 
-  // create
   const handleSubmitColaborador = async () => {
     try {
       const { nome, cargo, cpf, diaEntrada } = colaborador;
@@ -473,8 +456,14 @@ function PerfilInstituicao() {
   };
 
   const handleSubmitAnimal = async (e) => {
-    const { nome, tipoAnimal, personalidade, idade, castrado, historia } =
-      animal;
+    const {
+      nome,
+      tipoAnimal,
+      personalidade,
+      idade,
+      castrado,
+      historia,
+    } = animal;
 
     if (tipoAnimal === 0) {
       return alert("Escolha um tipo de animal");
@@ -560,17 +549,14 @@ function PerfilInstituicao() {
   };
 
   const handleSubmitAnimalEditado = async (e) => {
-    // if (deleteColaborador) {
-    //   try {
-    //     return await api.delete(`/funcionarios/${colaborador.id}`);
-    //   } catch (error) {
-    //     console.error(error);
-    //     alert(error.response.data.error);
-    //   }
-    // }
-
-    const { nome, tipoAnimal, personalidade, idade, castrado, historia } =
-      animal;
+    const {
+      nome,
+      tipoAnimal,
+      personalidade,
+      idade,
+      castrado,
+      historia,
+    } = animal;
 
     if (tipoAnimal === 0) {
       return alert("Escolha um tipo de animal");
@@ -612,7 +598,6 @@ function PerfilInstituicao() {
     }
   };
 
-  // edit (put)
   const handleSubmitColaboradorEditado = async (e) => {
     if (deleteColaborador) {
       try {
@@ -653,7 +638,6 @@ function PerfilInstituicao() {
     }
   };
 
-  //edit (get)
   const handleEditarColaborador = async (id) => {
     setIsOpenNewColaboradores(true);
     setIsEditandoColaborador(true);
@@ -808,8 +792,6 @@ function PerfilInstituicao() {
 
   const handleSubmitDescricao = async () => {
     try {
-      alert(instituicaoId);
-
       const response = await api.put(
         `/instituicoes/${instituicaoId}/descricao`,
         {
@@ -817,7 +799,7 @@ function PerfilInstituicao() {
         }
       );
 
-      console.log(response.data);
+      alert("Descrição atualizada!");
     } catch (error) {
       console.error(error);
       alert(error);
@@ -896,8 +878,6 @@ function PerfilInstituicao() {
     setCondicoesEspeciaisSel([]);
   };
 
-  let editable = true;
-
   const handleTextDescricao = (e) => {
     setDescricaoInstituicao(e.target.value);
   };
@@ -907,19 +887,18 @@ function PerfilInstituicao() {
       <Container>
         <Profile>
           <Cover>
-            {editable && (
-              <EditCoverPhoto>
-                <IconeCamera />
-                <label>Mudar foto da capa</label>
-                <input
-                  type="file"
-                  name="banner"
-                  id="banner"
-                  accept="image/*"
-                  onChange={handleBanner}
-                />
-              </EditCoverPhoto>
-            )}
+            <EditCoverPhoto>
+              <IconeCamera />
+              <label>Mudar foto da capa</label>
+              <input
+                type="file"
+                name="banner"
+                id="banner"
+                accept="image/*"
+                onChange={handleBanner}
+              />
+            </EditCoverPhoto>
+
             <img
               src={instituicao.url_foto_banner ? banner : DefaultBanner}
               alt=""
@@ -935,112 +914,77 @@ function PerfilInstituicao() {
                   />
                 </div>
               </ProfilePhoto>
-              {editable && (
-                <EditProfilePhoto>
-                  <IconeCamera />
-                  <input
-                    type="file"
-                    name="profile"
-                    id="profile"
-                    accept="image/*"
-                    onChange={handlePerfil}
-                  />
-                </EditProfilePhoto>
-              )}
+
+              <EditProfilePhoto>
+                <IconeCamera />
+                <input
+                  type="file"
+                  name="profile"
+                  id="profile"
+                  accept="image/*"
+                  onChange={handlePerfil}
+                />
+              </EditProfilePhoto>
+
               <PetInfo>
                 <div>
                   <h1>{instituicao.nome}</h1>
-                  {!editable && <IconFavoriteOutline />}
                 </div>
                 <div></div>
               </PetInfo>
-              {!editable && (
-                <>
-                  <ActionButtons>
-                    <button>Adotar</button>
-                    <button>Ver ONG</button>
-                  </ActionButtons>
-                </>
-              )}
-              {editable && (
-                <>
-                  <PetFavoriteCount>
-                    <IconStar />
-                    <IconStar />
-                    <IconStar />
-                    <IconStar />
-                    <IconStar />
-                    <h4>4.9</h4>
-                    <small>(126)</small>
-                  </PetFavoriteCount>
-                </>
-              )}
+
+              <PetFavoriteCount>
+                <IconStar />
+                <IconStar />
+                <IconStar />
+                <IconStar />
+                <IconStar />
+                <h4>4.9</h4>
+                <small>(126)</small>
+              </PetFavoriteCount>
             </div>
           </About>
           <ProfileBody>
             <div>
               <div>
-                {!editable && (
-                  <Contact>
-                    <h2>Contato</h2>
+                <Contact>
+                  <h2>Contato</h2>
+                  <div>
+                    <IconEmail />
+                    <p>{instituicao.email}</p>
+                  </div>
+                  <div>
+                    <IconPlace />
+                    <p>
+                      {instituicaoEndereco.length > 0
+                        ? `${instituicaoEndereco[0].logradouro}, nº${instituicaoEndereco[0].numero} - ${instituicaoEndereco[0].Cep.cep}`
+                        : ""}
+                    </p>
+                  </div>
+                  {instituicaoTelefones.map((t) => (
                     <div>
-                      <IconEmail />
-                      <p>{instituicao.email}</p>
+                      {t.numero.length == 9 ? <IconTelephone /> : <IconPhone />}
+                      <p>{t.numero}</p>
                     </div>
-                    <div>
-                      <IconPlace />
-                      <p>
-                        {instituicaoEndereco.length > 0
-                          ? `${instituicaoEndereco[0].logradouro}, nº${instituicaoEndereco[0].numero} - ${instituicaoEndereco[0].Cep.cep}`
-                          : ""}
-                      </p>
-                    </div>
-                    {instituicaoTelefones.map((t) => (
-                      <div>
-                        {t.numero.length == 9 ? (
-                          <IconTelephone />
-                        ) : (
-                          <IconPhone />
-                        )}
-                        <p>{t.numero}</p>
-                      </div>
+                  ))}
+                </Contact>
+
+                <Services>
+                  <h2>Serviços</h2>
+                  <div>
+                    <p>Selecione os serviços que você oferece:</p>
+                  </div>
+                  <div>
+                    {servicos.map((s) => (
+                      <InstitutionServices
+                        key={s.id}
+                        serviceId={s.id}
+                        title={s.servico}
+                      />
                     ))}
-                  </Contact>
-                )}
-                {editable && (
-                  <Services>
-                    <h2>Serviços</h2>
-                    <div>
-                      <p>Selecione os serviços que você oferece:</p>
-                    </div>
-                    <div>
-                      {servicos.map((s) => (
-                        <InstitutionServices
-                          key={s.id}
-                          serviceId={s.id}
-                          title={s.servico}
-                        />
-                      ))}
-                    </div>
-                  </Services>
-                )}
-                {editable && (
-                  <Services>
-                    <h2>Doações</h2>
-                    <div>
-                      <p>O que você precisa?</p>
-                    </div>
-                    <div>
-                      {servicos.map((s) => (
-                        <Donation
-                          key={s.id}
-                          serviceId={s.id}
-                          title={s.servico}
-                        />
-                      ))}
-                    </div>
-                  </Services>
-                )}
+                  </div>
+                </Services>
+
                 <Employees>
                   <div>
                     <h2>Nossos Colaboradores</h2>
@@ -1050,7 +994,7 @@ function PerfilInstituicao() {
                   </div>
 
                   {colaboradores.length === 0 ? (
-                    <p>Não há colaboradores para mostrar.</p>
+                    <p>Adicione um novo colaborador!</p>
                   ) : (
                     <div>
                       {colaboradores.map((c, index) => (
@@ -1075,7 +1019,7 @@ function PerfilInstituicao() {
                     value={descricaoInstituicao}
                   />
                   <button onClick={handleSubmitDescricao}>
-                   <small>Salvar</small> 
+                    <small>Salvar</small>
                   </button>
                 </Description>
                 <Campaigns>
@@ -1087,7 +1031,7 @@ function PerfilInstituicao() {
                   </div>
 
                   {campanhas.length === 0 ? (
-                    <p>Não há campanhas para mostrar.</p>
+                    <p>Está realizando uma campanha? Poste ela aqui!</p>
                   ) : (
                     <div>
                       {campanhas.map((c, index) => (
@@ -1113,7 +1057,7 @@ function PerfilInstituicao() {
                   </div>
 
                   {animais.length === 0 ? (
-                    <p>Não há animais para mostrar.</p>
+                    <p>Adicione um novo animal!</p>
                   ) : (
                     <div>
                       {animais.map((a, index) => (

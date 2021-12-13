@@ -2,15 +2,15 @@ import { CardContainer, CardHeader, FotoPerfil, Nome, Icone, Distancia, CardBody
 
 function Card({foto, nome_instituicao, icone, distancia, banner, handlerVer}) {
     return (
-        <CardContainer onClick={handlerVer}>
+        <CardContainer>
             <CardHeader>
                 <div className="dados-container">
-                    <FotoPerfil>
+                    <FotoPerfil  onClick={handlerVer}>
                         <div>
                             <img src={foto} alt="perfil"/>
                         </div>
                     </FotoPerfil>
-                    <Nome>
+                    <Nome  onClick={handlerVer}>
                         <p>{nome_instituicao}</p>
                     </Nome>
                     <Icone>

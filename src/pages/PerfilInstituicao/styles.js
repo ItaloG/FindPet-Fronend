@@ -447,7 +447,6 @@ export const IconEdit = styled(MdModeEditOutline)`
 
 export const Campaigns = styled.div`
     width: 100%;
-    min-height: 300px;
     height: auto;
     margin-bottom: 50px;
 
@@ -477,6 +476,13 @@ export const Campaigns = styled.div`
           cursor: pointer;
         }
       }
+    }
+
+    > p {
+      font-family: 'Montserrat';
+      font-size: 0.9rem;
+      color: #bababa;
+      font-weight: 500;
     }
 
     > div:last-child {

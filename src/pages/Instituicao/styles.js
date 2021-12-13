@@ -168,6 +168,7 @@ export const PetInfo = styled.div`
             margin-top: 3px;
             margin-left: 3px;
             font-weight: 600;
+            font-size: 0.9rem;
         }
     }
 `;
@@ -447,7 +448,7 @@ export const IconEdit = styled(MdModeEditOutline)`
 
 export const Campaigns = styled.div`
     width: 100%;
-    min-height: 300px;
+    // min-height: 300px;
     height: auto;
     margin-bottom: 50px;
 
@@ -477,6 +478,13 @@ export const Campaigns = styled.div`
           cursor: pointer;
         }
       }
+    }
+
+    > p {
+      font-family: 'Montserrat';
+      font-size: 0.9rem;
+      color: #bababa;
+      font-weight: 500;
     }
 
     > div:last-child {
@@ -510,13 +518,14 @@ export const Description = styled.div`
     }
 
     > p {
-        font-weight: 500;
-        color: #bababa;
+      color: var(--dark);
+      font-style: italic;
+      font-weight: 500;
     }
 
     > textarea {
         width: 100%;
-        height: 200px;
+        height: 150px;
         resize: none;
         border: solid 1px #c9c9c9;
         padding: 10px;
@@ -527,6 +536,25 @@ export const Description = styled.div`
         border-radius: 1px;
         font-size: 0.9rem;
     }
+    
+    > button {
+        width: fit-content;
+        height: fit-content;
+        padding: 5px 15px;
+        margin-top: 5px;
+        border: 0;
+        border-radius: 7px;
+        font-family: 'Montserrat';
+        font-weight: 600;
+        font-size: 1rem;
+        color: white;
+        background-color: var(--dark);
+        text-transform: uppercase;
+
+        :hover {
+          cursor: pointer;
+        }
+      }
 `;
 
 export const Pets = styled.div`

@@ -1,185 +1,312 @@
-import { Container } from "../../GlobalStyles";
 import {
-  Banner,
   Profile,
-  Section,
-  StyledStart,
-  StyledHeart,
-  StyledRiArrowDownSLine,
-  StyledMdEmail,
-  StyledFaPhoneAlt,
-  StyledMdPhoneIphone,
-  StyledFaMapMarkerAlt,
-  Colaboradores,
-  CampanhasContainer,
-  ContainerPerfilAnimal,
-  DescricaoContainer,
-  AnimaisContainer,
-  ContainerPerfilColaborador,
-} from "../PerfilInstituicao/styles";
+  Container,
+  About,
+  Cover,
+  IconFavoriteOutline,
+  PetInfo,
+  ProfileBody,
+  ProfilePhoto,
+  PetFavoriteCount,
+  Contact,
+  IconEmail,
+  IconPlace,
+  IconTelephone,
+  IconPhone,
+  Employees,
+  Campaigns,
+  Description,
+  Pets,
+  Services,
+  IconStar,
+} from "./styles";
 
-import ApoiarIcon from "../../assets/apoiar.svg";
 import DefaultBanner from "../../assets/default_banner.png";
 import DefaultProfile from "../../assets/default_profile_photo.jpg";
-import Footer from "../../components/Footer";
+import { useEffect, useState } from "react";
+import { api } from "../../services/api";
+import { useParams } from "react-router";
+import Employee from "./Components/Employee";
+import Campaign from "./Components/Campaign";
+import Pet from "./Components/Pet";
+import Donation from "./Components/Donation";
+import InstitutionServices from "./Components/InstitutionServices";
 
-function PerfilInstituicaoUsuario() {
+function PerfilInstituicao() {
+  const { instituicaoId } = useParams();
+  const [instituicao, setInstituicao] = useState([]);
+  const [InstituicaoServicos, setInstituicaoServicos] = useState([]);
+  const [instituicaoEndereco, setInstituicaoEndereco] = useState([]);
+  const [instituicaoTelefones, setInstituicaoTelefones] = useState([]);
+  const [colaboradores, setColaboradores] = useState([]);
+  const [campanhas, setCampanhas] = useState([]);
+  const [animais, setAnimais] = useState([]);
+  const [servicos, setServicos] = useState([]);
+  const [banner, setBanner] = useState("");
+  const [perfil, setPerfil] = useState("");
+
+  useEffect(() => {
+    const loadInstituicao = async () => {
+      try {
+        const response = await api.get(`/instituicoes/${instituicaoId}`);
+
+        setInstituicao(response.data);
+        setInstituicaoServicos(response.data.Services);
+        setInstituicaoEndereco(response.data.AddressInstitutions);
+        setInstituicaoTelefones(response.data.TelephoneInstitutions);
+        setBanner(response.data.url_foto_banner);
+        setPerfil(response.data.url_foto_perfil);
+      } catch (error) {
+        console.error(error);
+        alert(error.response.data.error);
+      }
+    };
+
+    loadInstituicao();
+  }, []);
+
+  useEffect(() => {
+    const loadServicos = async () => {
+      try {
+        const response = await api.get("/servicos");
+
+        setServicos(response.data);
+      } catch (error) {
+        console.error(error);
+        alert(error.response.data.error);
+      }
+    };
+
+    loadServicos();
+  }, []);
+
+  useEffect(() => {
+    const loadCampanhas = async () => {
+      try {
+        const response = await api.get("/campanhas");
+
+        setCampanhas(response.data);
+      } catch (error) {
+        console.error(error);
+        alert(error.response.data.error);
+      }
+    };
+
+    loadCampanhas();
+  }, []);
+
+  useEffect(() => {
+    const loadAnimais = async () => {
+      try {
+        const response = await api.get("/animais");
+
+        setAnimais(response.data);
+      } catch (error) {
+        console.error(error);
+        alert(error.response.data.error);
+      }
+    };
+
+    loadAnimais();
+  }, []);
+
+  useEffect(() => {
+    const loadColaboradores = async () => {
+      try {
+        const response = await api.get("/funcionarios");
+
+        setColaboradores(response.data);
+      } catch (error) {
+        console.error(error);
+        alert(error.response.data.error);
+      }
+    };
+
+    loadColaboradores();
+  }, []);
+
   return (
-    <Container>
-      <main>
+    <>
+      <Container>
         <Profile>
-          <Banner>
-            <img src={DefaultBanner} alt="banner" />
-          </Banner>
-          <aside>
+          <Cover>
+            <img
+              src={instituicao.url_foto_banner ? banner : DefaultBanner}
+              alt=""
+            />
+          </Cover>
+          <About>
             <div>
-              <img src={DefaultProfile} alt="profile" />
+              <ProfilePhoto>
+                <div>
+                  <img
+                    src={instituicao.url_foto_perfil ? perfil : DefaultProfile}
+                    alt=""
+                  />
+                </div>
+              </ProfilePhoto>
+
+              <PetInfo>
+                <div>
+                  <h1 style={instituicao.nome ? instituicao.nome.length >= 35 ? {fontSize:"1.7rem"} : {} : {}}>{instituicao.nome}</h1>
+                  <IconFavoriteOutline />
+                </div>
+                <div></div>
+              </PetInfo>
+
+              <PetFavoriteCount>
+                <IconStar />
+                <IconStar />
+                <IconStar />
+                <IconStar />
+                <IconStar />
+                <h4>4.9</h4>
+                <small>(126)</small>
+              </PetFavoriteCount>
+            </div>
+          </About>
+          <ProfileBody>
+            <div>
               <div>
-                <h1>Instituto Luísa Mell</h1>
+                <Contact>
+                  <h2>Contato</h2>
+                  <div>
+                    <IconEmail />
+                    <p>{instituicao.email}</p>
+                  </div>
+                  <div>
+                    <IconPlace />
+                    <p>
+                      {instituicaoEndereco.length > 0
+                        ? `${instituicaoEndereco[0].logradouro}, nº${instituicaoEndereco[0].numero} - ${instituicaoEndereco[0].Cep.cep}`
+                        : ""}
+                    </p>
+                  </div>
+                  {instituicaoTelefones.map((t) => (
+                    <div>
+                      {t.numero.length == 9 ? <IconTelephone /> : <IconPhone />}
+                      <p>{t.numero}</p>
+                    </div>
+                  ))}
+                </Contact>
+
+                <Services>
+                  <h2>Serviços</h2>
+                  <div>
+                    {InstituicaoServicos.length == 0 ? (
+                      <p>Não há serviços para mostrar.</p>
+                    ) : (
+                      <p>Nós oferecemos:</p>
+                    )}
+                  </div>
+                  <div>
+                    {InstituicaoServicos.map((s) => (
+                      <InstitutionServices
+                        key={s.id}
+                        serviceId={s.id}
+                        title={s.servico}
+                        editable={true}
+                      />
+                    ))}
+                  </div>
+                </Services>
+
+                {/* <Services>
+                  <h2>Doações</h2>
+                  <div>
+                    <p>Precisamos de:</p>
+                  </div>
+                  <div>
+                    {servicos.map((s) => (
+                      <Donation key={s.id} serviceId={s.id} title={s.servico} />
+                    ))}
+                  </div>
+                </Services> */}
+
+                <Employees>
+                  <div>
+                    <h2>Nossos Colaboradores</h2>
+                  </div>
+
+                  {colaboradores.length === 0 ? (
+                    <p>Não há colaboradores para mostrar.</p>
+                  ) : (
+                    <div>
+                      {colaboradores.map((c, index) => (
+                        <Employee
+                          key={index}
+                          id={c.id}
+                          nome={c.nome}
+                          img={c.url_foto_perfil}
+                          cargo={c.Position.cargo}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </Employees>
               </div>
-              <StyledHeart/>
+              <div>
+                {instituicao.descricao ? (
+                  instituicao.descricao.length == 0 ? (
+                    <span></span>
+                  ) : (
+                    <Description>
+                      <p>{instituicao.descricao}</p>
+                    </Description>
+                  )
+                ) : (
+                  <span></span>
+                )}
+
+                <Campaigns>
+                  <div>
+                    <h2>Campanhas</h2>
+                  </div>
+
+                  {campanhas.length === 0 ? (
+                    <p>Não há campanhas para mostrar.</p>
+                  ) : (
+                    <div>
+                      {campanhas.map((c, index) => (
+                        <Campaign
+                          key={index}
+                          id={c.id}
+                          titulo={c.titulo}
+                          img={c.url_foto}
+                          descricao={c.descricao}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </Campaigns>
+                <Pets>
+                  <div>
+                    <h2>Animais para adoção</h2>
+                  </div>
+
+                  {animais.length === 0 ? (
+                    <p>Não há animais para mostrar.</p>
+                  ) : (
+                    <div>
+                      {animais.map((a, index) => (
+                        <Pet
+                          key={index}
+                          id={a.id}
+                          nome={a.nome}
+                          raca={a.TypeAnimal.tipo}
+                          img={a.url_foto_perfil}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </Pets>
+              </div>
             </div>
-            <div style={{display: "flex", justifyContent: "space-between", width: "500px"}}>
-              <div className="avaliacoes" >
-                <div>
-                  <StyledStart />
-                  <StyledStart />
-                  <StyledStart />
-                  <StyledStart />
-                  <StyledStart />
-                  <span>4.8</span>
-                </div>
-                <div>
-                  <p>Suas avaliações (1.448)</p>
-                </div>
-              </div>
-              <div >
-                <img src={ApoiarIcon} alt="apoio" />
-                <div>
-                  Apoiar <StyledRiArrowDownSLine />
-                </div>
-              </div>
-            </div>
-          </aside>
+          </ProfileBody>
         </Profile>
-        <Section>
-          <aside>
-            <div className="contatos">
-              <h1>Contato</h1>
-              <div>
-                <StyledMdEmail />
-                <p>contato@instituitoluisamell.com</p>
-              </div>
-              <div>
-                <StyledFaMapMarkerAlt />
-                <p>Rua Etc e Tal, nº2365 - 06631-000 SP</p>
-              </div>
-              <div>
-                <StyledFaPhoneAlt />
-                <p>4707-0000</p>
-              </div>
-              <div>
-                <StyledMdPhoneIphone />
-                <p>(11) 98265-0000</p>
-              </div>
-            </div>
-            <div className="funcionarios">
-              <div>
-                <h1>Nossos colaboradores</h1>
-              </div>
-              <Colaboradores>
-                <PerfilColaborador />
-                <PerfilColaborador />
-                <PerfilColaborador />
-                <PerfilColaborador />
-                <PerfilColaborador />
-                <PerfilColaborador />
-                <PerfilColaborador />
-                <PerfilColaborador />
-                <PerfilColaborador />
-                <PerfilColaborador />
-               
-              </Colaboradores>
-            </div>
-          </aside>
-          <section>
-            <DescricaoContainer>
-              <p>"Lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet." </p>
-            </DescricaoContainer>
-            <CampanhasContainer>
-              <div>
-                <h1>Campanhas</h1>
-              </div>
-              <div>
-                <div>
-                  <img src={DefaultBanner} alt="campanhas" />
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua
-                  </p>
-                </div>
-                <div>
-                  <img src={DefaultBanner} alt="campanhas" />
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua
-                  </p>
-                </div>
-              </div>
-            </CampanhasContainer>
-            <AnimaisContainer>
-              <div>
-                <h1>Animais para adoção</h1>
-              </div>
-              <div>
-                <PerfilAnimal />
-                <PerfilAnimal />
-                <PerfilAnimal />
-                <PerfilAnimal />
-                <PerfilAnimal />
-                <PerfilAnimal />
-                <PerfilAnimal />
-                <PerfilAnimal />
-                <PerfilAnimal />
-                <PerfilAnimal />
-              </div>
-            </AnimaisContainer>
-          </section>
-        </Section>
-      </main>
-      <Footer />
-    </Container>
+      </Container>
+    </>
   );
 }
 
-function PerfilAnimal() {
-  return (
-    <ContainerPerfilAnimal>
-      <img src={DefaultProfile} alt={"pet"} />
-      <h3>Paçoca</h3>
-      <p>SRD</p>
-    </ContainerPerfilAnimal>
-  );
-}
-
-function PerfilColaborador() {
-  return (
-    <ContainerPerfilColaborador>
-      <img src={DefaultProfile} alt={"colaborador"} />
-      <h3>Carlos Silva</h3>
-      <p>Marketing</p>
-    </ContainerPerfilColaborador>
-  );
-}
-
-function Servico() {
-  return (
-    <div>
-      serviço 1 <span>&times;</span>
-    </div>
-  );
-}
-
-export default PerfilInstituicaoUsuario;
+export default PerfilInstituicao;
