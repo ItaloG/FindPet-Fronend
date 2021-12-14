@@ -32,9 +32,9 @@ function Feed() {
   const handleIcon = (tipoInstituicao) => {
     if (tipoInstituicao === "ONG") {
       return IconeOng;
-    } else if (tipoInstituicao === "PETSHOP" || tipoInstituicao === "CANIL") {
+    } else if (tipoInstituicao === "Petshop" || tipoInstituicao === "Canil") {
       return IconePetShop;
-    } else if (tipoInstituicao === "VETERINARIO") {
+    } else if (tipoInstituicao === "Veterinário") {
       return IconeVeterinario;
     }
   };
@@ -115,7 +115,8 @@ function Feed() {
       <ContainerCenter>
         <FlexColumn>
           <Slider />
-          {instituicoesMaisProximas().map((i, index) => (
+          {instituicoesMaisProximas().map((i, index) => i.distancia == 0 ? (<></>) : (
+            
             <Card
               key={index}
               foto={i.url_foto_perfil ? i.url_foto_perfil : FotoPadrao}
