@@ -104,6 +104,7 @@ function Encontrar() {
             >
               <div>
                 <h2 onClick={() => history.push(`instituicao/${selected.id}`)}>{selected.nome}</h2>
+                <p>{selected.AddressInstitutions[0].logradouro + ", " + selected.AddressInstitutions[0].numero}</p>
               </div>
             </InfoWindow>
           ) : null}

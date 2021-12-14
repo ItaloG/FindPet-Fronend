@@ -9,7 +9,9 @@ export const Section = styled.section`
   padding-top: 6rem;
 
   h2 {
+    font-size: 0.9rem;
     cursor: pointer;
+    margin-bottom: 2px;
   }
 `;
 
