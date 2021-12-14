@@ -7,6 +7,10 @@ export const Section = styled.section`
   flex-direction: column;
   justify-content: space-between;
   padding-top: 6rem;
+
+  h2 {
+    cursor: pointer;
+  }
 `;
 
 export const ContainerSearch = styled.div`

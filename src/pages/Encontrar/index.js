@@ -19,6 +19,7 @@ import {
   ComboboxOption,
 } from "@reach/combobox";
 import { api } from "../../services/api";
+import { useHistory } from "react-router";
 
 const libraries = ["places"];
 const options = {
@@ -35,6 +36,8 @@ const center = {
 };
 
 function Encontrar() {
+  let history = useHistory();
+  
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyCZ5xn5Mbs2OrZOsbsBlZ-KAhOQSw_xKRY", // AQUI VOCÊ COLOCA SUA CHAVE DE API
     libraries,
@@ -100,7 +103,7 @@ function Encontrar() {
               position={{ lat: parseFloat(selected.lat), lng: parseFloat(selected.lng) }}
             >
               <div>
-                <h2>{selected.nome}</h2>
+                <h2 onClick={() => history.push(`instituicao/${selected.id}`)}>{selected.nome}</h2>
               </div>
             </InfoWindow>
           ) : null}
