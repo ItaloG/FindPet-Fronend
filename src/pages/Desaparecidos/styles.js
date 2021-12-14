@@ -5,5 +5,7 @@ export const ContainerDesaparecidos = styled.footer`
   padding: 6rem;
   margin: 0 auto;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 `;

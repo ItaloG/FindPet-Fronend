@@ -1,12 +1,7 @@
-import { Body, Container, FlexColumn } from "../../GlobalStyles";
-import Card from "../../components/Card";
-import Slider from "../../assets/banner1.png";
+import {  Container  } from "../../GlobalStyles";
 import Profile from "../../assets/default_profile_photo.jpg";
 import Banner from "../../assets/cat.jpg";
-import Banner2 from "../../assets/banner2.png";
-import ImgOng from "../../assets/ong_icon.png";
-import ImgShop from "../../assets/petshop_icon.png";
-import ImgPata from "../../assets/pata.png";
+
 
 import CardDesaparecidos from "../../components/CardDesaparecidos";
 import { ContainerDesaparecidos } from "./styles";
@@ -21,8 +16,105 @@ function Desaparecidos() {
             banner={Banner}
             nome_animal="Nome do animal"
             tipo_animal="Tipo do animal"
-            data_visto="Data que foi visto"
-            descricao="Descrição"
+            data_visto="Visto pela última vez:"
+            descricao="Lorem ipsum dolor sit amet, consectetur
+                      adipiscing elit, sed do eiusmod tempor incididunt
+                      ut labore et dolore magna aliqua. Ut enim ad minim
+                      enim ad minim veniam, quis nostrud exercitation ull 
+                      amco laboris nisi u enim ad minim veniam, quis
+                         nostrud exercitation ullamco laboris nisi ut
+                       enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                       enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut."
+          />
+          <CardDesaparecidos
+            img={Profile}
+            banner={Banner}
+            nome_animal="Nome do animal"
+            tipo_animal="Tipo do animal"
+            data_visto="Visto pela última vez:"
+            descricao="Lorem ipsum dolor sit amet, consectetur
+                      adipiscing elit, sed do eiusmod tempor incididunt
+                      ut labore et dolore magna aliqua. Ut enim ad minim
+                      enim ad minim veniam, quis nostrud exercitation ull 
+                      amco laboris nisi u enim ad minim veniam, quis
+                         nostrud exercitation ullamco laboris nisi ut
+                       enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                       enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut."
+          />
+          <CardDesaparecidos
+            img={Profile}
+            banner={Banner}
+            nome_animal="Nome do animal"
+            tipo_animal="Tipo do animal"
+            data_visto="Visto pela última vez:"
+            descricao="Lorem ipsum dolor sit amet, consectetur
+                      adipiscing elit, sed do eiusmod tempor incididunt
+                      ut labore et dolore magna aliqua. Ut enim ad minim
+                      enim ad minim veniam, quis nostrud exercitation ull 
+                      amco laboris nisi u enim ad minim veniam, quis
+                         nostrud exercitation ullamco laboris nisi ut
+                       enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                       enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut."
+          />
+          <CardDesaparecidos
+            img={Profile}
+            banner={Banner}
+            nome_animal="Nome do animal"
+            tipo_animal="Tipo do animal"
+            data_visto="Visto pela última vez:"
+            descricao="Lorem ipsum dolor sit amet, consectetur
+                      adipiscing elit, sed do eiusmod tempor incididunt
+                      ut labore et dolore magna aliqua. Ut enim ad minim
+                      enim ad minim veniam, quis nostrud exercitation ull 
+                      amco laboris nisi u enim ad minim veniam, quis
+                         nostrud exercitation ullamco laboris nisi ut
+                       enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                       enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut."
+          />
+           <CardDesaparecidos
+            img={Profile}
+            banner={Banner}
+            nome_animal="Nome do animal"
+            tipo_animal="Tipo do animal"
+            data_visto="Visto pela última vez:"
+            descricao="Lorem ipsum dolor sit amet, consectetur
+                      adipiscing elit, sed do eiusmod tempor incididunt
+                      ut labore et dolore magna aliqua. Ut enim ad minim
+                      enim ad minim veniam, quis nostrud exercitation ull 
+                      amco laboris nisi u enim ad minim veniam, quis
+                         nostrud exercitation ullamco laboris nisi ut
+                       enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                       enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut."
+          />
+           <CardDesaparecidos
+            img={Profile}
+            banner={Banner}
+            nome_animal="Nome do animal"
+            tipo_animal="Tipo do animal"
+            data_visto="Visto pela última vez:"
+            descricao="Lorem ipsum dolor sit amet, consectetur
+                      adipiscing elit, sed do eiusmod tempor incididunt
+                      ut labore et dolore magna aliqua. Ut enim ad minim
+                      enim ad minim veniam, quis nostrud exercitation ull 
+                      amco laboris nisi u enim ad minim veniam, quis
+                         nostrud exercitation ullamco laboris nisi ut
+                       enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                       enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut."
+          />
+           <CardDesaparecidos
+            img={Profile}
+            banner={Banner}
+            nome_animal="Nome do animal"
+            tipo_animal="Tipo do animal"
+            data_visto="Visto pela última vez:"
+            descricao="Lorem ipsum dolor sit amet, consectetur
+                      adipiscing elit, sed do eiusmod tempor incididunt
+                      ut labore et dolore magna aliqua. Ut enim ad minim
+                      enim ad minim veniam, quis nostrud exercitation ull 
+                      amco laboris nisi u enim ad minim veniam, quis
+                         nostrud exercitation ullamco laboris nisi ut
+                       enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                       enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut."
           />
         </ContainerDesaparecidos>
       </main>

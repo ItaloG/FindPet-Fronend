@@ -59,9 +59,13 @@ function Header() {
           {/* <IconHome/> */}
           <p>Feed</p>
         </MenuItem>
-        <MenuItem>
+        <MenuItem
+          onClick={() => {
+            history.push("/desaparecidos");
+          }}
+          >
           {/* <IconPet/> */}
-          <p>Pets</p>
+          <p>Desaparecidos</p>
         </MenuItem>
         {/* <MenuItem>
           <p>Instituições</p>
