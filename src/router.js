@@ -18,7 +18,11 @@ function AppRoute({ children, ...rest }) {
       <Route {...rest}>
         <Header />
         {children}
+<<<<<<< HEAD
         <Footer />
+=======
+        {/* <Footer/> */}
+>>>>>>> 0c85735160f966467d7c4dbde629d39834a3bf5f
       </Route>
     );
   } else {
