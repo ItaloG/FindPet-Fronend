@@ -6,7 +6,6 @@ import { MdEmail, MdPhoneIphone, MdEdit, MdAddAPhoto } from "react-icons/md";
 import { FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
 import {
   MdOutlineFavoriteBorder,
-  MdOutlineFavorite,
   MdHome,
   MdNavigateNext,
   MdNavigateBefore,
@@ -897,36 +896,6 @@ export const Header = styled.header`
   }
 `;
 
-export const ProfilePhoto = styled.div`
-  width: 150px;
-  height: 150px;
-  background-color: white;
-  border: solid 3px var(--dark);
-  border-radius: 50%;
-  position: absolute;
-  margin-top: -70px;
-  display: flex;
-  justify-content: left;
-  align-items: left;
-  gap: 15px;
-
-  > div {
-    width: 142px;
-    height: 142px;
-    background-color: white;
-    border: solid 5px var(--secondary);
-    border-radius: 100%;
-    overflow: hidden;
-
-    > img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 100%;
-    }
-  }
-`;
-
 export const NameInstitution = styled.div`
       margin-left: 20px;
 
@@ -945,27 +914,6 @@ export const Apoio = styled.div`
   > img {
     width: 20%;
     height: 20%;
-  }
-`;
-
-export const EditProfilePhoto = styled.button`
-  width: 40px;
-  height: 40px;
-  background-color: var(--dark);
-  border-radius: 50%;
-  border: 0;
-  position: absolute;
-  display: flex;
-  justify-content: left;
-  margin-top: 20px;
-  overflow: hidden;
-
-  > input {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    margin-top: 17px;
-    opacity: 0;
   }
 `;
 

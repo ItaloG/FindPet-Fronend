@@ -1,7 +1,5 @@
 import { Container } from "./styles";
 import DefaultPetPhoto from "../../../../assets/default-pet-photo.jpg"
-import EditButton from "../EditButton";
-import DeleteButton from "../DeleteButton";
 import { useHistory } from "react-router";
 
 function Pet({ id, nome, raca, handlerEditar, handlerExcluir, img }) {

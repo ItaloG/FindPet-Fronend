@@ -40,9 +40,6 @@ function InstitutionServices({ serviceId, title }) {
       alert(error.response.data.error);
     }
   };
-
-  const [myColor, setMyColor] = useState("#A55EEA");
-  const [serviceToggle, setServiceToggle] = useState(false);
   const [servicesToggle, setServicesToggle] = useState(false);
 
   let instList = [];
@@ -51,7 +48,6 @@ function InstitutionServices({ serviceId, title }) {
     : (instList = "");
 
   const handleToggle = (idServico) => {
-
     let list = [];
     InstituicaoServicos
       ? (list = InstituicaoServicos.map((s) => s.id))
@@ -88,7 +84,6 @@ function InstitutionServices({ serviceId, title }) {
       break;
     }
   }
-
 
   return (
     <div onClick={() => handleToggle(serviceId)}>

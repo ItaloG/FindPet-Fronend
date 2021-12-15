@@ -1,8 +1,7 @@
 import { Container } from "./styles";
 import DefaultProfilePhoto from "../../../../assets/default_profile_photo.jpg"
-import EditButton from "../EditButton";
 
-function Employee({ id, nome, cargo, handler, img }) {
+function Employee({ nome, cargo, img }) {
   return (
     <Container>
         <img src={img ? img : DefaultProfilePhoto} alt={"Colaborador " + {nome}}/>

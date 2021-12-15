@@ -9,11 +9,9 @@ import {
   ContainerCondicoesEspeciais,
   Container,
   About,
-  ActionButtons,
   Cover,
   EditProfilePhoto,
   IconeCamera,
-  IconFavoriteOutline,
   PetInfo,
   ProfileBody,
   ProfilePhoto,
@@ -101,7 +99,6 @@ function PerfilInstituicao() {
   const [hasCondicaoEspecial, setHasCondicaoEspecial] = useState(false);
 
   const [servicos, setServicos] = useState([]);
-  const [deleteServicos, setDeleteServicos] = useState(false);
   const [servicosSel, setServicosSel] = useState([]);
   const [cargos, setCargos] = useState([]);
 
@@ -121,8 +118,6 @@ function PerfilInstituicao() {
   const [isEditandoCampanha, setIsEditandoCampanha] = useState(false);
   const [isEditandoAnimal, setIsEditandoAnimal] = useState(false);
   const [isOpenNewAnimal, setIsOpenNewAnimal] = useState(false);
-  const [isServiceSelected, setIsServiceSelected] = useState(false);
-  const [isAServiceSelected, setIsAServiceSelected] = useState(false);
 
   useEffect(() => {
     const loadInstituicao = async () => {
@@ -130,7 +125,6 @@ function PerfilInstituicao() {
         const response = await api.get(`/instituicoes/${instituicaoId}`);
 
         setInstituicao(response.data);
-        // setInstituicaoServicos(response.data.Services);
         setInstituicaoEndereco(response.data.AddressInstitutions);
         setInstituicaoTelefones(response.data.TelephoneInstitutions);
         setBanner(response.data.url_foto_banner);
@@ -374,29 +368,12 @@ function PerfilInstituicao() {
     }
   };
 
-  const handleSubmitServico = async (idServico) => {
-    try {
-      const response = await api.post("/servicos", { servicos: idServico });
-
-      setInstituicaoServicos([...InstituicaoServicos, response.data]);
-    } catch (error) {
-      console.error(error);
-      alert(error.response.data.error);
-    } finally {
-      setIsOpenServicos(false);
-    }
-  };
-
   const handleInputColaborador = (e) => {
     setColaborador({ ...colaborador, [e.target.id]: e.target.value });
   };
 
   const handleInputAnimal = (e) => {
     setAnimal({ ...animal, [e.target.id]: e.target.value });
-  };
-
-  const handleInputDescricao = (e) => {
-    setDescricaoInstituicao({ [e.target.id]: e.target.value });
   };
 
   const handleRadioInputAnimal = (e) => {
@@ -456,14 +433,8 @@ function PerfilInstituicao() {
   };
 
   const handleSubmitAnimal = async (e) => {
-    const {
-      nome,
-      tipoAnimal,
-      personalidade,
-      idade,
-      castrado,
-      historia,
-    } = animal;
+    const { nome, tipoAnimal, personalidade, idade, castrado, historia } =
+      animal;
 
     if (tipoAnimal === 0) {
       return alert("Escolha um tipo de animal");
@@ -516,17 +487,6 @@ function PerfilInstituicao() {
     }
   };
 
-  const handleDeleteServicos = async (id) => {
-    try {
-      await api.delete(`/servicos/6`);
-
-      setDeleteServicos(true);
-    } catch (error) {
-      console.error(error);
-      alert(error);
-    }
-  };
-
   const handleEditarAnimal = async (id) => {
     setIsOpenNewAnimal(true);
     setIsEditandoAnimal(true);
@@ -549,14 +509,8 @@ function PerfilInstituicao() {
   };
 
   const handleSubmitAnimalEditado = async (e) => {
-    const {
-      nome,
-      tipoAnimal,
-      personalidade,
-      idade,
-      castrado,
-      historia,
-    } = animal;
+    const { nome, tipoAnimal, personalidade, idade, castrado, historia } =
+      animal;
 
     if (tipoAnimal === 0) {
       return alert("Escolha um tipo de animal");
@@ -792,12 +746,9 @@ function PerfilInstituicao() {
 
   const handleSubmitDescricao = async () => {
     try {
-      const response = await api.put(
-        `/instituicoes/${instituicaoId}/descricao`,
-        {
-          descricao: descricaoInstituicao,
-        }
-      );
+      await api.put(`/instituicoes/${instituicaoId}/descricao`, {
+        descricao: descricaoInstituicao,
+      });
 
       alert("Descrição atualizada!");
     } catch (error) {
@@ -963,7 +914,11 @@ function PerfilInstituicao() {
                   </div>
                   {instituicaoTelefones.map((t) => (
                     <div>
-                      {t.numero.length == 9 ? <IconTelephone /> : <IconPhone />}
+                      {t.numero.length === 9 ? (
+                        <IconTelephone />
+                      ) : (
+                        <IconPhone />
+                      )}
                       <p>{t.numero}</p>
                     </div>
                   ))}
@@ -1225,7 +1180,6 @@ function PerfilInstituicao() {
 
       {isOpenNewColaboradores && (
         <Modal
-          // style={{ height: "1460px" }}
           title={isEditandoColaborador ? "Editar" : "Novo Colaborador"}
           handleClose={handleCloseNewColaborador}
         >
@@ -1290,11 +1244,7 @@ function PerfilInstituicao() {
       )}
 
       {isOpenNewAnimal && (
-        <Modal
-          // style={{ height: document.body.scrollHeight }}
-          title="Novo Animal"
-          handleClose={handleCloseNewAnimal}
-        >
+        <Modal title="Novo Animal" handleClose={handleCloseNewAnimal}>
           <CadastroAnimal
             onSubmit={
               isEditandoAnimal ? handleSubmitAnimalEditado : handleSubmitAnimal

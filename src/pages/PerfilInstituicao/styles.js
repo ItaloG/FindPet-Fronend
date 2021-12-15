@@ -4,7 +4,7 @@ import { AiFillHeart, AiOutlinePlusCircle } from "react-icons/ai";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { MdEmail, MdPhoneIphone, MdEdit, MdAddAPhoto } from "react-icons/md";
 import { FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
-import { MdOutlineFavoriteBorder, MdOutlineFavorite, MdHome, MdNavigateNext, MdNavigateBefore, MdPhotoCamera, MdModeEditOutline } from 'react-icons/md';
+import { MdOutlineFavoriteBorder, MdHome, MdNavigateNext, MdNavigateBefore, MdPhotoCamera, MdModeEditOutline } from 'react-icons/md';
 import { FaLock } from 'react-icons/fa';
 
 export const Container = styled.div`

@@ -29,7 +29,6 @@ import { useParams } from "react-router";
 import Employee from "./Components/Employee";
 import Campaign from "./Components/Campaign";
 import Pet from "./Components/Pet";
-import Donation from "./Components/Donation";
 import InstitutionServices from "./Components/InstitutionServices";
 
 function PerfilInstituicao() {
@@ -185,7 +184,7 @@ function PerfilInstituicao() {
                   </div>
                   {instituicaoTelefones.map((t) => (
                     <div>
-                      {t.numero.length == 9 ? <IconTelephone /> : <IconPhone />}
+                      {t.numero.length === 9 ? <IconTelephone /> : <IconPhone />}
                       <p>{t.numero}</p>
                     </div>
                   ))}
@@ -194,7 +193,7 @@ function PerfilInstituicao() {
                 <Services>
                   <h2>Serviços</h2>
                   <div>
-                    {InstituicaoServicos.length == 0 ? (
+                    {InstituicaoServicos.length === 0 ? (
                       <p>Não há serviços para mostrar.</p>
                     ) : (
                       <p>Nós oferecemos:</p>
@@ -236,7 +235,7 @@ function PerfilInstituicao() {
               </div>
               <div>
                 {instituicao.descricao ? (
-                  instituicao.descricao.length == 0 ? (
+                  instituicao.descricao.length === 0 ? (
                     <span></span>
                   ) : (
                     <Description>

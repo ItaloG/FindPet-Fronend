@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { BsCheckCircleFill } from "react-icons/bs";
-import { MdDoDisturbOn, MdCheckCircle } from "react-icons/md";
+import { MdDoDisturbOn } from "react-icons/md";
 
 export const IconSelected = styled(BsCheckCircleFill)`
 width: 25px;

@@ -1,13 +1,11 @@
 
-import styled, { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 import { FaStar } from "react-icons/fa";
 import { MdEmail, MdPhoneIphone, MdEdit, MdAddAPhoto } from "react-icons/md";
 import { FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
 import {
   MdOutlineFavoriteBorder,
   MdHome,
-  MdNavigateNext,
-  MdNavigateBefore,
   MdPhotoCamera,
   MdModeEditOutline,
 } from "react-icons/md";

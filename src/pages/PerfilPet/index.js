@@ -5,7 +5,6 @@ import {
   Cover,
   IconFavoriteOutline,
   IconHome,
-  IconLock,
   IconNext,
   IconPrevious,
   PetAbstract,
@@ -18,7 +17,6 @@ import {
   ProfilePhoto,
 } from "./styles";
 import DefaultBanner from "../../assets/default_banner_pets.png";
-import DefaultPetPhoto from "../../assets/default-pet-photo.jpg";
 import Banner from "../../assets/banner3.png";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";

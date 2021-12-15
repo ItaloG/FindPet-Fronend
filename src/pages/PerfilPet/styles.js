@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { MdOutlineFavoriteBorder, MdOutlineFavorite, MdHome, MdNavigateNext, MdNavigateBefore, MdPhotoCamera, MdEdit, MdModeEditOutline } from 'react-icons/md';
+import { MdOutlineFavoriteBorder, MdOutlineFavorite, MdHome, MdNavigateNext, MdNavigateBefore, MdPhotoCamera, MdModeEditOutline } from 'react-icons/md';
 import { FaLock } from 'react-icons/fa';
 
 export const Container = styled.div`
