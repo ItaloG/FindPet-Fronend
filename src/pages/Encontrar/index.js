@@ -28,7 +28,7 @@ const options = {
 };
 const mapContainerStyle = {
   with: "100vw",
-  height: "70vh",
+  height: "100vh",
 };
 const center = {
   lat: -23.5592114,

@@ -8,7 +8,8 @@ import Login from "./pages/Login";
 import PerfilInstituicao from "./pages/PerfilInstituicao";
 import PerfilPet from "./pages/PerfilPet";
 import PerfilUsuario from "./pages/PerfilUsuario";
-import Instituicao from "./pages/Instituicao";
+import Instituicao from "./pages/Instituicao"
+import Desaparecidos from "./pages/Desaparecidos";
 
 import { isSignedIn } from "./services/security";
 
@@ -18,11 +19,7 @@ function AppRoute({ children, ...rest }) {
       <Route {...rest}>
         <Header />
         {children}
-<<<<<<< HEAD
         <Footer />
-=======
-        {/* <Footer/> */}
->>>>>>> 0c85735160f966467d7c4dbde629d39834a3bf5f
       </Route>
     );
   } else {
@@ -60,9 +57,15 @@ function Router() {
         <AppRoute path="/favoritos">
           <Favoritos />
         </AppRoute>
+
+        <AppRoute path="/desaparecidos">
+          <Desaparecidos />
+        </AppRoute>
+
         <AppRoute path="/mapa">
           <Encontrar />
         </AppRoute>
+
       </Switch>
     </BrowserRouter>
   );

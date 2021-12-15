@@ -212,18 +212,6 @@ function PerfilInstituicao() {
                   </div>
                 </Services>
 
-                {/* <Services>
-                  <h2>Doações</h2>
-                  <div>
-                    <p>Precisamos de:</p>
-                  </div>
-                  <div>
-                    {servicos.map((s) => (
-                      <Donation key={s.id} serviceId={s.id} title={s.servico} />
-                    ))}
-                  </div>
-                </Services> */}
-
                 <Employees>
                   <div>
                     <h2>Nossos Colaboradores</h2>

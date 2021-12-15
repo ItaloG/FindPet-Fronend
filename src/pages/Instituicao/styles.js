@@ -4,8 +4,16 @@ import { AiFillHeart, AiOutlinePlusCircle } from "react-icons/ai";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { MdEmail, MdPhoneIphone, MdEdit, MdAddAPhoto } from "react-icons/md";
 import { FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
-import { MdOutlineFavoriteBorder, MdOutlineFavorite, MdHome, MdNavigateNext, MdNavigateBefore, MdPhotoCamera, MdModeEditOutline } from 'react-icons/md';
-import { FaLock } from 'react-icons/fa';
+import {
+  MdOutlineFavoriteBorder,
+  MdOutlineFavorite,
+  MdHome,
+  MdNavigateNext,
+  MdNavigateBefore,
+  MdPhotoCamera,
+  MdModeEditOutline,
+} from "react-icons/md";
+import { FaLock } from "react-icons/fa";
 
 export const Container = styled.div`
     width: 1200px;
@@ -858,298 +866,106 @@ export const ContainerTodosServicos = styled.div`
   }
 `;
 
-
-export const Banner = styled.div`
+export const Main = styled.main`
   width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: flex-end;
-
-  img {
-    width: 100%;
-    height: 180px;
-    border-radius: 20px 20px 0px 0px;
-  }
-
-  input {
-    display: none;
-  }
-
-  label {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    background-color: #fff;
-    padding: 5px;
-    border-radius: 3px;
-    position: absolute;
-    margin-bottom: 3px;
-    margin-right: 3px;
-    font-size: .8em;
-    cursor: pointer;
-    box-shadow: #000 0px 0px 3px 0px;
-  }
+  height: auto;
+  padding: 6rem;
 `;
 
-export const Section = styled.section`
-  width: 80%;
-  grid-column: 1/3;
+export const Header = styled.header`
+  width: 60%;
+  height: auto;
   margin: 0 auto;
-  margin-top: 50px;
-  display: grid;
-  grid-template-columns: 30% 70%;
-  grid-template-rows: 50% 50%;
 
-  > aside {
-    grid-row: 1/3;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-
-    > .contatos {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      > h1 {
-        color: var(--dark);
-        font-weight: bold;
-        font-size: 1.5rem;
-      }
-      > div {
-        display: flex;
-        align-items: center;
-        text-align: start;
-        gap: 5px;
-        p {
-          font-family: 'Montserrat';
-          font-size: 0.9rem;
-          color: var(--gray);
-          margin-left: 10px;
-        }
-      }
-    }
-
-    > .funcionarios {
-      margin-top: 40px;
-
-      > div:first-child {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 5px;
-        cursor: pointer;
-
-        > h1 {
-          color: var(--dark);
-          font-weight: bold;
-          font-size: 1.5rem;
-        }
-
-        > div {
-          color: var(--light);
-          padding: 5px;
-          border-radius: 4px;
-          border: solid 1px var(--primary);
-          cursor: pointer;
-
-          > span {
-            font-size: 20px;
-          }
-
-        }
-
-      }
-    }
-  }
-
-  > section {
-    grid-row: 1/3;
+  > img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    border-radius: 40px 40px 0px 0px;
+  }
+
+  > aside {
+    width: 100%;
+    height: 300px;
     display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding-left: 200px;
-    h1 {
-      color: var(--dark);
-      font-weight: bold;
-      font-size: 20px;
-    }
-  }
+    justify-content: space-between;
 
-  @media (max-width: 1080px) {
-    width: 95%;
-    grid-template-columns: 40% 60%;
-
-    section {
-      padding-left: 30px;
-    }
-  }
-`;
-
-export const AnimaisContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-
-  > div:first-child {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-
-    > h1 {
-      color: var(--dark);
-      font-weight: bold;
-      font-size: 1.5rem;
-    }
-
-    > div {
-      color: var(--light);
-      padding: 5px;
-      border-radius: 4px;
-      border: solid 1px var(--primary);
-       cursor: pointer;
-
-      > span {
-        font-size: 20px;
-      }
-    }
-  }
-`;
-
-export const Aniamis = styled.div`
-  div {
-    display: flex;
-    flex-wrap: wrap;
-  }
-`;
-
-export const ApoioContainer = styled.div`
-  h2 {
-    margin-top: 5px;
-    font-size: 1em;
-    color: var(--dark);
-    font-weight: 500;
-  }
-
-  > div {
-    margin-top: 10px;
-    display: flex;
-    gap: 5px;
-    color: var(--light);
-
-    > div {
-      padding: 5px;
-      border-radius: 5px;
-      border: solid 2px var(--light);
-    }
-  }
-`;
-
-export const DescricaoContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-
-  > textArea {
-    height: 100px;
-    padding: 10px;
-    color: var(--gray);
-    font-size: 16px;
-    border: solid 1px var(--gray);
-    transition: 0.2s;
-    resize: none;
-  }
-
-  > p {
-    font-family: 'Montserrat';
-    font-style: italic;
-    color: var(--dark);
-    font-size: 16px;
-    font-weight: medium;
-  }
-
-  > button {
-    background-color: var(--primary);
-    border: none;
-    padding: 7px;
-    border-radius: 8px;
-    color: #fff;
-    font-size: 1em;
-
-    cursor: pointer;
-
-    align-self: end;
-  }
-`;
-
-export const CampanhasContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  gap: 10px;
-
-  > div:first-child {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-
-    > h1 {
-      color: var(--dark);
-      font-weight: bold;
-      font-size: 1.5rem;
-    }
-
-    > div {
-      color: var(--light);
-      padding: 5px;
-      border-radius: 4px;
-      border: solid 1px var(--primary);
-      cursor: pointer;
-
-      > span {
-        font-size: 20px;
-      }
-    }
-  }
-    
-`;
-
-export const Campanhas = styled.div`
-  display: flex;
-  flex-direction: column;
-  
-  > div {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
     > div {
       display: flex;
-      flex-direction: column;
-      > aside {
-        align-self: flex-end;
-        position: absolute;
-        margin-top: 10px;
-        margin-right: 10px;
-      }
-
-      > aside:first-child {
-        margin-top: 60px;
-      }
+      gap: 75px;
     }
   }
+`;
 
-  p {
-  width: 330px;
-  font-size: 13px;
+export const ProfilePhoto = styled.div`
+  width: 150px;
+  height: 150px;
+  background-color: white;
+  border: solid 3px var(--dark);
+  border-radius: 50%;
+  position: absolute;
+  margin-top: -70px;
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  gap: 15px;
+
+  > div {
+    width: 142px;
+    height: 142px;
+    background-color: white;
+    border: solid 5px var(--secondary);
+    border-radius: 100%;
+    overflow: hidden;
+
+    > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 100%;
+    }
   }
+`;
 
-  img {
-  width: 100%;
-  height: 200px;
+export const NameInstitution = styled.div`
+      margin-left: 20px;
+
+
+`;
+
+export const Avaliacoes = styled.div`
+  justify-content: left;
+
+`;
+
+export const Apoio = styled.div`
+  display: flex;
+  justify-items: right;
+
+  > img {
+    width: 20%;
+    height: 20%;
+  }
+`;
+
+export const EditProfilePhoto = styled.button`
+  width: 40px;
+  height: 40px;
+  background-color: var(--dark);
+  border-radius: 50%;
+  border: 0;
+  position: absolute;
+  display: flex;
+  justify-content: left;
+  margin-top: 20px;
+  overflow: hidden;
+
+  > input {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    margin-top: 17px;
+    opacity: 0;
   }
 `;
 
@@ -1173,8 +989,9 @@ export const StyledStart = styled(FaStar)`
   width: 30px;
   height: 30px;
   color: var(--yellow);
+  
 
-  @media(max-width: 1080px) {
+  @media (max-width: 1080px) {
     width: 20px;
     height: 20px;
   }
@@ -1263,7 +1080,7 @@ export const ContainerPerfilAnimal = styled.div`
     align-items: center;
     overflow: hidden;
 
-    >img {
+    > img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -1300,183 +1117,10 @@ export const ContainerPerfilColaborador = styled.div`
   > aside {
     position: absolute;
     margin-left: 4%;
-   :hover {
+    :hover {
       cursor: pointer;
     }
   }
-
-`;
-
-export const CadsatroColaborador = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 10px;
-  gap: 10px;
-  input, select {
-      padding: 10px;
-      width: 100%;
-      border-radius: 5px;
-      border:solid #C4C4C4  1px;
-      font-size: .9em;
-    }
-
-    label {
-      font-size: .8em;
-    }
-
-    > img {
-      align-self: center;
-      max-width: 40%;
-      display: none;
-    }
-
-  button {
-    width: 75%;
-    height: 15%;
-    margin-top: 15px;
-    background-color: #FFB853;
-    padding: 10px;
-	  border: none;
-	  border-radius: 10px;
-
-    color: #fff;
-    font-weight: bold;
-    font-size: 1.2em;
-    cursor: pointer;
-  }
-`;
-
-export const CadastroCampanha = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 10px;
-  gap: 10px;
-  max-width: 500px;
-
-  input, textarea {
-    padding: 10px;
-    width: 100%;
-    border-radius: 5px;
-    border:solid #C4C4C4  1px;
-    font-size: .9em;
-  }
-
-  > img {
-    align-self: center;
-    max-width: 50%;
-    display: none;
-  }
-
-  textarea {
-    min-height: 130px;
-    max-height: 130px;
-    overflow-y: auto;
-    resize: none;
-  }
-
-  label {
-    font-size: .9em;
-  }
-
-  button {
-    width: 75%;
-    height: 15%;
-    margin-top: 15px;
-    background-color: #FFB853;
-    padding: 10px;
-	  border: none;
-	  border-radius: 10px;
-
-    color: #fff;
-    font-weight: bold;
-    font-size: 1.2em;
-    cursor: pointer;
-  }
-
-  .flex-row {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-
-    input {
-      max-width: 100%;
-    }
-  }
-`;
-
-export const CadastroAnimal = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 10px;
-  gap: 10px;
-  max-width: 500px;
-  font-family: 'Montserrat';
-
-  input, textarea, select {
-    padding: 10px;
-    width: 100%;
-    border-radius: 5px;
-    border:solid #C4C4C4  1px;
-    font-size: .9em;
-    font-family: 'Montserrat';
-    resize: none;
-  }
-
-  select, select option  {
-    text-transform: uppercase;
-  }
-
- .container-foto-animais {
-    width: 150px;
-    height: 150px;
-    background-color: white;
-    border-radius: 50%;
-    display: flex;
-    overflow: hidden;
-    justify-content: center;
-    align-items: center;
-
-    > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    }
-  }
-
-  textarea {
-    min-height: 130px;
-    max-height: 130px;
-    overflow-y: auto;
-    resize: none;
-  }
-
-  label {
-    width: 100%;
-    font-size: .9em;
-  }
-
-  button {
-    width: 75%;
-    height: 15%;
-    margin-top: 15px;
-    background-color: #FFB853;
-    padding: 10px;
-	  border: none;
-	  border-radius: 10px;
-
-    color: #fff;
-    font-weight: bold;
-    font-size: 1.2em;
-    cursor: pointer;
-    font-family: 'Montserrat';
-  }
-
 `;
 
 export const RadioGroup = styled.div`
@@ -1489,34 +1133,9 @@ export const RadioGroup = styled.div`
     align-items: center;
     gap: 5px;
     font-size: 16px;
-      > input {
-        width: 20px;
-        height: 20px;
-      }
-  }
-  
-`;
-
-export const ContainerCondicoesEspeciais = styled.div`
-  width: 100%;
-  display: flex;
-`;
-
-export const CondicaoEspecial = styled.article`
-  width: fit-content;
-  padding: 2px 10px;
-  display: flex;
-  align-items: center;
-  color: var(--dark);
-  border-radius: 4px;
-  border: solid 1px var(--light);
-  margin: 0px 10px 10px 0px;
-  > span {
-    margin-left: 10px;
-    cursor: pointer;
-    font-size: 20px;
-    :hover {
-      color: var(--primary);
+    > input {
+      width: 20px;
+      height: 20px;
     }
   }
 `;

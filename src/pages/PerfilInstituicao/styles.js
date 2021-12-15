@@ -16,8 +16,36 @@ export const Container = styled.div`
 `;
 
 export const Profile = styled.main`
-    width: 100%;
-    height: auto;
+  width: 70%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+
+  > aside {
+    img {
+      width: 130px;
+      height: 130px;
+      border-radius: 100px;
+      margin-top: 10px;
+      margin-left: -150px;
+    }
+
+    > div {
+      margin-left: 200px;
+      margin-top: -65px;
+    }
+
+    > button {
+      border-radius: 50px;
+      border: none;
+      background-color: #C98822;
+      width: 180px;
+      margin-top: 50px;
+      height: 30px;
+      margin-left: 1120px;
+      color: white;
+    }
+  }
 `;
 
 export const Cover = styled.div`
@@ -857,8 +885,9 @@ export const ContainerTodosServicos = styled.div`
 
 
 export const Banner = styled.div`
-  width: 100%;
+  width: 70%;
   height: 100%;
+  margin-top: 150px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -867,7 +896,7 @@ export const Banner = styled.div`
   img {
     width: 100%;
     height: 180px;
-    border-radius: 20px 20px 0px 0px;
+    border-radius: 20px 20px 0px 0px;;
   }
 
   input {
@@ -885,7 +914,7 @@ export const Banner = styled.div`
     position: absolute;
     margin-bottom: 3px;
     margin-right: 3px;
-    font-size: .8em;
+    font-size: 0.8em;
     cursor: pointer;
     box-shadow: #000 0px 0px 3px 0px;
   }
