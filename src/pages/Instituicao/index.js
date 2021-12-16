@@ -67,7 +67,7 @@ function PerfilInstituicao() {
   useEffect(() => {
     const loadServicos = async () => {
       try {
-        const response = await api.get("/servicos");
+        const response = await api.get(`/instituicoes/${instituicaoId}/servicos`);
 
         setServicos(response.data);
       } catch (error) {
@@ -82,7 +82,7 @@ function PerfilInstituicao() {
   useEffect(() => {
     const loadCampanhas = async () => {
       try {
-        const response = await api.get("/campanhas");
+        const response = await api.get(`/instituicao/${instituicaoId}/campanhas`);
 
         setCampanhas(response.data);
       } catch (error) {
@@ -97,7 +97,7 @@ function PerfilInstituicao() {
   useEffect(() => {
     const loadAnimais = async () => {
       try {
-        const response = await api.get("/animais");
+        const response = await api.get(`/instituicao/${instituicaoId}/animais`);
 
         setAnimais(response.data);
         console.log(animais)
@@ -113,8 +113,7 @@ function PerfilInstituicao() {
   useEffect(() => {
     const loadColaboradores = async () => {
       try {
-        const response = await api.get("/funcionarios");
-
+        const response = await api.get(`/instituicao/${instituicaoId}/funcionarios`);
         setColaboradores(response.data);
       } catch (error) {
         console.error(error);

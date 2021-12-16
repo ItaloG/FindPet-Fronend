@@ -8,7 +8,7 @@ import { MdOutlineFavoriteBorder, MdHome, MdNavigateNext, MdNavigateBefore, MdPh
 import { FaLock } from 'react-icons/fa';
 
 export const Container = styled.div`
-    width: 1200px;
+
     height: auto;
     margin: 0 auto;
     background-color: white;
@@ -54,6 +54,9 @@ export const Cover = styled.div`
     border-radius: 40px 40px 0px 0px;
     background-color: pink;
     overflow: hidden;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
 
     > img {
         width: 100%;
@@ -72,15 +75,14 @@ export const EditCoverPhoto = styled.div`
   font-family: 'Montserrat';
   font-weight: 600;
   font-size: 0.9rem;
-  margin-left: 5px;
   color: white;
   background-color: var(--dark);
   position: absolute;
   display: flex;
   align-items: center;
   overflow: hidden;
-  margin-left: 983px;
-  margin-top: 205px;
+  margin-right: 5px;
+  margin-bottom: 5px;
 
   > label {
     padding-left: 3px;

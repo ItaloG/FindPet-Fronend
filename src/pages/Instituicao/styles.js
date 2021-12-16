@@ -15,7 +15,7 @@ import {
 import { FaLock } from "react-icons/fa";
 
 export const Container = styled.div`
-    width: 1200px;
+
     height: auto;
     margin: 0 auto;
     background-color: white;
