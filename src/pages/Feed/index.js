@@ -29,6 +29,8 @@ function Feed() {
     loadInstituicoes();
   }, []);
 
+  console.log(instituicoes);
+
   const handleIcon = (tipoInstituicao) => {
     if (tipoInstituicao === "ONG") {
       return IconeOng;
@@ -39,10 +41,6 @@ function Feed() {
     }
   };
 
-  {console.log(instituicoes)}
-
-  const user = useRef(JSON.parse(localStorage.getItem("@user")));
-  const tipoUsuario = getTypeUser();
   const id = getUserId();
 
   const calcularDistancia = (lat1, lng1, lat2, lng2) => {
@@ -85,14 +83,14 @@ function Feed() {
       <ContainerCenter>
         <FlexColumn>
           <Slider />
-          {instituicoesMaisProximas().map((i, index) => i.distancia == 0 ? (<></>) : (
+          {instituicoes.map((i, index) => i.distancia == 0 ? (<></>) : (
             
             <Card
               key={index}
               foto={i.url_foto_perfil ? i.url_foto_perfil : FotoPadrao}
               nome_instituicao={i.nome}
               icone={handleIcon(i.TypeInstitution.type_institution)}
-              distancia={i.distancia}
+              distancia={100}
               banner={i.url_foto_banner ? i.url_foto_banner : BannerDefault}
               handlerVer={() => history.push(`instituicao/${i.id}`)}
      

@@ -11,7 +11,8 @@ export const Container = styled.footer`
   display: flex;
   gap: 15px;
   padding: 10px;
-`;
+
+`; 
 
 export const Informacoes = styled.div`
     padding: 10px;
@@ -40,7 +41,7 @@ export const Tipo = styled.div`
   justify-content: left;
 
   > p {
-    font-size: 12px;
+    font-size: 1rem !important;
     color: #000;
   }
 `;
@@ -51,7 +52,7 @@ export const Nome = styled.div`
   display: flex;
 
   > p {
-    font-size: 17px;
+    font-size: 1rem !important;
     color: #000000;
     padding-top: 5px;
 
@@ -66,7 +67,7 @@ export const Data = styled.div`
   justify-content: left;
 
   > p {
-    font-size: 13px;
+    font-size: 1rem !important;
     color: #000000;
     padding-right: 20px;
     padding-top: 15px;
@@ -79,7 +80,7 @@ export const Descricao = styled.div`
   justify-content: left;
 
   > p {
-    font-size: 13px;
+    font-size: 1rem !important;
     color: #000000;
     padding-right: 20px;
     padding-top: 15px;

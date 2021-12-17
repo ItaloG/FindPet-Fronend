@@ -22,7 +22,7 @@ function CardDesaparecidos({
       </ImagemDesaparecido>
       <Informacoes>
         <Nome>
-          <p>{nome_animal}</p>
+          <b><p>{nome_animal}</p></b>
         </Nome>
         <Tipo>
           <p>{tipo_animal}</p>

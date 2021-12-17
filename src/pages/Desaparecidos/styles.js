@@ -8,4 +8,5 @@ export const ContainerDesaparecidos = styled.footer`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-size: 1rem;
 `;
