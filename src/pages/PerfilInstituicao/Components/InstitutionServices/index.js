@@ -8,6 +8,7 @@ function InstitutionServices({ serviceId, title }) {
   const { instituicaoId } = useParams();
 
   useEffect(() => {
+    
     const loadInstituicao = async () => {
       try {
         const response = await api.get(`/instituicoes/${instituicaoId}`);
@@ -19,7 +20,8 @@ function InstitutionServices({ serviceId, title }) {
     };
 
     loadInstituicao();
-  }, []);
+
+  }, [instituicaoId]);
 
   const handleDeleteService = async (idServico) => {
     try {
@@ -41,11 +43,6 @@ function InstitutionServices({ serviceId, title }) {
     }
   };
   const [servicesToggle, setServicesToggle] = useState(false);
-
-  let instList = [];
-  InstituicaoServicos
-    ? (instList = InstituicaoServicos.map((s) => s.id))
-    : (instList = "");
 
   const handleToggle = (idServico) => {
     let list = [];
@@ -70,20 +67,6 @@ function InstitutionServices({ serviceId, title }) {
     }
   };
 
-  let color;
-
-  servicesToggle === true ? (color = "#A55EEA") : (color = "#c9c9c9");
-
-  const array1 = [5, 12, 8, 130, 44];
-  const array2 = [4, 11, 7, 18, 46, 25, 69, 130];
-  let found;
-
-  for (let i = 0; i < array1.length; i++) {
-    found = array2.includes(array1[i]);
-    if (found) {
-      break;
-    }
-  }
 
   return (
     <div onClick={() => handleToggle(serviceId)}>

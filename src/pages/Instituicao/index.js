@@ -40,7 +40,6 @@ function PerfilInstituicao() {
   const [colaboradores, setColaboradores] = useState([]);
   const [campanhas, setCampanhas] = useState([]);
   const [animais, setAnimais] = useState([]);
-  const [servicos, setServicos] = useState([]);
   const [banner, setBanner] = useState("");
   const [perfil, setPerfil] = useState("");
 
@@ -62,27 +61,14 @@ function PerfilInstituicao() {
     };
 
     loadInstituicao();
-  }, []);
-
-  useEffect(() => {
-    const loadServicos = async () => {
-      try {
-        const response = await api.get(`/instituicoes/${instituicaoId}/servicos`);
-
-        setServicos(response.data);
-      } catch (error) {
-        console.error(error);
-        alert(error.response.data.error);
-      }
-    };
-
-    loadServicos();
-  }, []);
+  }, [instituicaoId]);
 
   useEffect(() => {
     const loadCampanhas = async () => {
       try {
-        const response = await api.get(`/instituicao/${instituicaoId}/campanhas`);
+        const response = await api.get(
+          `/instituicao/${instituicaoId}/campanhas`
+        );
 
         setCampanhas(response.data);
       } catch (error) {
@@ -92,7 +78,7 @@ function PerfilInstituicao() {
     };
 
     loadCampanhas();
-  }, []);
+  }, [instituicaoId]);
 
   useEffect(() => {
     const loadAnimais = async () => {
@@ -100,7 +86,7 @@ function PerfilInstituicao() {
         const response = await api.get(`/instituicao/${instituicaoId}/animais`);
 
         setAnimais(response.data);
-        console.log(animais)
+        console.log(animais);
       } catch (error) {
         console.error(error);
         alert(error.response.data.error);
@@ -108,12 +94,14 @@ function PerfilInstituicao() {
     };
 
     loadAnimais();
-  }, []);
+  }, [animais, instituicaoId]);
 
   useEffect(() => {
     const loadColaboradores = async () => {
       try {
-        const response = await api.get(`/instituicao/${instituicaoId}/funcionarios`);
+        const response = await api.get(
+          `/instituicao/${instituicaoId}/funcionarios`
+        );
         setColaboradores(response.data);
       } catch (error) {
         console.error(error);
@@ -122,7 +110,7 @@ function PerfilInstituicao() {
     };
 
     loadColaboradores();
-  }, []);
+  }, [instituicaoId]);
 
   return (
     <>
@@ -147,7 +135,17 @@ function PerfilInstituicao() {
 
               <PetInfo>
                 <div>
-                  <h1 style={instituicao.nome ? instituicao.nome.length >= 35 ? {fontSize:"1.7rem"} : {} : {}}>{instituicao.nome}</h1>
+                  <h1
+                    style={
+                      instituicao.nome
+                        ? instituicao.nome.length >= 35
+                          ? { fontSize: "1.7rem" }
+                          : {}
+                        : {}
+                    }
+                  >
+                    {instituicao.nome}
+                  </h1>
                   <IconFavoriteOutline />
                 </div>
                 <div></div>
@@ -183,7 +181,11 @@ function PerfilInstituicao() {
                   </div>
                   {instituicaoTelefones.map((t) => (
                     <div>
-                      {t.numero.length === 9 ? <IconTelephone /> : <IconPhone />}
+                      {t.numero.length === 9 ? (
+                        <IconTelephone />
+                      ) : (
+                        <IconPhone />
+                      )}
                       <p>{t.numero}</p>
                     </div>
                   ))}

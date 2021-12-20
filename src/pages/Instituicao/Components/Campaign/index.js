@@ -1,14 +1,9 @@
 import { Container } from "./styles";
 import CampaignExample from "../../../../assets/banner3.png";
-import EditButton from "../EditButton";
-import DeleteButton from "../DeleteButton";
 
 function Campaign({
-  id,
   titulo,
   descricao,
-  handlerEditar,
-  handlerExcluir,
   img,
   horaInicio,
   dataInicio

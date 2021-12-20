@@ -1,6 +1,5 @@
 import {
   Profile,
-  ContainerTodosServicos,
   CadsatroColaborador,
   CadastroCampanha,
   CadastroAnimal,
@@ -47,7 +46,6 @@ import InstitutionServices from "./Components/InstitutionServices";
 function PerfilInstituicao() {
   const { instituicaoId } = useParams();
   const [instituicao, setInstituicao] = useState([]);
-  const [InstituicaoServicos, setInstituicaoServicos] = useState([]);
   const [instituicaoEndereco, setInstituicaoEndereco] = useState([]);
   const [instituicaoTelefones, setInstituicaoTelefones] = useState([]);
   const [descricaoInstituicao, setDescricaoInstituicao] = useState("");
@@ -99,7 +97,6 @@ function PerfilInstituicao() {
   const [hasCondicaoEspecial, setHasCondicaoEspecial] = useState(false);
 
   const [servicos, setServicos] = useState([]);
-  const [servicosSel, setServicosSel] = useState([]);
   const [cargos, setCargos] = useState([]);
 
   const [banner, setBanner] = useState("");
@@ -108,12 +105,9 @@ function PerfilInstituicao() {
   const [image, setImage] = useState(null);
   const [imagePerfil, setImagePerfil] = useState(null);
 
-  const [isOpenservicos, setIsOpenServicos] = useState(false);
   const [isOpenNewColaboradores, setIsOpenNewColaboradores] = useState(false);
   const [isEditandoColaborador, setIsEditandoColaborador] = useState(false);
   const [deleteColaborador, setDeleteColaborador] = useState(false);
-  const [deleteCampanha, setDeleteCampanha] = useState(false);
-  const [deleteAnimal, setDeleteAnimal] = useState(false);
   const [isOpenNewCampanha, setIsOpenNewCampanha] = useState(false);
   const [isEditandoCampanha, setIsEditandoCampanha] = useState(false);
   const [isEditandoAnimal, setIsEditandoAnimal] = useState(false);
@@ -138,7 +132,7 @@ function PerfilInstituicao() {
     };
 
     loadInstituicao();
-  }, []);
+  }, [instituicaoId]);
 
   useEffect(() => {
     const loadServicos = async () => {
@@ -274,7 +268,7 @@ function PerfilInstituicao() {
     if (image) {
       changeBanner();
     }
-  }, [image]);
+  }, [image, instituicaoId]);
 
   useEffect(() => {
     const changePerfil = async () => {
@@ -303,12 +297,8 @@ function PerfilInstituicao() {
     if (imagePerfil) {
       changePerfil();
     }
-  }, [imagePerfil]);
+  }, [imagePerfil, instituicaoId]);
 
-  const handleCloseServicos = () => {
-    setServicosSel([]);
-    setIsOpenServicos(false);
-  };
 
   const handleCloseNewColaborador = () => {
     setColaborador({
@@ -351,22 +341,7 @@ function PerfilInstituicao() {
     setIsEditandoCampanha(false);
   };
 
-  const handleServicoSel = (e) => {
-    setServicosSel([...servicosSel, e.target.id]);
-  };
 
-  const handleSubmitServicos = async () => {
-    try {
-      const response = await api.post("/servicos", { servicos: servicosSel });
-
-      setInstituicaoServicos([...InstituicaoServicos, response.data]);
-    } catch (error) {
-      console.error(error);
-      alert(error.response.data.error);
-    } finally {
-      setIsOpenServicos(false);
-    }
-  };
 
   const handleInputColaborador = (e) => {
     setColaborador({ ...colaborador, [e.target.id]: e.target.value });
@@ -480,7 +455,6 @@ function PerfilInstituicao() {
     try {
       await api.delete(`/animais/${id}`);
       alert("Animal excluído");
-      setDeleteAnimal(true);
     } catch (error) {
       console.error(error);
       alert(error);
@@ -646,7 +620,18 @@ function PerfilInstituicao() {
     }
 
     return true;
-  }, [campanha.cep]);
+  }, [
+    campanha.cep,
+    campanha.complemento,
+    campanha.data_fim,
+    campanha.data_inicio,
+    campanha.descricao,
+    campanha.hora_fim,
+    campanha.hora_inicio,
+    campanha.numero,
+    campanha.titulo,
+    isEditandoCampanha,
+  ]);
 
   const handleImageCampanha = (e) => {
     if (e.target.files[0]) {
@@ -788,7 +773,6 @@ function PerfilInstituicao() {
     try {
       await api.delete(`/campanhas/${id}`);
       alert("Campanha excluída");
-      setDeleteCampanha(true);
     } catch (error) {
       console.error(error);
       alert(error);
@@ -1150,33 +1134,6 @@ function PerfilInstituicao() {
         </Modal>
       )}
 
-      {isOpenservicos && (
-        <Modal title="serviços" handleClose={handleCloseServicos}>
-          <ContainerTodosServicos>
-            {servicos.map((s) => (
-              <ServicoOption
-                key={s.id}
-                handler={handleServicoSel}
-                servicosSel={servicosSel}
-                id={s.id}
-                servico={s}
-              />
-            ))}
-
-            <button
-              className="limpar"
-              onClick={() => {
-                setServicosSel([]);
-              }}
-            >
-              Limpar
-            </button>
-            <button type="submit" onClick={handleSubmitServicos}>
-              Salvar
-            </button>
-          </ContainerTodosServicos>
-        </Modal>
-      )}
 
       {isOpenNewColaboradores && (
         <Modal
@@ -1406,29 +1363,6 @@ function PerfilInstituicao() {
   );
 }
 
-function ServicoOption({ servico, id, servicosSel, handler }) {
-  let idFound = false;
-  let servicosChecked = servicosSel;
 
-  if (!servicosSel) {
-    servicosChecked = [];
-  }
-
-  servicosChecked.map((s) => {
-    if (parseInt(s) === id) {
-      idFound = true;
-    }
-  });
-
-  return (
-    <div
-      id={id}
-      onClick={handler}
-      style={idFound ? { backgroundColor: "#CCA583", color: "#FFF" } : {}}
-    >
-      {servico.servico}
-    </div>
-  );
-}
 
 export default PerfilInstituicao;

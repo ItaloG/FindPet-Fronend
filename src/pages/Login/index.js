@@ -120,7 +120,7 @@ function Login() {
     if (instituicao.cep.length === 9) {
       getEndereco(instituicao.cep);
     }
-  }, [instituicao.cep]);
+  }, [instituicao.cep, instituicao]);
 
   useEffect(() => {
     const getEndereco = async (cep) => {
@@ -132,7 +132,7 @@ function Login() {
     if (usuario.cep.length === 9) {
       getEndereco(usuario.cep);
     }
-  }, [usuario.cep]);
+  }, [usuario.cep, usuario]);
 
   const handleInputInstituicao = (e) => {
     setInstituicao({ ...instituicao, [e.target.id]: e.target.value });

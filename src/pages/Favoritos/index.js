@@ -1,4 +1,4 @@
-import { Body, Container } from "../../GlobalStyles";
+import { Container } from "../../GlobalStyles";
 import Card from "../../components/Card";
 import Slider from "../../assets/banner1.png";
 import Profile from "../../assets/default_profile_photo.jpg";

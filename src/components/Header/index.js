@@ -11,19 +11,15 @@ import {
 import LogoImg from "../../assets/logo-findpet.svg";
 import DefaultProfilePhoto from "../../assets/default_profile_photo.jpg";
 import { useHistory } from "react-router";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { getTypeUser, getUserId, signOut } from "../../services/security";
 
 function Header() {
   let history = useHistory();
 
-  const [search, setSearch] = useState([]);
-
   const user = useRef(JSON.parse(localStorage.getItem("@user")));
 
-  const handleInputSearch = (e) => {
-    setSearch(e.target.value);
-  };
+
 
   const handleSair = () => {
     signOut();
@@ -95,12 +91,10 @@ function Header() {
       <Search>
         <input
           type="text"
-          onChange={handleInputSearch}
           placeholder="Encontre pessoas e instituições..."
         />
-        {/* <button>Buscar</button> */}
         <IconSearch />
-        {/* <SearchBox letters={search}/> */}
+ 
       </Search>
 
       <Profile>

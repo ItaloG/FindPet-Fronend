@@ -40,7 +40,7 @@ function PerfilPet(props) {
     };
 
     loadAnimal();
-  }, []);
+  }, [animalId]);
 
   return (
     <>
